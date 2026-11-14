@@ -424,15 +424,52 @@
   }
 
   /* ---------------- 音乐 ---------------- */
-  var audio = new Audio();
+  var audio = document.getElementById('audioEl') || new Audio();
   audio.preload = 'metadata';
-  var player = { idx: -1, lyrics: [], active: -1, mode: localStorage.getItem('pl-mode') || 'order' };
+  audio.setAttribute('playsinline', '');
+  var player = { idx: -1, lyrics: [], active: -1, mode: localStorage.getItem('pl-mode') || 'order', wantPlay: false };
 
   var MODE = {
     order: { label: '顺序播放', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 7h11M4 12h11M4 17h7"/><path d="m17 9 3 3-3 3z" fill="currentColor" stroke="none"/></svg>' },
     single: { label: '单曲循环', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 13.7-5.6"/><path d="M20 12a8 8 0 0 1-13.7 5.6"/><path d="m17.5 3 .6 3.4-3.4.6"/><path d="m6.5 21-.6-3.4 3.4-.6"/><path d="M12 9.5v5" stroke-width="1.8"/></svg>' },
     shuffle: { label: '随机播放', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h3.5l7 10H20"/><path d="M4 17h3.5l7-10H20"/><path d="m17.5 4 2.5 3-2.5 3"/><path d="m17.5 14 2.5 3-2.5 3"/></svg>' }
   };
+  function setupMediaSession() {
+    if (!('mediaSession' in navigator)) return;
+    var ms = navigator.mediaSession;
+    var set = function (name, fn) { try { ms.setActionHandler(name, fn); } catch (e) {} };
+    set('play', function () { audio.play().catch(function () {}); });
+    set('pause', function () { audio.pause(); });
+    set('previoustrack', function () { stepTrack(-1); });
+    set('nexttrack', function () { stepTrack(1); });
+    set('seekto', function (d) { if (d && isFinite(d.seekTime)) audio.currentTime = d.seekTime; });
+    set('seekbackward', function (d) { audio.currentTime = Math.max(0, audio.currentTime - ((d && d.seekOffset) || 10)); });
+    set('seekforward', function (d) { audio.currentTime = Math.min(audio.duration || 0, audio.currentTime + ((d && d.seekOffset) || 10)); });
+  }
+  function updateMediaSession(m) {
+    if (!('mediaSession' in navigator) || !window.MediaMetadata) return;
+    try {
+      navigator.mediaSession.metadata = new MediaMetadata({
+        title: m.title || '辣奶火锅',
+        artist: m.artist || '辣奶火锅',
+        album: '翻唱 · 辣奶火锅',
+        artwork: [
+          { src: m.cover || '/assets/img/icon-512.png', sizes: '512x512', type: 'image/png' },
+          { src: '/assets/img/icon-192.png', sizes: '192x192', type: 'image/png' }
+        ]
+      });
+    } catch (e) {}
+  }
+  function syncMediaState() {
+    if (!('mediaSession' in navigator)) return;
+    try {
+      navigator.mediaSession.playbackState = audio.paused ? 'paused' : 'playing';
+      if (audio.duration && isFinite(audio.duration)) {
+        navigator.mediaSession.setPositionState({ duration: audio.duration, position: Math.min(audio.currentTime, audio.duration), playbackRate: audio.playbackRate || 1 });
+      }
+    } catch (e) {}
+  }
+
   function applyMode() {
     var m = MODE[player.mode] || MODE.order;
     var btn = $('#plMode');
@@ -497,6 +534,7 @@
     var m = (site.music || [])[i];
     if (!m) return;
     player.idx = i;
+    player.wantPlay = true;
     audio.src = m.file;
     audio.play().catch(function () {});
     $('#player').hidden = false;
@@ -517,17 +555,24 @@
     var bili = $('#cdBili');
     if (m.bili) { bili.href = m.bili; bili.hidden = false; } else bili.hidden = true;
     applyTheme(m);
+    updateMediaSession(m);
     renderLyrics(m.lyrics);
     renderMusic();
     loadComments(m.id);
   }
   function togglePlay() {
     if (!audio.src) return;
-    if (audio.paused) audio.play().catch(function () {});
-    else audio.pause();
+    if (audio.paused) { player.wantPlay = true; audio.play().catch(function () {}); }
+    else { player.wantPlay = false; audio.pause(); }
   }
+  /* 手机切到别的 App 再回来：浏览器可能把音频暂停了，用户意图是「继续播」就试着恢复 */
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden || !audio.src || !player.wantPlay || !audio.paused) return;
+    audio.play().catch(function () {});
+  });
   function setPlayingUI() {
     var playing = !audio.paused && !audio.ended;
+    syncMediaState();
     $('#plPlay').textContent = playing ? '❚❚' : '▶';
     $('#player').classList.toggle('playing', playing);
     document.body.classList.toggle('pl-playing', playing);
@@ -724,6 +769,7 @@
     audio.volume = vol / 100;
     $('#plVolume').value = vol;
     applyMode();
+    setupMediaSession();
 
     $('#plPlay').onclick = togglePlay;
     $('#plPrev').onclick = function () { stepTrack(-1); };
@@ -805,6 +851,7 @@
       $('#plDot').style.left = pct + '%';
       $('#plTime').textContent = fmtTime(audio.currentTime) + ' / ' + fmtTime(audio.duration);
       syncLyrics();
+      syncMediaState();
     });
     document.addEventListener('keydown', function (e) {
       if (e.code === 'Space' && !/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName) && !audio.paused) {
