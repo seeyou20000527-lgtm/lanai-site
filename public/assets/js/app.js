@@ -637,8 +637,8 @@
           var idx = Math.floor(i / N * eq.data.length * 0.78);
           v = (eq.data[idx] || 0) / 255;
         }
-        var soft = 0.10 + 0.08 * Math.sin(i * 0.36 + eq.fakeT) * Math.sin(i * 0.11 + eq.fakeT * 0.7);
-        var target = Math.max(v, Math.abs(soft));
+        var soft = 0.12 + 0.10 * Math.sin(i * 0.36 + eq.fakeT) * Math.sin(i * 0.11 + eq.fakeT * 0.7);
+        var target = Math.max(v * 1.25, Math.abs(soft) * 1.5);
         eq.levels[i] = eq.levels[i] * 0.74 + target * 0.26;
       }
       drawWave();

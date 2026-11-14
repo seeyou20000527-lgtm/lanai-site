@@ -484,7 +484,7 @@ body.has-player .foot { margin-bottom: 8px; }
   border-radius: 32px 32px 0 0;
   box-shadow: 0 -30px 90px -40px rgba(90, 60, 40, .55);
   transform: translateY(100%); transition: transform .42s cubic-bezier(.2, .85, .25, 1);
-  padding: 48px 42px 0; display: flex; flex-direction: column; gap: 10px; overflow: hidden;
+  padding: 48px 42px 0; display: flex; flex-direction: column; gap: 10px;
 }
 .cd-panel.cd-dark { --ink: #f7f0eb; --ink-2: #d8ccc5; --ink-3: #a89a92; --line: rgba(255, 255, 255, .14); --surface: rgba(255, 255, 255, .06); }
 .cd-panel.cd-dark .cd-lyrics .ly { color: #a4968f; }
@@ -497,7 +497,7 @@ body.has-player .foot { margin-bottom: 8px; }
 .cd-panel.cd-dark .cd-bili { background: rgba(255, 255, 255, .1); border-color: rgba(255, 255, 255, .2); }
 .cd-panel.cd-dark .cd-left::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, .35); }
 
-.cd-wave { position: absolute; left: 0; right: 0; top: -38px; width: 100%; height: 38px; opacity: 0; transition: opacity .35s; pointer-events: none; overflow: visible; }
+.cd-wave { position: absolute; left: 0; right: 0; top: -44px; width: 100%; height: 44px; opacity: 0; transition: opacity .35s; pointer-events: none; overflow: visible; z-index: 3; }
 body.pl-playing .cd-wave { opacity: .95; }
 .cd-wave path { fill: rgba(var(--cd-rgb, 246, 237, 229), .88); stroke: rgba(var(--cd-rgb, 246, 237, 229), .95); stroke-width: 1.5; }
 .cd-eq span { flex: 1; height: 2px; border-radius: 2px 2px 0 0; background: var(--rose); transition: height .07s linear; }
