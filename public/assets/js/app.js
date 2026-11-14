@@ -516,8 +516,7 @@
     $('#cdDisc').style.animationDuration = (60 / bpm * 8).toFixed(2) + 's';
     var bili = $('#cdBili');
     if (m.bili) { bili.href = m.bili; bili.hidden = false; } else bili.hidden = true;
-    var panel = $('#cdPanel');
-    if (panel) panel.setAttribute('data-palette', m.palette || 'cream');
+    applyTheme(m);
     renderLyrics(m.lyrics);
     renderMusic();
     loadComments(m.id);
@@ -545,7 +544,10 @@
     $$('.ly', box).forEach(function (el, i) { el.classList.toggle('active', i === idx); });
     var act = box.querySelector('.ly.active');
     if (act && !$('#cd').hidden) {
-      box.scrollTo({ top: act.offsetTop - box.clientHeight / 2 + act.offsetHeight / 2, behavior: 'smooth' });
+      var wrap = box.parentElement && box.parentElement.classList.contains('cd-left') ? box.parentElement : box;
+      var r = act.getBoundingClientRect(), wr = wrap.getBoundingClientRect();
+      var delta = (r.top - wr.top) - (wrap.clientHeight / 2 - r.height / 2);
+      wrap.scrollTo({ top: wrap.scrollTop + delta, behavior: 'smooth' });
     }
   }
   function stepTrack(dir) {
@@ -573,65 +575,82 @@
     stopEq();
     setTimeout(function () { $('#cd').hidden = true; }, 420);
   }
-  /* 律动条：用真实音频频谱带动顶部条形 */
-  var eq = { bars: [], raf: 0, actx: null, analyser: null, data: null, failed: false, fakeT: 0 };
-  function buildEq() {
-    if (eq.bars.length) return;
-    var box = $('#cdEq');
-    if (!box) return;
-    var n = Math.min(64, Math.max(28, Math.floor(window.innerWidth / 26)));
-    var html = '';
-    for (var i = 0; i < n; i++) html += '<span></span>';
-    box.innerHTML = html;
-    eq.bars = [].slice.call(box.children);
+  /* 律动：真实频谱画成一条波浪，浮在展开区上沿 */
+  var eq = { raf: 0, actx: null, analyser: null, data: null, failed: false, fakeT: 0, levels: [] };
+  function hexToRgb(hex) {
+    var m = /^#?([a-f0-9]{6})$/i.exec(String(hex || '').trim());
+    if (!m) return null;
+    var n = parseInt(m[1], 16);
+    return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
   }
-  function eqRender(get) {
-    cancelAnimationFrame(eq.raf);
-    var loop = function () {
-      for (var i = 0; i < eq.bars.length; i++) eq.bars[i].style.height = get(i) + 'px';
-      eq.raf = requestAnimationFrame(loop);
-    };
-    loop();
+  function applyTheme(m) {
+    var panel = $('#cdPanel');
+    if (!panel) return;
+    var rgb = hexToRgb(m && m.theme) || [246, 237, 229];
+    panel.style.setProperty('--cd-rgb', rgb.join(', '));
+    var lum = (0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2]) / 255;
+    panel.classList.toggle('cd-dark', lum < 0.45);
+  }
+  function drawWave() {
+    var svg = $('#cdWave'), path = $('#cdWavePath');
+    if (!svg || !path) return;
+    var W = svg.clientWidth || window.innerWidth, H = svg.clientHeight || 38;
+    var n = eq.levels.length || 64;
+    var step = W / (n - 1);
+    var pts = [];
+    for (var i = 0; i < n; i++) {
+      var v = eq.levels[i] || 0;
+      pts.push([i * step, H - Math.max(1.5, v * (H - 3))]);
+    }
+    var d = 'M0,' + H.toFixed(1) + ' L' + pts[0][0].toFixed(1) + ',' + pts[0][1].toFixed(1);
+    for (var k = 1; k < pts.length; k++) {
+      var a = pts[k - 1], b = pts[k], mx = (a[0] + b[0]) / 2;
+      d += ' C' + mx.toFixed(1) + ',' + a[1].toFixed(1) + ' ' + mx.toFixed(1) + ',' + b[1].toFixed(1) + ' ' + b[0].toFixed(1) + ',' + b[1].toFixed(1);
+    }
+    d += ' L' + W.toFixed(1) + ',' + H.toFixed(1) + ' Z';
+    path.setAttribute('d', d);
   }
   function startEq() {
-    buildEq();
-    if (!eq.bars.length) return;
+    var N = 72;
+    if (!eq.levels.length) { eq.levels = []; for (var i = 0; i < N; i++) eq.levels.push(0); }
     if (!eq.failed && !eq.actx) {
       try {
         var AC = window.AudioContext || window.webkitAudioContext;
         eq.actx = new AC();
         var src = eq.actx.createMediaElementSource(audio);
         eq.analyser = eq.actx.createAnalyser();
-        eq.analyser.fftSize = 128;
-        eq.analyser.smoothingTimeConstant = .82;
+        eq.analyser.fftSize = 256;
+        eq.analyser.smoothingTimeConstant = .85;
         src.connect(eq.analyser);
         eq.analyser.connect(eq.actx.destination);
         eq.data = new Uint8Array(eq.analyser.frequencyBinCount);
       } catch (e) { eq.failed = true; }
     }
     if (eq.actx && eq.actx.state === 'suspended') eq.actx.resume().catch(function () {});
-    if (eq.actx && !eq.failed) {
-      eqRender(function (i) {
-        var d = eq.data;
-        eq.analyser.getByteFrequencyData(d);
-        var idx = Math.floor(i / eq.bars.length * d.length * .7);
-        var real = d[idx] / 255;
-        eq.fakeT += 0.0016;
-        var soft = (Math.sin(i * .5 + eq.fakeT * 9) * .5 + .5) * .18;
-        return 2 + Math.max(real, soft) * 42;
-      });
-    } else {
-      eqRender(function (i) {
-        eq.fakeT += 0.0004;
-        var v = Math.sin(i * .55 + eq.fakeT * 26) * Math.sin(i * .13 + eq.fakeT * 11);
-        return 3 + Math.abs(v) * 26;
-      });
-    }
+    cancelAnimationFrame(eq.raf);
+    var loop = function () {
+      eq.fakeT += 0.03;
+      if (eq.actx && !eq.failed) eq.analyser.getByteFrequencyData(eq.data);
+      for (var i = 0; i < N; i++) {
+        var v = 0;
+        if (eq.actx && !eq.failed) {
+          var idx = Math.floor(i / N * eq.data.length * 0.78);
+          v = (eq.data[idx] || 0) / 255;
+        }
+        var soft = 0.10 + 0.08 * Math.sin(i * 0.36 + eq.fakeT) * Math.sin(i * 0.11 + eq.fakeT * 0.7);
+        var target = Math.max(v, Math.abs(soft));
+        eq.levels[i] = eq.levels[i] * 0.74 + target * 0.26;
+      }
+      drawWave();
+      eq.raf = requestAnimationFrame(loop);
+    };
+    loop();
   }
   function stopEq() {
     cancelAnimationFrame(eq.raf);
     eq.raf = 0;
-    eq.bars.forEach(function (b) { b.style.height = '2px'; });
+    eq.levels = eq.levels.map(function () { return 0; });
+    drawWave();
   }
 
   function loadComments(trackId) {

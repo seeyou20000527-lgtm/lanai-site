@@ -139,3 +139,13 @@ textarea { resize: vertical; min-height: 70px; }
   .ev-editor .row, .news-editor .row { grid-template-columns: 1fr 1fr; }
   .form-grid { grid-template-columns: 1fr; }
 }
+
+/* 展开区配色 */
+.theme-row { display: flex; align-items: center; gap: 10px; }
+.theme-row input[type=color], .theme-cell input[type=color] {
+  width: 46px; height: 34px; padding: 0; border: 1px solid var(--line); border-radius: 8px; background: #fff; cursor: pointer;
+}
+.theme-cell input[type=color] { width: 40px; height: 30px; }
+.swatches { display: flex; gap: 6px; }
+.swatches .sw { width: 24px; height: 24px; border-radius: 50%; border: 1px solid rgba(0,0,0,.12); cursor: pointer; padding: 0; }
+.swatches .sw:hover { transform: scale(1.08); }

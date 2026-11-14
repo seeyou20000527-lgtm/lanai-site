@@ -61,6 +61,92 @@ function readJson(file, fallback) {
   try { return JSON.parse(fs.readFileSync(path.join(DATA_DIR, file), 'utf8')); } catch { return fallback; }
 }
 
+/* ---------- 数据落盘到 GitHub（免费实例没有硬盘，重启会回滚） ----------
+   写入走 data 分支（不会触发重新部署），启动时从 data 分支拉回来，
+   万一本地没有文件（重启后），静态资源 302 到 raw.githubusercontent。 */
+const GH_TOKEN = process.env.GITHUB_TOKEN || '';
+const GH_REPO = process.env.GITHUB_REPO || 'seeyou20000527-lgtm/lanai-site';
+const GH_BRANCH = process.env.GITHUB_BRANCH || 'main';
+const GH_DATA_BRANCH = process.env.GITHUB_DATA_BRANCH || 'data';
+const GH_API = 'https://api.github.com/repos/' + GH_REPO;
+const GH_RAW = 'https://raw.githubusercontent.com/' + GH_REPO + '/refs/heads/' + GH_DATA_BRANCH + '/';
+const ghTimers = new Map();
+let ghBranchReady = false;
+
+function ghHeaders() {
+  return { Authorization: 'Bearer ' + GH_TOKEN, 'User-Agent': 'lanai-site', Accept: 'application/vnd.github+json' };
+}
+
+async function ghEnsureBranch() {
+  if (!GH_TOKEN || ghBranchReady) return ghBranchReady;
+  try {
+    const r = await fetch(GH_API + '/git/ref/heads/' + GH_DATA_BRANCH, { headers: ghHeaders() });
+    if (r.ok) { ghBranchReady = true; return true; }
+    const m = await fetch(GH_API + '/git/ref/heads/' + GH_BRANCH, { headers: ghHeaders() });
+    if (!m.ok) return false;
+    const sha = (await m.json()).object.sha;
+    const c = await fetch(GH_API + '/git/refs', {
+      method: 'POST', headers: Object.assign({ 'Content-Type': 'application/json' }, ghHeaders()),
+      body: JSON.stringify({ ref: 'refs/heads/' + GH_DATA_BRANCH, sha })
+    });
+    ghBranchReady = c.ok;
+    return ghBranchReady;
+  } catch (e) { return false; }
+}
+
+async function ghPutFile(rel, buf, message) {
+  if (!GH_TOKEN) return false;
+  if (!(await ghEnsureBranch())) return false;
+  const url = GH_API + '/contents/' + rel.split('/').map(encodeURIComponent).join('/');
+  const headers = ghHeaders();
+  let sha = null;
+  try {
+    const r = await fetch(url + '?ref=' + GH_DATA_BRANCH, { headers });
+    if (r.ok) sha = (await r.json()).sha;
+  } catch (e) {}
+  const payload = { message, content: Buffer.from(buf).toString('base64'), branch: GH_DATA_BRANCH };
+  if (sha) payload.sha = sha;
+  try {
+    const res = await fetch(url, { method: 'PUT', headers: Object.assign({ 'Content-Type': 'application/json' }, headers), body: JSON.stringify(payload) });
+    if (!res.ok) console.error('[gh] commit failed', rel, res.status, (await res.text()).slice(0, 160));
+    return res.ok;
+  } catch (e) {
+    console.error('[gh] commit error', rel, e.message);
+    return false;
+  }
+}
+
+function scheduleCommit(rel, message, delay = 5000) {
+  if (!GH_TOKEN) return;
+  clearTimeout(ghTimers.get(rel));
+  const t = setTimeout(() => {
+    ghTimers.delete(rel);
+    fsp.readFile(path.join(ROOT, rel)).then((buf) => ghPutFile(rel, buf, message)).catch(() => {});
+  }, delay);
+  if (t.unref) t.unref();
+  ghTimers.set(rel, t);
+}
+
+const HYDRATE = ['data/site.json', 'data/fanart.json'];
+
+async function hydrateFromRepo() {
+  if (!GH_TOKEN) return;
+  for (const rel of HYDRATE) {
+    try {
+      const r = await fetch(GH_RAW + rel, { cache: 'no-store' });
+      if (!r.ok) continue;
+      const buf = Buffer.from(await r.arrayBuffer());
+      const target = path.join(ROOT, rel);
+      const cur = await fsp.readFile(target).catch(() => null);
+      if (cur && Buffer.compare(cur, buf) === 0) continue;
+      await fsp.writeFile(target, buf);
+      console.log('[gh] hydrated', rel, buf.length, 'bytes');
+    } catch (e) { console.error('[gh] hydrate fail', rel, e.message); }
+  }
+}
+
+const PERSIST_JSON = { 'site.json': 'data/site.json', 'fanart.json': 'data/fanart.json' };
+
 const writeQueue = new Map();
 function writeJson(file, data) {
   const target = path.join(DATA_DIR, file);
@@ -72,6 +158,9 @@ function writeJson(file, data) {
   const prev = writeQueue.get(file) || Promise.resolve();
   const next = prev.then(run, run).catch((err) => console.error('[write]', file, err.message));
   writeQueue.set(file, next);
+  if (PERSIST_JSON[file]) {
+    next.then(() => scheduleCommit(PERSIST_JSON[file], '数据更新：' + file));
+  }
   return next;
 }
 
@@ -351,6 +440,7 @@ async function apiFanartUpload(req, res) {
   const id = Date.now().toString(36) + crypto.randomBytes(3).toString('hex');
   const safeName = id + ext;
   await fsp.writeFile(path.join(UPLOAD_DIR, safeName), body);
+  scheduleCommit('uploads/' + safeName, '二创投稿：' + safeName);
 
   const db = readJson('fanart.json', { items: [] });
   db.items = Array.isArray(db.items) ? db.items : [];
@@ -537,6 +627,7 @@ async function apiAdminImage(req, res) {
   if (!body.length) return sendJson(res, 400, { error: '没有收到图片。' });
   const name = field + '-' + Date.now().toString(36) + ext;
   await fsp.writeFile(path.join(IMG_UPLOAD_DIR, name), body);
+  scheduleCommit('public/assets/img/uploads/' + name, '图片素材：' + name);
   sendJson(res, 200, { ok: true, url: '/assets/img/uploads/' + name });
 }
 
@@ -558,6 +649,7 @@ async function apiAdminMusic(req, res) {
   const id = 'm' + Date.now().toString(36) + crypto.randomBytes(2).toString('hex');
   const name = id + ext;
   await fsp.writeFile(path.join(MUSIC_DIR, name), body);
+  scheduleCommit('public/music/' + name, '新歌：' + (meta.title || name), 2500);
 
   const item = {
     id, title,
@@ -566,6 +658,7 @@ async function apiAdminMusic(req, res) {
     lyrics: clean(meta.lyrics, 8000),
     bpm: Math.min(300, Math.max(20, Number(meta.bpm) || 90)),
     bili: clean(meta.bili, 300),
+    theme: /^#[0-9a-fA-F]{6}$/.test(String(meta.theme || '')) ? String(meta.theme) : '#f6ede5',
     file: '/music/' + name,
     size: body.length,
     createdAt: new Date().toISOString()
@@ -599,6 +692,7 @@ async function apiAdminMaterialUpload(req, res) {
   const id = slug + '-' + Date.now().toString(36);
   const safeName = id + ext;
   await fsp.writeFile(path.join(MATERIAL_UPLOAD_DIR, safeName), body);
+  scheduleCommit('public/materials/uploads/' + safeName, '物料：' + safeName);
 
   const isImage = /\.(png|jpe?g|webp|gif)$/i.test(safeName);
   const item = {
@@ -782,6 +876,27 @@ function apiIcs(req, res) {
   res.end(body);
 }
 
+/* 重启后本地文件没了，就 302 到 git 里的副本 */
+const RAW_MAP = [
+  ['/uploads/', 'uploads/'],
+  ['/materials/uploads/', 'public/materials/uploads/'],
+  ['/music/', 'public/music/'],
+  ['/assets/img/uploads/', 'public/assets/img/uploads/']
+];
+function rawFallback(res, pathname) {
+  if (!GH_TOKEN) return false;
+  for (const [prefix, rel] of RAW_MAP) {
+    if (pathname.startsWith(prefix)) {
+      const rest = pathname.slice(prefix.length);
+      if (!rest || rest.includes('..')) return false;
+      res.writeHead(302, { Location: GH_RAW + rel + rest, 'Cache-Control': 'public, max-age=300' });
+      res.end();
+      return true;
+    }
+  }
+  return false;
+}
+
 /* ------------------------------ 路由 ------------------------------ */
 async function handle(req, res) {
   const parsed = new URL(req.url, 'http://' + (req.headers.host || 'localhost'));
@@ -807,6 +922,8 @@ async function handle(req, res) {
       if (!visible && !isAdmin(req) && !timingEqual(parsed.searchParams.get('t') || '', LEGACY_TOKEN)) {
         return sendText(res, 404, 'Not Found');
       }
+      const localFile = path.join(UPLOAD_DIR, name);
+      if (!fs.existsSync(localFile) && rawFallback(res, pathname)) return;
       return serveStatic(req, res, '/' + name, { base: UPLOAD_DIR });
     }
     if (pathname.startsWith('/music/download/')) return apiMusicDownload(req, res, pathname.slice('/music/download/'.length));
@@ -842,7 +959,11 @@ async function handle(req, res) {
     return sendJson(res, 404, { error: '没有这个接口。' });
   }
 
-  if (method === 'GET' || method === 'HEAD') return serveStatic(req, res, pathname);
+  if (method === 'GET' || method === 'HEAD') {
+    const local = path.join(PUBLIC_DIR, pathname);
+    if (!fs.existsSync(local) && rawFallback(res, pathname)) return;
+    return serveStatic(req, res, pathname);
+  }
   return sendJson(res, 404, { error: 'Not Found' });
 }
 
@@ -858,6 +979,8 @@ const server = http.createServer((req, res) => {
     else res.end();
   });
 });
+
+hydrateFromRepo().catch((e) => console.error('[gh] hydrate', e.message));
 
 server.listen(PORT, HOST, () => {
   console.log('');

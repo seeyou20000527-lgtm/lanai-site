@@ -252,6 +252,7 @@
 
   /* ---------------- 音乐 ---------------- */
   var PALETTES = { cream: '奶白', rose: '雾粉', moon: '月白', sage: '苔绿', ink: '墨黑' };
+  var THEME_PRESETS = ['#f6ede5', '#f6dfd9', '#e7edf6', '#e6eede', '#2f2a28'];
   function paletteOptions(sel) {
     return Object.keys(PALETTES).map(function (k) {
       return '<option value="' + k + '"' + (k === (sel || 'cream') ? ' selected' : '') + '>' + PALETTES[k] + '</option>';
@@ -266,7 +267,9 @@
       '<div class="fld"><label>歌名</label><input id="musTitle" placeholder="例：起风了"></div>' +
       '<div class="fld"><label>歌手</label><input id="musArtist" placeholder="辣奶火锅"></div>' +
       '<div class="fld"><label>BPM（影响 CD 转速，默认 90）</label><input id="musBpm" type="number" min="20" max="300" value="90"></div>' +
-      '<div class="fld"><label>音乐配色（展开页底色）</label><select id="musPalette">' + paletteOptions('cream') + '</select></div>' +
+      '<div class="fld"><label>展开区配色（玻璃底色）</label>' +
+      '<div class="theme-row"><input type="color" id="musTheme" value="#f6ede5">' +
+      '<div class="swatches" data-theme-for="musTheme">' + THEME_PRESETS.map(function (c) { return '<button type="button" class="sw" data-hex="' + c + '" style="background:' + c + '"></button>'; }).join('') + '</div></div></div>' +
       '<div class="fld"><label>B 站影片链接（选填）</label><input id="musBili" placeholder="https://www.bilibili.com/video/BV..."></div>' +
       '<div class="fld full"><label>封面</label><div class="img-row">' +
       '<img class="img-thumb" id="thumb-music" src="/assets/img/avatar.png" alt="">' +
@@ -286,7 +289,7 @@
           '<div class="mi-row"><input value="' + esc(m.cover) + '" data-mi="' + i + '" data-mf="cover" placeholder="封面地址">' +
           '<input type="number" min="20" max="300" value="' + esc(m.bpm || 90) + '" data-mi="' + i + '" data-mf="bpm" placeholder="BPM">' +
           '<input value="' + esc(m.bili || '') + '" data-mi="' + i + '" data-mf="bili" placeholder="B站链接">' +
-          '<select data-mi="' + i + '" data-mf="palette" title="音乐配色">' + paletteOptions(m.palette) + '</select></div>' +
+          '<span class="theme-cell"><input type="color" data-mi="' + i + '" data-mf="theme" value="' + (/^#[0-9a-f]{6}$/i.test(m.theme || '') ? m.theme : '#f6ede5') + '" title="展开区配色"></span></div>' +
           '<textarea data-mi="' + i + '" data-mf="lyrics" placeholder="歌词（支持 [00:12.30] 时间轴）">' + esc(m.lyrics) + '</textarea>' +
           '<div class="row-b"><span>' + (m.size ? (m.size / 1048576).toFixed(1) + ' MB' : '') + ' · ' + (m.downloads || 0) + ' 次下载</span>' +
           '<span><a href="' + esc(m.file) + '" target="_blank">试听</a>　<button class="del" data-act="del-music" data-id="' + esc(m.id) + '">删除</button></span></div></div></div>';
@@ -299,7 +302,18 @@
     view.onchange = function (e) {
       var el = e.target;
       if (el.dataset && el.dataset.mi !== undefined) state.site.music[+el.dataset.mi][el.dataset.mf] = el.value;
+      if (el.dataset && el.dataset.themeFor) {
+        var inp = document.getElementById(el.dataset.themeFor);
+        if (inp) { inp.value = el.value; }
+      }
     };
+    view.addEventListener('click', function (e) {
+      var b = e.target.closest('.sw');
+      if (!b) return;
+      var box = b.closest('.swatches');
+      var inp = box && document.getElementById(box.dataset.themeFor);
+      if (inp) inp.value = b.dataset.hex;
+    });
     view.onclick = function (e) {
       var b = e.target.closest('[data-act]');
       if (!b) return;
@@ -313,7 +327,7 @@
           title: title, artist: $('#musArtist').value.trim(),
           cover: $('#musCover').value.trim(), lyrics: $('#musLyrics').value,
           bpm: $('#musBpm').value, bili: $('#musBili').value.trim(),
-          palette: $('#musPalette').value || 'cream', filename: file.name
+          theme: $('#musTheme').value || '#f6ede5', filename: file.name
         };
         b.disabled = true; b.textContent = '上传中…';
         fetch('/api/admin/music', {
