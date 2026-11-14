@@ -129,13 +129,31 @@ function scheduleCommit(rel, message, delay = 5000) {
 
 const HYDRATE = ['data/site.json', 'data/fanart.json'];
 
+async function ghReadFile(rel) {
+  // 优先用 API（永远最新），raw 有几分钟 CDN 缓存，会让重启后读到旧数据
+  if (GH_TOKEN) {
+    try {
+      const url = GH_API + '/contents/' + rel.split('/').map(encodeURIComponent).join('/') + '?ref=' + GH_DATA_BRANCH + '&t=' + Date.now();
+      const r = await fetch(url, { headers: ghHeaders(), cache: 'no-store' });
+      if (r.ok) {
+        const j = await r.json();
+        if (j && j.content) return Buffer.from(j.content, 'base64');
+      }
+    } catch (e) {}
+  }
+  try {
+    const r = await fetch(GH_RAW + rel + '?t=' + Date.now(), { cache: 'no-store' });
+    if (r.ok) return Buffer.from(await r.arrayBuffer());
+  } catch (e) {}
+  return null;
+}
+
 async function hydrateFromRepo() {
   if (!GH_TOKEN) return;
   for (const rel of HYDRATE) {
     try {
-      const r = await fetch(GH_RAW + rel, { cache: 'no-store' });
-      if (!r.ok) continue;
-      const buf = Buffer.from(await r.arrayBuffer());
+      const buf = await ghReadFile(rel);
+      if (!buf) continue;
       const target = path.join(ROOT, rel);
       const cur = await fsp.readFile(target).catch(() => null);
       if (cur && Buffer.compare(cur, buf) === 0) continue;
