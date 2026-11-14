@@ -126,7 +126,7 @@
     $('#sideSpace').href = p.spaceUrl || '#';
     $('#sideLive').href = p.liveUrl || '#';
     $('#footLive').href = p.liveUrl || '#';
-    document.title = (p.name || '辣奶火锅') + ' · 官方小站';
+    document.title = p.name || '辣奶火锅';
     if (site.live && site.live.isLive) {
       $('#tagline').textContent = '● 正在直播：' + (site.live.title || '辣奶火锅的直播间');
     }
