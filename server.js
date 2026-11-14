@@ -835,6 +835,7 @@ function apiAdminOverview(req, res) {
   const items = db.items || [];
   const totalDownloads = Object.values(stats.downloads || {}).reduce((a, b) => a + (Number(b) || 0), 0);
   sendJson(res, 200, {
+    persist: Boolean(GH_TOKEN),
     counts: {
       materials: (site.materials || []).length,
       events: (site.schedule || []).length,

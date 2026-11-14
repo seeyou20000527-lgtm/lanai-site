@@ -121,6 +121,9 @@
     var c = state.overview.counts || {};
     var live = state.overview.live || {};
     view.innerHTML =
+      (state.overview.persist === false
+        ? '<div class="persist-warn">⚠️ 云端同步未开启：现在上传的图片/音乐只存在临时磁盘，服务重启就会丢。请在 Render 的环境变量里配置 <code>GITHUB_TOKEN</code>。</div>'
+        : '') +
       '<div class="stats">' +
       '<div class="stat"><b>' + (c.pending || 0) + '</b><span>待审核二创</span></div>' +
       '<div class="stat"><b>' + (c.approved || 0) + '</b><span>已上架作品</span></div>' +
