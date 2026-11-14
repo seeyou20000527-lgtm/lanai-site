@@ -1044,6 +1044,120 @@
       .catch(function () {});
   }
 
+  /* ---------------- 视觉细节 ---------------- */
+  function setupUI() {
+    function markImg(img) {
+      if (!img || img.classList.contains('img-in')) return;
+      if (img.complete && img.naturalWidth) { img.classList.add('img-in'); return; }
+      img.addEventListener('load', function () { img.classList.add('img-in'); }, { once: true });
+    }
+    function scanImgs(root) {
+      if (!root || !root.querySelectorAll) return;
+      root.querySelectorAll('img').forEach(markImg);
+    }
+    scanImgs(document);
+
+    var raf = 0;
+    function schedule(fn) {
+      if (raf) return;
+      raf = requestAnimationFrame(function () { raf = 0; fn(); });
+    }
+
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+        });
+      }, { rootMargin: '-30px 0px -6% 0px', threshold: 0.02 });
+      var applyReveal = function () {
+        document.querySelectorAll('.card, .mat, .work, .ph, .about, .hero, .cal-card').forEach(function (el) {
+          if (!el.classList.contains('reveal') && !el.classList.contains('in')) {
+            el.classList.add('reveal');
+            io.observe(el);
+          }
+        });
+      };
+      applyReveal();
+      window.addEventListener('hashchange', function () { setTimeout(applyReveal, 80); });
+    }
+
+    var mo = new MutationObserver(function (muts) {
+      var needImg = false, needReveal = false;
+      muts.forEach(function (m) {
+        m.addedNodes && m.addedNodes.forEach(function (n) {
+          if (n.nodeType !== 1) return;
+          if (n.tagName === 'IMG' || (n.querySelector && n.querySelector('img'))) needImg = true;
+          if (n.matches && n.matches('.card, .mat, .work, .ph')) needReveal = true;
+        });
+      });
+      if (needImg) schedule(function () { scanImgs(document); });
+      if (needReveal && 'IntersectionObserver' in window) schedule(function () {
+        document.querySelectorAll('.card, .mat, .work, .ph').forEach(function (el) {
+          if (!el.classList.contains('reveal') && !el.classList.contains('in')) {
+            el.classList.add('reveal');
+          }
+        });
+      });
+    });
+    mo.observe(document.body, { childList: true, subtree: true });
+
+    // 回到顶部
+    var toTop = $('#toTop');
+    if (toTop) {
+      var onScroll = function () { toTop.hidden = window.scrollY < 380; };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+      toTop.onclick = function () { window.scrollTo({ top: 0, behavior: 'smooth' }); };
+    }
+
+    // 灯箱
+    var lb = $('#lightbox');
+    function openLightbox(src, cap) {
+      if (!lb) return;
+      var smBox = $('#shareModal');
+      if (smBox) smBox.hidden = true;
+      $('#lbImg').src = src;
+      $('#lbCap').textContent = cap || '';
+      lb.hidden = false;
+    }
+    function closeLightbox() { if (lb) lb.hidden = true; }
+    document.addEventListener('click', function (e) {
+      if (e.target.closest('[data-lb-close]')) return closeLightbox();
+      var work = e.target.closest('.work');
+      if (work) {
+        var img = work.querySelector('img');
+        if (img && img.src) {
+          e.preventDefault();
+          var capEl = work.querySelector('.work-in');
+          openLightbox(img.src, capEl ? capEl.textContent.replace(/\s+/g, ' ').trim() : '');
+        }
+      }
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') { closeLightbox(); var sm = $('#shareModal'); if (sm) sm.hidden = true; }
+    });
+
+    // 分享弹窗
+    var sm = $('#shareModal');
+    var shareBtn = $('#shareBtn');
+    if (shareBtn && sm) shareBtn.onclick = function () {
+      if (lb) lb.hidden = true;
+      sm.hidden = false;
+    };
+    $$('[data-sm-close]').forEach(function (el) { el.onclick = function () { sm.hidden = true; }; });
+    var smCopy = $('#smCopy');
+    if (smCopy) smCopy.onclick = function () { copyText(location.origin + '/', '链接已复制，去发给朋友吧'); };
+    if (navigator.share) {
+      var nb = $('#smNative');
+      if (nb) {
+        nb.hidden = false;
+        nb.onclick = function () {
+          navigator.share({ title: document.title, text: '辣奶火锅 · 官方小站', url: location.origin + '/' }).catch(function () {});
+        };
+      }
+    }
+  }
+
   /* ---------------- 启动 ---------------- */
   fetch('/api/site').then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
     .then(function (data) {
@@ -1064,6 +1178,7 @@
       setupUpload();
       setupEvents();
       setupPlayer();
+      setupUI();
       // 直接打开带锚点的页面
       if (state.route !== 'home') {
         var cur = $('#page-home');

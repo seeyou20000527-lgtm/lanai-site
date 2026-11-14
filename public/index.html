@@ -16,7 +16,7 @@
 <meta property="og:title" content="辣奶火锅">
 <meta property="og:description" content="一口奶香，两口上头。简介 / 月历 / 物料 / 二创 / 歌单。">
 <meta property="og:image" content="/assets/img/og.png">
-<link rel="stylesheet" href="/assets/css/style.css?v=24">
+<link rel="stylesheet" href="/assets/css/style.css?v=25">
 </head>
 <body>
 
@@ -332,7 +332,7 @@
         <div class="foot-left">
           <span>© <span id="year">2026</span> 辣奶火锅 · 物料版权归本人所有 · 二创版权归各作者所有</span>
         </div>
-        <div class="links"><a href="#/rules">使用规则</a></div>
+        <div class="links"><button class="link-btn" id="shareBtn" type="button">分享</button><a href="#/rules">使用规则</a></div>
       </footer>
     </div>
   </div>
@@ -417,9 +417,35 @@
     </div>
   </div>
 </div>
+<button class="to-top" id="toTop" type="button" aria-label="回到顶部" hidden>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V6"/><path d="m6 12 6-6 6 6"/></svg>
+</button>
+
+<div class="lightbox" id="lightbox" hidden>
+  <div class="lb-bg" data-lb-close></div>
+  <figure class="lb-box">
+    <img id="lbImg" alt="">
+    <figcaption id="lbCap"></figcaption>
+  </figure>
+</div>
+
+<div class="share-modal" id="shareModal" hidden>
+  <div class="sm-bg" data-sm-close></div>
+  <div class="sm-box">
+    <h3>分享给朋友</h3>
+    <p class="sm-tip">扫一扫，或用下面的链接直接打开</p>
+    <img class="sm-qr" src="/assets/img/qr-site.png" alt="站点二维码">
+    <div class="sm-actions">
+      <button class="btn btn-sm" id="smCopy" type="button">复制链接</button>
+      <button class="btn btn-sm btn-solid" id="smNative" type="button" hidden>分享到…</button>
+    </div>
+    <button class="sm-close" type="button" data-sm-close aria-label="关闭">✕</button>
+  </div>
+</div>
+
 <div class="toast" id="toast" role="status"></div>
 
-<script src="/assets/js/app.js?v=24"></script>
+<script src="/assets/js/app.js?v=25"></script>
 
 </body>
 </html>
