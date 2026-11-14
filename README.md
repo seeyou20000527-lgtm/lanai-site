@@ -5,6 +5,24 @@
 虚拟主播 **辣奶火锅** 的粉丝站点：简介 / 直播月历 / 物料下载 / 二创投稿 / 使用规则。
 零依赖 Node.js，`node server.js` 就能跑；后台用**账号密码**登录，月历、简介、物料、资讯都能自己改。
 
+## 🌐 在线地址
+
+**<https://lanai-site.onrender.com>** —— 粉丝直接打开，手机端也适配。
+
+| | 地址 |
+| --- | --- |
+| 前台 | <https://lanai-site.onrender.com> |
+| 后台 | <https://lanai-site.onrender.com/admin>（账号 `lanai`，密码是 Render 环境变量 `ADMIN_PASSWORD`） |
+| 代码 | <https://github.com/seeyou20000527-lgtm/lanai-site> |
+
+### 平时怎么更新线上
+
+1. 本地改：双击 `start.bat`，在 <http://127.0.0.1:8787> 边看边改
+2. GitHub Desktop：写一句说明 → **Commit to main** → **Push origin**
+3. Render 自动重新部署（约 1 分钟）。如果 2 分钟后线上还是旧的，去 Render → `lanai-site` → 右上角 **Manual Deploy → Deploy latest commit**
+
+> 免费实例 15 分钟没人访问会休眠，下一次打开要等 20–30 秒唤醒；重启后线上写入的数据会回滚到 GitHub 版本，所以**内容以本地改 + push 为准**。
+
 ---
 
 ## 一、功能
