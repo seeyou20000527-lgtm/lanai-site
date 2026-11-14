@@ -633,8 +633,12 @@
 
   function openCrop(file, target) {
     var img = new Image();
+    var url = URL.createObjectURL(file);
     img.onload = function () {
       crop.img = img;
+      // 预览用的 <img> 一定要拿到同一个地址，否则框里是空的
+      var preview = $('#cropImg');
+      if (preview) preview.src = url;
       crop.field = target.field;
       crop.inputId = target.inputId;
       crop.ratio = target.ratio;
@@ -653,7 +657,7 @@
       $('#cropModal').hidden = false;
     };
     img.onerror = function () { toast('图片读不出来，换一张试试', true); };
-    img.src = URL.createObjectURL(file);
+    img.src = url;
   }
 
   function uploadBlob(blob, filename, target) {
