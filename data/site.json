@@ -45,9 +45,7 @@
         "label": "喜欢",
         "value": "吃饭 / 唱歌 / 看短剧"
       }
-    ],
-    "douyin": "https://www.douyin.com/user/self?from_tab_name=main",
-    "replay": "https://space.bilibili.com/1164726515?spm_id_from=333.1387.0.0"
+    ]
   },
   "live": {
     "isLive": false,
