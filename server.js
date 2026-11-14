@@ -71,6 +71,8 @@ const GH_BRANCH = process.env.GITHUB_BRANCH || 'main';
 const GH_DATA_BRANCH = process.env.GITHUB_DATA_BRANCH || 'data';
 const GH_API = 'https://api.github.com/repos/' + GH_REPO;
 const GH_RAW = 'https://raw.githubusercontent.com/' + GH_REPO + '/refs/heads/' + GH_DATA_BRANCH + '/';
+// raw.githubusercontent 的两种地址有时一个有缓存一个没有，两个都试
+const GH_RAW_ALT = 'https://raw.githubusercontent.com/' + GH_REPO + '/' + GH_DATA_BRANCH + '/';
 const ghTimers = new Map();
 let ghBranchReady = false;
 
@@ -129,6 +131,16 @@ function scheduleCommit(rel, message, delay = 5000) {
 }
 
 const HYDRATE = ['data/site.json', 'data/fanart.json'];
+
+async function fetchRawEither(rel, headers) {
+  for (const base of [GH_RAW, GH_RAW_ALT]) {
+    try {
+      const r = await fetch(base + rel + (base === GH_RAW_ALT ? '' : '') , { headers });
+      if (r.ok) return r;
+    } catch (e) {}
+  }
+  return null;
+}
 
 async function ghReadFile(rel) {
   // 优先用 API（永远最新），raw 有几分钟 CDN 缓存，会让重启后读到旧数据
@@ -930,9 +942,10 @@ async function rawFallback(req, res, pathname) {
     const rest = pathname.slice(prefix.length);
     if (!rest || rest.includes('..')) return false;
     try {
-      const headers = { 'User-Agent': 'lanai-site' };
+      const headers = { 'User-Agent': 'lanai-site', 'Cache-Control': 'no-cache' };
       if (req.headers.range) headers.Range = req.headers.range;
-      const r = await fetch(GH_RAW + rel + rest, { headers });
+      let r = await fetch(GH_RAW + rel + rest, { headers });
+      if (!r.ok) r = await fetch(GH_RAW_ALT + rel + rest, { headers });
       if (!r.ok) {
         res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
         res.end('Not Found');
