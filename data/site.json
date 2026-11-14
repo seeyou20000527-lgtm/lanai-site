@@ -268,7 +268,9 @@
       "artist": "陈琦贞",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s2",
@@ -276,7 +278,9 @@
       "artist": "莫文蔚",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": true,
+      "learning": false
     },
     {
       "id": "s3",
@@ -284,7 +288,9 @@
       "artist": "莫文蔚",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": true,
+      "learning": false
     },
     {
       "id": "s4",
@@ -292,7 +298,9 @@
       "artist": "莫文蔚",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": true
     },
     {
       "id": "s5",
@@ -300,7 +308,9 @@
       "artist": "莫文蔚",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": true,
+      "learning": false
     },
     {
       "id": "s6",
@@ -308,7 +318,9 @@
       "artist": "王菲",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": true,
+      "learning": false
     },
     {
       "id": "s7",
@@ -316,7 +328,9 @@
       "artist": "王菲",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s8",
@@ -324,7 +338,9 @@
       "artist": "王菲",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s9",
@@ -332,7 +348,9 @@
       "artist": "王菲",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s10",
@@ -340,7 +358,9 @@
       "artist": "F.I.R飞儿乐团",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": true,
+      "learning": false
     },
     {
       "id": "s11",
@@ -348,7 +368,9 @@
       "artist": "F.I.R飞儿乐团",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s12",
@@ -356,7 +378,9 @@
       "artist": "F.I.R飞儿乐团",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s13",
@@ -364,7 +388,9 @@
       "artist": "F.I.R飞儿乐团",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s14",
@@ -372,7 +398,9 @@
       "artist": "F.I.R飞儿乐团",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s15",
@@ -380,7 +408,9 @@
       "artist": "SHE",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s16",
@@ -388,7 +418,9 @@
       "artist": "SHE",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s17",
@@ -396,7 +428,9 @@
       "artist": "SHE",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s18",
@@ -404,7 +438,9 @@
       "artist": "赖美云",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s19",
@@ -412,7 +448,9 @@
       "artist": "汪苏泷",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s20",
@@ -420,7 +458,9 @@
       "artist": "汪苏泷/BY2",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s21",
@@ -428,7 +468,9 @@
       "artist": "汪苏泷",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s22",
@@ -436,7 +478,9 @@
       "artist": "汪苏泷",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s23",
@@ -444,7 +488,9 @@
       "artist": "许嵩",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s24",
@@ -452,7 +498,9 @@
       "artist": "许嵩",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s25",
@@ -460,7 +508,9 @@
       "artist": "许嵩/何曼婷",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s26",
@@ -468,7 +518,9 @@
       "artist": "许嵩",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s27",
@@ -476,7 +528,9 @@
       "artist": "许嵩",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s28",
@@ -484,7 +538,9 @@
       "artist": "许嵩",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s29",
@@ -492,7 +548,9 @@
       "artist": "洛天依",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s30",
@@ -500,7 +558,9 @@
       "artist": "孙盛希",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s31",
@@ -508,7 +568,9 @@
       "artist": "薛之谦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s32",
@@ -516,7 +578,9 @@
       "artist": "薛之谦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s33",
@@ -524,7 +588,9 @@
       "artist": "薛之谦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s34",
@@ -532,7 +598,9 @@
       "artist": "薛之谦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s35",
@@ -540,7 +608,9 @@
       "artist": "薛之谦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s36",
@@ -548,7 +618,9 @@
       "artist": "薛之谦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s37",
@@ -556,7 +628,9 @@
       "artist": "薛之谦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s38",
@@ -564,7 +638,9 @@
       "artist": "薛之谦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s39",
@@ -572,7 +648,9 @@
       "artist": "薛之谦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s40",
@@ -580,7 +658,9 @@
       "artist": "薛之谦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s41",
@@ -588,7 +668,9 @@
       "artist": "薛之谦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s42",
@@ -596,7 +678,9 @@
       "artist": "薛之谦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s43",
@@ -604,7 +688,9 @@
       "artist": "张敬轩",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s44",
@@ -612,7 +698,9 @@
       "artist": "张敬轩",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s45",
@@ -620,7 +708,9 @@
       "artist": "张敬轩",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s46",
@@ -628,7 +718,9 @@
       "artist": "陶喆",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s47",
@@ -636,7 +728,9 @@
       "artist": "陶喆",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s48",
@@ -644,7 +738,9 @@
       "artist": "陶喆",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s49",
@@ -652,7 +748,9 @@
       "artist": "告五人",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s50",
@@ -660,7 +758,9 @@
       "artist": "告五人",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s51",
@@ -668,7 +768,9 @@
       "artist": "告五人",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s52",
@@ -676,7 +778,9 @@
       "artist": "告五人",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s53",
@@ -684,7 +788,9 @@
       "artist": "张韶涵",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s54",
@@ -692,7 +798,9 @@
       "artist": "张韶涵",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s55",
@@ -700,7 +808,9 @@
       "artist": "张韶涵",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s56",
@@ -708,7 +818,9 @@
       "artist": "张韶涵",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s57",
@@ -716,7 +828,9 @@
       "artist": "张韶涵",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s58",
@@ -724,7 +838,9 @@
       "artist": "张韶涵",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s59",
@@ -732,7 +848,9 @@
       "artist": "张韶涵",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s60",
@@ -740,7 +858,9 @@
       "artist": "张韶涵",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s61",
@@ -748,7 +868,9 @@
       "artist": "王力宏",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s62",
@@ -756,7 +878,9 @@
       "artist": "王力宏",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s63",
@@ -764,7 +888,9 @@
       "artist": "王力宏",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s64",
@@ -772,7 +898,9 @@
       "artist": "王力宏",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s65",
@@ -780,7 +908,9 @@
       "artist": "艾怡良",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s66",
@@ -788,7 +918,9 @@
       "artist": "王力宏",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s67",
@@ -796,7 +928,9 @@
       "artist": "王力宏",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s68",
@@ -804,7 +938,9 @@
       "artist": "王力宏",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s69",
@@ -812,7 +948,9 @@
       "artist": "王力宏",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s70",
@@ -820,7 +958,9 @@
       "artist": "王力宏",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s71",
@@ -828,7 +968,9 @@
       "artist": "王力宏",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s72",
@@ -836,7 +978,9 @@
       "artist": "sakanaction",
       "tag": "日语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s73",
@@ -844,7 +988,9 @@
       "artist": "大张伟",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s74",
@@ -852,7 +998,9 @@
       "artist": "iceball冰球乐团",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s75",
@@ -860,7 +1008,9 @@
       "artist": "iceball冰球乐团",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s76",
@@ -868,7 +1018,9 @@
       "artist": "iceball冰球乐团",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s77",
@@ -876,7 +1028,9 @@
       "artist": "iceball冰球乐团",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s78",
@@ -884,7 +1038,9 @@
       "artist": "iceball冰球乐团",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s79",
@@ -892,7 +1048,9 @@
       "artist": "iceball冰球乐团",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s80",
@@ -900,7 +1058,9 @@
       "artist": "iceball冰球乐团",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s81",
@@ -908,7 +1068,9 @@
       "artist": "iceball冰球乐团",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s82",
@@ -916,7 +1078,9 @@
       "artist": "蔡徐坤",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s83",
@@ -924,7 +1088,9 @@
       "artist": "蔡徐坤",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s84",
@@ -932,7 +1098,9 @@
       "artist": "罗森涛",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s85",
@@ -940,7 +1108,9 @@
       "artist": "罗森涛",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s86",
@@ -948,7 +1118,9 @@
       "artist": "颜人中",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s87",
@@ -956,7 +1128,9 @@
       "artist": "小三金",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s88",
@@ -964,7 +1138,9 @@
       "artist": "魏如萱",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s89",
@@ -972,7 +1148,9 @@
       "artist": "魏如昀",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s90",
@@ -980,7 +1158,9 @@
       "artist": "吴卓源",
       "tag": "国语",
       "note": "R&B",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s91",
@@ -988,7 +1168,9 @@
       "artist": "陈忻玥",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s92",
@@ -996,7 +1178,9 @@
       "artist": "九九",
       "tag": "国语",
       "note": "☆",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s93",
@@ -1004,7 +1188,9 @@
       "artist": "邓紫棋",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s94",
@@ -1012,7 +1198,9 @@
       "artist": "邓紫棋",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s95",
@@ -1020,7 +1208,9 @@
       "artist": "邓紫棋",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s96",
@@ -1028,7 +1218,9 @@
       "artist": "邓紫棋",
       "tag": "国语",
       "note": "☆",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s97",
@@ -1036,7 +1228,9 @@
       "artist": "邓紫棋",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s98",
@@ -1044,7 +1238,9 @@
       "artist": "邓紫棋",
       "tag": "国语",
       "note": "☆",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s99",
@@ -1052,7 +1248,9 @@
       "artist": "邓紫棋",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s100",
@@ -1060,7 +1258,9 @@
       "artist": "邓紫棋",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s101",
@@ -1068,7 +1268,9 @@
       "artist": "邓紫棋",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s102",
@@ -1076,7 +1278,9 @@
       "artist": "邓紫棋",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s103",
@@ -1084,7 +1288,9 @@
       "artist": "邓紫棋",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s104",
@@ -1092,7 +1298,9 @@
       "artist": "邓紫棋",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s105",
@@ -1100,7 +1308,9 @@
       "artist": "邓紫棋",
       "tag": "国语",
       "note": "☆",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s106",
@@ -1108,7 +1318,9 @@
       "artist": "邓紫棋",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s107",
@@ -1116,7 +1328,9 @@
       "artist": "邓紫棋",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s108",
@@ -1124,7 +1338,9 @@
       "artist": "邓紫棋",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s109",
@@ -1132,7 +1348,9 @@
       "artist": "邓紫棋",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s110",
@@ -1140,7 +1358,9 @@
       "artist": "邓紫棋",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s111",
@@ -1148,7 +1368,9 @@
       "artist": "邓紫棋",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s112",
@@ -1156,7 +1378,9 @@
       "artist": "邓紫棋",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s113",
@@ -1164,7 +1388,9 @@
       "artist": "邓紫棋",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s114",
@@ -1172,7 +1398,9 @@
       "artist": "邓紫棋",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s115",
@@ -1180,7 +1408,9 @@
       "artist": "邓紫棋",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s116",
@@ -1188,7 +1418,9 @@
       "artist": "邓紫棋",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s117",
@@ -1196,7 +1428,9 @@
       "artist": "邓紫棋",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s118",
@@ -1204,7 +1438,9 @@
       "artist": "邓紫棋",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s119",
@@ -1212,7 +1448,9 @@
       "artist": "邓紫棋",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s120",
@@ -1220,7 +1458,9 @@
       "artist": "邓紫棋",
       "tag": "国语",
       "note": "☆",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s121",
@@ -1228,7 +1468,9 @@
       "artist": "林依晨",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s122",
@@ -1236,7 +1478,9 @@
       "artist": "飞轮海",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s123",
@@ -1244,7 +1488,9 @@
       "artist": "飞轮海",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s124",
@@ -1252,7 +1498,9 @@
       "artist": "飞轮海",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s125",
@@ -1260,7 +1508,9 @@
       "artist": "飞轮海",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s126",
@@ -1268,7 +1518,9 @@
       "artist": "林俊杰",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s127",
@@ -1276,7 +1528,9 @@
       "artist": "林俊杰",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s128",
@@ -1284,7 +1538,9 @@
       "artist": "林俊杰",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s129",
@@ -1292,7 +1548,9 @@
       "artist": "林俊杰",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s130",
@@ -1300,7 +1558,9 @@
       "artist": "林俊杰",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s131",
@@ -1308,7 +1568,9 @@
       "artist": "林俊杰",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s132",
@@ -1316,7 +1578,9 @@
       "artist": "林俊杰",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s133",
@@ -1324,7 +1588,9 @@
       "artist": "林俊杰",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s134",
@@ -1332,7 +1598,9 @@
       "artist": "林俊杰",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s135",
@@ -1340,7 +1608,9 @@
       "artist": "林俊杰",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s136",
@@ -1348,7 +1618,9 @@
       "artist": "林俊杰",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s137",
@@ -1356,7 +1628,9 @@
       "artist": "林俊杰",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s138",
@@ -1364,7 +1638,9 @@
       "artist": "林俊杰",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s139",
@@ -1372,7 +1648,9 @@
       "artist": "林俊杰",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s140",
@@ -1380,7 +1658,9 @@
       "artist": "林俊杰",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s141",
@@ -1388,7 +1668,9 @@
       "artist": "林俊杰",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s142",
@@ -1396,7 +1678,9 @@
       "artist": "林俊杰",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s143",
@@ -1404,7 +1688,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s144",
@@ -1412,7 +1698,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s145",
@@ -1420,7 +1708,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s146",
@@ -1428,7 +1718,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s147",
@@ -1436,7 +1728,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s148",
@@ -1444,7 +1738,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s149",
@@ -1452,7 +1748,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s150",
@@ -1460,7 +1758,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s151",
@@ -1468,7 +1768,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s152",
@@ -1476,7 +1778,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s153",
@@ -1484,7 +1788,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s154",
@@ -1492,7 +1798,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s155",
@@ -1500,7 +1808,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s156",
@@ -1508,7 +1818,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s157",
@@ -1516,7 +1828,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s158",
@@ -1524,7 +1838,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s159",
@@ -1532,7 +1848,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s160",
@@ -1540,7 +1858,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s161",
@@ -1548,7 +1868,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s162",
@@ -1556,7 +1878,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s163",
@@ -1564,7 +1888,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s164",
@@ -1572,7 +1898,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s165",
@@ -1580,7 +1908,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s166",
@@ -1588,7 +1918,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s167",
@@ -1596,7 +1928,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s168",
@@ -1604,7 +1938,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s169",
@@ -1612,7 +1948,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s170",
@@ -1620,7 +1958,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s171",
@@ -1628,7 +1968,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s172",
@@ -1636,7 +1978,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s173",
@@ -1644,7 +1988,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s174",
@@ -1652,7 +1998,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s175",
@@ -1660,7 +2008,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s176",
@@ -1668,7 +2018,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s177",
@@ -1676,7 +2028,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s178",
@@ -1684,7 +2038,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s179",
@@ -1692,7 +2048,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s180",
@@ -1700,7 +2058,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s181",
@@ -1708,7 +2068,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s182",
@@ -1716,7 +2078,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s183",
@@ -1724,7 +2088,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s184",
@@ -1732,7 +2098,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s185",
@@ -1740,7 +2108,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s186",
@@ -1748,7 +2118,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s187",
@@ -1756,7 +2128,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s188",
@@ -1764,7 +2138,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s189",
@@ -1772,7 +2148,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s190",
@@ -1780,7 +2158,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s191",
@@ -1788,7 +2168,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s192",
@@ -1796,7 +2178,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s193",
@@ -1804,7 +2188,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s194",
@@ -1812,7 +2198,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s195",
@@ -1820,7 +2208,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s196",
@@ -1828,7 +2218,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s197",
@@ -1836,7 +2228,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s198",
@@ -1844,7 +2238,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s199",
@@ -1852,7 +2248,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s200",
@@ -1860,7 +2258,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s201",
@@ -1868,7 +2268,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s202",
@@ -1876,7 +2278,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "☆",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s203",
@@ -1884,7 +2288,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s204",
@@ -1892,7 +2298,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s205",
@@ -1900,7 +2308,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s206",
@@ -1908,7 +2318,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s207",
@@ -1916,7 +2328,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s208",
@@ -1924,7 +2338,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s209",
@@ -1932,7 +2348,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s210",
@@ -1940,7 +2358,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s211",
@@ -1948,7 +2368,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s212",
@@ -1956,7 +2378,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s213",
@@ -1964,7 +2388,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s214",
@@ -1972,7 +2398,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s215",
@@ -1980,7 +2408,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s216",
@@ -1988,7 +2418,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s217",
@@ -1996,7 +2428,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s218",
@@ -2004,7 +2438,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s219",
@@ -2012,7 +2448,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s220",
@@ -2020,7 +2458,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s221",
@@ -2028,7 +2468,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s222",
@@ -2036,7 +2478,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s223",
@@ -2044,7 +2488,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s224",
@@ -2052,7 +2498,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s225",
@@ -2060,7 +2508,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s226",
@@ -2068,7 +2518,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s227",
@@ -2076,7 +2528,9 @@
       "artist": "周杰伦/张惠妹",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s228",
@@ -2084,7 +2538,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s229",
@@ -2092,7 +2548,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s230",
@@ -2100,7 +2558,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s231",
@@ -2108,7 +2568,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s232",
@@ -2116,7 +2578,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s233",
@@ -2124,7 +2588,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s234",
@@ -2132,7 +2598,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s235",
@@ -2140,7 +2608,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s236",
@@ -2148,7 +2618,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s237",
@@ -2156,7 +2628,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s238",
@@ -2164,7 +2638,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s239",
@@ -2172,7 +2648,9 @@
       "artist": "周杰伦",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s240",
@@ -2180,7 +2658,9 @@
       "artist": "李荣浩",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s241",
@@ -2188,7 +2668,9 @@
       "artist": "李荣浩",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s242",
@@ -2196,7 +2678,9 @@
       "artist": "李荣浩",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s243",
@@ -2204,7 +2688,9 @@
       "artist": "李荣浩",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s244",
@@ -2212,7 +2698,9 @@
       "artist": "李荣浩",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s245",
@@ -2220,7 +2708,9 @@
       "artist": "李荣浩",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s246",
@@ -2228,7 +2718,9 @@
       "artist": "李荣浩",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s247",
@@ -2236,7 +2728,9 @@
       "artist": "李荣浩",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s248",
@@ -2244,7 +2738,9 @@
       "artist": "李荣浩",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s249",
@@ -2252,7 +2748,9 @@
       "artist": "李荣浩",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s250",
@@ -2260,7 +2758,9 @@
       "artist": "李荣浩",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s251",
@@ -2268,7 +2768,9 @@
       "artist": "李荣浩",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s252",
@@ -2276,7 +2778,9 @@
       "artist": "李荣浩",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s253",
@@ -2284,7 +2788,9 @@
       "artist": "李荣浩",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s254",
@@ -2292,7 +2798,9 @@
       "artist": "李荣浩",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s255",
@@ -2300,7 +2808,9 @@
       "artist": "李荣浩",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s256",
@@ -2308,7 +2818,9 @@
       "artist": "李荣浩",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s257",
@@ -2316,7 +2828,9 @@
       "artist": "李荣浩",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s258",
@@ -2324,7 +2838,9 @@
       "artist": "李荣浩",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s259",
@@ -2332,7 +2848,9 @@
       "artist": "李荣浩",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s260",
@@ -2340,7 +2858,9 @@
       "artist": "李荣浩",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s261",
@@ -2348,7 +2868,9 @@
       "artist": "李荣浩/张惠妹",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s262",
@@ -2356,7 +2878,9 @@
       "artist": "李荣浩",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s263",
@@ -2364,7 +2888,9 @@
       "artist": "李荣浩",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s264",
@@ -2372,7 +2898,9 @@
       "artist": "李荣浩",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s265",
@@ -2380,7 +2908,9 @@
       "artist": "李荣浩",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s266",
@@ -2388,7 +2918,9 @@
       "artist": "李荣浩",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s267",
@@ -2396,7 +2928,9 @@
       "artist": "李荣浩",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s268",
@@ -2404,7 +2938,9 @@
       "artist": "李荣浩",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s269",
@@ -2412,7 +2948,9 @@
       "artist": "李佳薇",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s270",
@@ -2420,7 +2958,9 @@
       "artist": "李佳薇",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s271",
@@ -2428,7 +2968,9 @@
       "artist": "李佳薇",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s272",
@@ -2436,7 +2978,9 @@
       "artist": "李佳薇",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s273",
@@ -2444,7 +2988,9 @@
       "artist": "郁可唯",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s274",
@@ -2452,7 +2998,9 @@
       "artist": "郁可唯",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s275",
@@ -2460,7 +3008,9 @@
       "artist": "郁可唯",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s276",
@@ -2468,7 +3018,9 @@
       "artist": "郁可唯",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s277",
@@ -2476,7 +3028,9 @@
       "artist": "梁文音",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s278",
@@ -2484,7 +3038,9 @@
       "artist": "梁静茹",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s279",
@@ -2492,7 +3048,9 @@
       "artist": "梁静茹",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s280",
@@ -2500,7 +3058,9 @@
       "artist": "梁静茹",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s281",
@@ -2508,7 +3068,9 @@
       "artist": "梁静茹",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s282",
@@ -2516,7 +3078,9 @@
       "artist": "梁静茹",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s283",
@@ -2524,7 +3088,9 @@
       "artist": "梁静茹",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s284",
@@ -2532,7 +3098,9 @@
       "artist": "梁静茹",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s285",
@@ -2540,7 +3108,9 @@
       "artist": "梁静茹",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s286",
@@ -2548,7 +3118,9 @@
       "artist": "梁静茹",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s287",
@@ -2556,7 +3128,9 @@
       "artist": "萧煌奇",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s288",
@@ -2564,7 +3138,9 @@
       "artist": "萧煌奇",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s289",
@@ -2572,7 +3148,9 @@
       "artist": "萧煌奇",
       "tag": "闽南语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s290",
@@ -2580,7 +3158,9 @@
       "artist": "萧煌奇",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s291",
@@ -2588,7 +3168,9 @@
       "artist": "萧煌奇",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s292",
@@ -2596,7 +3178,9 @@
       "artist": "茄子蛋",
       "tag": "闽南语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s293",
@@ -2604,7 +3188,9 @@
       "artist": "茄子蛋",
       "tag": "闽南语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s294",
@@ -2612,7 +3198,9 @@
       "artist": "茄子蛋",
       "tag": "闽南语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s295",
@@ -2620,7 +3208,9 @@
       "artist": "茄子蛋",
       "tag": "闽南语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s296",
@@ -2628,7 +3218,9 @@
       "artist": "李千娜",
       "tag": "闽南语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s297",
@@ -2636,7 +3228,9 @@
       "artist": "李千娜",
       "tag": "闽南语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s298",
@@ -2644,7 +3238,9 @@
       "artist": "江蕙",
       "tag": "闽南语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s299",
@@ -2652,7 +3248,9 @@
       "artist": "江蕙",
       "tag": "闽南语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s300",
@@ -2660,7 +3258,9 @@
       "artist": "江蕙",
       "tag": "闽南语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s301",
@@ -2668,7 +3268,9 @@
       "artist": "江蕙",
       "tag": "闽南语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s302",
@@ -2676,7 +3278,9 @@
       "artist": "五月天",
       "tag": "国语",
       "note": "摇滚",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s303",
@@ -2684,7 +3288,9 @@
       "artist": "五月天",
       "tag": "国语",
       "note": "摇滚",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s304",
@@ -2692,7 +3298,9 @@
       "artist": "五月天/陈琦贞",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s305",
@@ -2700,7 +3308,9 @@
       "artist": "五月天",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s306",
@@ -2708,7 +3318,9 @@
       "artist": "五月天",
       "tag": "国语",
       "note": "摇滚",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s307",
@@ -2716,7 +3328,9 @@
       "artist": "五月天",
       "tag": "国语",
       "note": "摇滚",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s308",
@@ -2724,7 +3338,9 @@
       "artist": "五月天",
       "tag": "国语",
       "note": "摇滚",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s309",
@@ -2732,7 +3348,9 @@
       "artist": "五月天",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s310",
@@ -2740,7 +3358,9 @@
       "artist": "五月天",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s311",
@@ -2748,7 +3368,9 @@
       "artist": "五月天",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s312",
@@ -2756,7 +3378,9 @@
       "artist": "曾沛慈",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s313",
@@ -2764,7 +3388,9 @@
       "artist": "曾沛慈/东城卫",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s314",
@@ -2772,7 +3398,9 @@
       "artist": "刘力扬",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s315",
@@ -2780,7 +3408,9 @@
       "artist": "蓝又时",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s316",
@@ -2788,7 +3418,9 @@
       "artist": "蓝又时",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s317",
@@ -2796,7 +3428,9 @@
       "artist": "林忆莲",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s318",
@@ -2804,7 +3438,9 @@
       "artist": "戴佩妮",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s319",
@@ -2812,7 +3448,9 @@
       "artist": "戴佩妮",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s320",
@@ -2820,7 +3458,9 @@
       "artist": "杨丞琳",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s321",
@@ -2828,7 +3468,9 @@
       "artist": "杨丞琳",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s322",
@@ -2836,7 +3478,9 @@
       "artist": "杨丞琳",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s323",
@@ -2844,7 +3488,9 @@
       "artist": "杨丞琳",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s324",
@@ -2852,7 +3498,9 @@
       "artist": "杨丞琳",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s325",
@@ -2860,7 +3508,9 @@
       "artist": "杨丞琳",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s326",
@@ -2868,7 +3518,9 @@
       "artist": "杨丞琳",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s327",
@@ -2876,7 +3528,9 @@
       "artist": "杨丞琳",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s328",
@@ -2884,7 +3538,9 @@
       "artist": "杨丞琳",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s329",
@@ -2892,7 +3548,9 @@
       "artist": "杨丞琳",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s330",
@@ -2900,7 +3558,9 @@
       "artist": "杨丞琳",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s331",
@@ -2908,7 +3568,9 @@
       "artist": "蔡依林",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s332",
@@ -2916,7 +3578,9 @@
       "artist": "蔡依林/王俊凯",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s333",
@@ -2924,7 +3588,9 @@
       "artist": "蔡依林",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s334",
@@ -2932,7 +3598,9 @@
       "artist": "蔡依林",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s335",
@@ -2940,7 +3608,9 @@
       "artist": "蔡依林",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s336",
@@ -2948,7 +3618,9 @@
       "artist": "蔡依林",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s337",
@@ -2956,7 +3628,9 @@
       "artist": "蔡依林",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s338",
@@ -2964,7 +3638,9 @@
       "artist": "蔡依林",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s339",
@@ -2972,7 +3648,9 @@
       "artist": "蔡依林",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s340",
@@ -2980,7 +3658,9 @@
       "artist": "蔡依林",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s341",
@@ -2988,7 +3668,9 @@
       "artist": "蔡依林",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s342",
@@ -2996,7 +3678,9 @@
       "artist": "蔡依林",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s343",
@@ -3004,7 +3688,9 @@
       "artist": "蔡依林",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s344",
@@ -3012,7 +3698,9 @@
       "artist": "王心凌",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s345",
@@ -3020,7 +3708,9 @@
       "artist": "王心凌",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s346",
@@ -3028,7 +3718,9 @@
       "artist": "王蓝茵",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s347",
@@ -3036,7 +3728,9 @@
       "artist": "方雅贤",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s348",
@@ -3044,7 +3738,9 @@
       "artist": "方雅贤",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s349",
@@ -3052,7 +3748,9 @@
       "artist": "张韶涵",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s350",
@@ -3060,7 +3758,9 @@
       "artist": "王心凌/刘若英",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s351",
@@ -3068,7 +3768,9 @@
       "artist": "林宥嘉",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s352",
@@ -3076,7 +3778,9 @@
       "artist": "王靖雯",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s353",
@@ -3084,7 +3788,9 @@
       "artist": "徐佳莹",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s354",
@@ -3092,7 +3798,9 @@
       "artist": "徐佳莹",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s355",
@@ -3100,7 +3808,9 @@
       "artist": "徐佳莹",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s356",
@@ -3108,7 +3818,9 @@
       "artist": "徐佳莹",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s357",
@@ -3116,7 +3828,9 @@
       "artist": "孙燕姿",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s358",
@@ -3124,7 +3838,9 @@
       "artist": "孙燕姿",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s359",
@@ -3132,7 +3848,9 @@
       "artist": "王靖雯",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s360",
@@ -3140,7 +3858,9 @@
       "artist": "王心凌",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s361",
@@ -3148,7 +3868,9 @@
       "artist": "王心凌",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s362",
@@ -3156,7 +3878,9 @@
       "artist": "王心凌",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s363",
@@ -3164,7 +3888,9 @@
       "artist": "王心凌",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s364",
@@ -3172,7 +3898,9 @@
       "artist": "王心凌",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s365",
@@ -3180,7 +3908,9 @@
       "artist": "王心凌",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s366",
@@ -3188,7 +3918,9 @@
       "artist": "王心凌",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s367",
@@ -3196,7 +3928,9 @@
       "artist": "孙燕姿",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s368",
@@ -3204,7 +3938,9 @@
       "artist": "孙燕姿",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s369",
@@ -3212,7 +3948,9 @@
       "artist": "孙燕姿",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s370",
@@ -3220,7 +3958,9 @@
       "artist": "孙燕姿",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s371",
@@ -3228,7 +3968,9 @@
       "artist": "孙燕姿",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s372",
@@ -3236,7 +3978,9 @@
       "artist": "孙燕姿",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s373",
@@ -3244,7 +3988,9 @@
       "artist": "孙燕姿",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     },
     {
       "id": "s374",
@@ -3252,7 +3998,9 @@
       "artist": "孙燕姿",
       "tag": "国语",
       "note": "",
-      "link": ""
+      "link": "",
+      "rec": false,
+      "learning": false
     }
   ],
   "notices": [
