@@ -193,36 +193,6 @@
       "cover": "/materials/uploads/mat-mwga5357.png",
       "format": "PNG",
       "res": ""
-    },
-    {
-      "id": "mat-mwgnsjsr",
-      "title": "片头",
-      "desc": "片头",
-      "category": "片头",
-      "file": "/materials/uploads/mat-mwgnsjsr.mp4",
-      "cover": "/assets/img/material-default.png",
-      "format": "MP4",
-      "res": ""
-    },
-    {
-      "id": "mat-mwgnt6xi",
-      "title": "片尾",
-      "desc": "片尾",
-      "category": "片尾",
-      "file": "/materials/uploads/mat-mwgnt6xi.mp4",
-      "cover": "/assets/img/material-default.png",
-      "format": "MP4",
-      "res": ""
-    },
-    {
-      "id": "mat-mwgnuhf7",
-      "title": "红包封面",
-      "desc": "红包封面",
-      "category": "壁纸",
-      "file": "/materials/uploads/mat-mwgnuhf7.jpg",
-      "cover": "/materials/uploads/mat-mwgnuhf7.jpg",
-      "format": "JPG",
-      "res": ""
     }
   ],
   "rules": {
