@@ -43,7 +43,10 @@ body.admin { background: #f7f3ee; }
 .row { display: grid; gap: 10px; align-items: center; }
 .ev-editor .row { grid-template-columns: 140px 96px 1fr 96px 1fr 36px; margin-bottom: 8px; }
 .news-editor .row { grid-template-columns: 130px 90px 1fr 1.4fr 1fr 36px; margin-bottom: 8px; }
-.song-editor .row { grid-template-columns: 30px 1.4fr 1fr 88px 1fr 1fr 36px; margin-bottom: 8px; }
+.song-editor .row { grid-template-columns: 30px 1.4fr 1fr 88px 1fr 1fr 34px 34px 36px; margin-bottom: 8px; }
+.row .tog { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 8px; border: 1px solid var(--line); background: #fff; color: var(--ink-3); font-size: 12px; cursor: pointer; user-select: none; }
+.row .tog.on { border-color: var(--rose); color: var(--rose-2); background: #fdf2ef; }
+.row .tog input { display: none; }
 .music-item { display: flex; gap: 12px; border: 1px solid var(--line); border-radius: 12px; padding: 12px; margin-bottom: 10px; background: #fff; }
 .music-item img { width: 64px; height: 64px; border-radius: 9px; object-fit: cover; flex-shrink: 0; background: var(--bg-2); }
 .music-item .b { flex: 1; min-width: 0; display: grid; gap: 6px; }

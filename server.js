@@ -652,7 +652,7 @@ async function apiMusicDownload(req, res, id) {
   return serveStatic(req, res, track.file, { attachment: true, filename });
 }
 
-/* ------------------------------ 留言 ------------------------------ */
+/* ------------------------------ 评论 ------------------------------ */
 function apiCommentsGet(req, res, url) {
   const track = String(url.searchParams.get('track') || '');
   const db = readJson('comments.json', { items: [] });
@@ -663,7 +663,7 @@ function apiCommentsGet(req, res, url) {
 async function apiCommentsPost(req, res) {
   const ip = clientIp(req);
   if (commentLimited(ip)) {
-    return sendJson(res, 429, { error: '留言太快啦，歇一会儿再发。' });
+    return sendJson(res, 429, { error: '评论太快啦，歇一会儿再发。' });
   }
   const body = await safeJsonBody(req, 4 * 1024);
   if (!body) return sendJson(res, 400, { error: '请求格式不正确。' });
@@ -685,6 +685,23 @@ async function apiCommentsPost(req, res) {
   if (db.items.length > 5000) db.items = db.items.slice(-5000);
   await writeJson('comments.json', db);
   sendJson(res, 201, { ok: true, item });
+}
+
+async function apiCommentsLike(req, res) {
+  const ip = clientIp(req);
+  if (commentLimited(ip)) {
+    return sendJson(res, 429, { error: '点太快啦，歇一会儿。' });
+  }
+  const body = await safeJsonBody(req, 1024);
+  if (!body) return sendJson(res, 400, { error: '请求格式不正确。' });
+  const id = clean(body.id, 40);
+  if (!id) return sendJson(res, 400, { error: '缺少评论 ID。' });
+  const db = readJson('comments.json', { items: [] });
+  const item = (db.items || []).find((c) => c.id === id);
+  if (!item) return sendJson(res, 404, { error: '这条评论不在了。' });
+  item.likes = (Number(item.likes) || 0) + 1;
+  await writeJson('comments.json', db);
+  sendJson(res, 200, { ok: true, likes: item.likes });
 }
 
 function apiAdminOverview(req, res) {
@@ -801,6 +818,7 @@ async function handle(req, res) {
   if (pathname === '/api/auth/me' && method === 'GET') return apiMe(req, res);
 
   if (pathname === '/api/fanart' && method === 'PUT') return apiFanartUpload(req, res);
+  if (pathname === '/api/comments/like' && method === 'POST') return apiCommentsLike(req, res);
   if (pathname === '/api/comments' && method === 'POST') return apiCommentsPost(req, res);
 
   if (pathname.startsWith('/api/admin/')) {

@@ -251,6 +251,12 @@
   }
 
   /* ---------------- 音乐 ---------------- */
+  var PALETTES = { cream: '奶白', rose: '雾粉', moon: '月白', sage: '苔绿', ink: '墨黑' };
+  function paletteOptions(sel) {
+    return Object.keys(PALETTES).map(function (k) {
+      return '<option value="' + k + '"' + (k === (sel || 'cream') ? ' selected' : '') + '>' + PALETTES[k] + '</option>';
+    }).join('');
+  }
   function renderMusic(view) {
     var list = state.site.music || [];
     view.innerHTML =
@@ -260,6 +266,7 @@
       '<div class="fld"><label>歌名</label><input id="musTitle" placeholder="例：起风了"></div>' +
       '<div class="fld"><label>歌手</label><input id="musArtist" placeholder="辣奶火锅"></div>' +
       '<div class="fld"><label>BPM（影响 CD 转速，默认 90）</label><input id="musBpm" type="number" min="20" max="300" value="90"></div>' +
+      '<div class="fld"><label>音乐配色（展开页底色）</label><select id="musPalette">' + paletteOptions('cream') + '</select></div>' +
       '<div class="fld"><label>B 站影片链接（选填）</label><input id="musBili" placeholder="https://www.bilibili.com/video/BV..."></div>' +
       '<div class="fld full"><label>封面</label><div class="img-row">' +
       '<img class="img-thumb" id="thumb-music" src="/assets/img/avatar.png" alt="">' +
@@ -278,13 +285,18 @@
           '<input value="' + esc(m.artist) + '" data-mi="' + i + '" data-mf="artist" placeholder="歌手">' +
           '<div class="mi-row"><input value="' + esc(m.cover) + '" data-mi="' + i + '" data-mf="cover" placeholder="封面地址">' +
           '<input type="number" min="20" max="300" value="' + esc(m.bpm || 90) + '" data-mi="' + i + '" data-mf="bpm" placeholder="BPM">' +
-          '<input value="' + esc(m.bili || '') + '" data-mi="' + i + '" data-mf="bili" placeholder="B站链接"></div>' +
+          '<input value="' + esc(m.bili || '') + '" data-mi="' + i + '" data-mf="bili" placeholder="B站链接">' +
+          '<select data-mi="' + i + '" data-mf="palette" title="音乐配色">' + paletteOptions(m.palette) + '</select></div>' +
           '<textarea data-mi="' + i + '" data-mf="lyrics" placeholder="歌词（支持 [00:12.30] 时间轴）">' + esc(m.lyrics) + '</textarea>' +
           '<div class="row-b"><span>' + (m.size ? (m.size / 1048576).toFixed(1) + ' MB' : '') + ' · ' + (m.downloads || 0) + ' 次下载</span>' +
           '<span><a href="' + esc(m.file) + '" target="_blank">试听</a>　<button class="del" data-act="del-music" data-id="' + esc(m.id) + '">删除</button></span></div></div></div>';
       }).join('') : '<div class="empty">还没有上传歌曲。</div>') + '</div>';
 
     view.oninput = function (e) {
+      var el = e.target;
+      if (el.dataset && el.dataset.mi !== undefined) state.site.music[+el.dataset.mi][el.dataset.mf] = el.value;
+    };
+    view.onchange = function (e) {
       var el = e.target;
       if (el.dataset && el.dataset.mi !== undefined) state.site.music[+el.dataset.mi][el.dataset.mf] = el.value;
     };
@@ -300,7 +312,8 @@
         var meta = {
           title: title, artist: $('#musArtist').value.trim(),
           cover: $('#musCover').value.trim(), lyrics: $('#musLyrics').value,
-          bpm: $('#musBpm').value, bili: $('#musBili').value.trim(), filename: file.name
+          bpm: $('#musBpm').value, bili: $('#musBili').value.trim(),
+          palette: $('#musPalette').value || 'cream', filename: file.name
         };
         b.disabled = true; b.textContent = '上传中…';
         fetch('/api/admin/music', {
@@ -507,7 +520,7 @@
       '<div style="display:flex;gap:8px"><button class="btn btn-sm" data-act="add-song">+ 加一首</button>' +
       '<button class="btn btn-sm btn-solid" data-act="save-songs">保存歌单</button></div></div>' +
       '<div class="song-search"><input id="songAdminSearch" value="' + esc(state.songQ || '') + '" placeholder="搜索歌名 / 歌手"></div>' +
-      '<div class="row head-row"><span>#</span><span>歌名</span><span>歌手 / 原唱</span><span>标签</span><span>备注</span><span>链接（选填）</span><span></span></div>' +
+      '<div class="row head-row"><span>#</span><span>歌名</span><span>歌手 / 原唱</span><span>标签</span><span>备注</span><span>链接（选填）</span><span>荐</span><span>学</span>><span></span></div>' +
       '<div id="songRows"></div>' +
       '<p class="more-tip" id="songMoreTip"></p>' +
       '<p style="font-size:11px;color:var(--ink-3);margin:12px 0 0">标签会变成前台的筛选按钮，建议统一用「国语 / 日语 / 闽南语 / 英语」。</p></div>';
@@ -526,6 +539,8 @@
           '<input value="' + esc(s.tag) + '" placeholder="国语" data-k="' + i + '" data-f="tag">' +
           '<input value="' + esc(s.note) + '" placeholder="备注" data-k="' + i + '" data-f="note">' +
           '<input value="' + esc(s.link) + '" placeholder="https://…" data-k="' + i + '" data-f="link">' +
+          '<label class="tog' + (s.rec ? ' on' : '') + '" title="推荐区"><input type="checkbox" data-k="' + i + '" data-f="rec"' + (s.rec ? ' checked' : '') + '>★</label>' +
+          '<label class="tog' + (s.learning ? ' on' : '') + '" title="在学"><input type="checkbox" data-k="' + i + '" data-f="learning"' + (s.learning ? ' checked' : '') + '>✎</label>' +
           '<button class="del" data-act="del-song" data-i="' + i + '">✕</button></div>';
       }).join('');
       $('#songMoreTip').textContent = ps.length > show.length
@@ -535,16 +550,23 @@
     draw();
     $('#songAdminSearch').oninput = function () { state.songQ = this.value; draw(); };
 
-    view.oninput = function (e) {
-      var el = e.target;
-      if (el.dataset && el.dataset.k !== undefined) state.draft[+el.dataset.k][el.dataset.f] = el.value;
-    };
+    function setDraft(el) {
+      if (!el.dataset || el.dataset.k === undefined) return;
+      var k = +el.dataset.k, f = el.dataset.f;
+      state.draft[k][f] = el.type === 'checkbox' ? el.checked : el.value;
+      if (el.type === 'checkbox') {
+        var lab = el.closest('.tog');
+        if (lab) lab.classList.toggle('on', el.checked);
+      }
+    }
+    view.oninput = function (e) { setDraft(e.target); };
+    view.onchange = function (e) { if (e.target.type === 'checkbox') setDraft(e.target); };
     view.onclick = function (e) {
       var b = e.target.closest('[data-act]');
       if (!b) return;
       var act = b.getAttribute('data-act');
       if (act === 'add-song') {
-        state.draft.push({ id: '', title: '', artist: '', tag: '华语', note: '', link: '' });
+        state.draft.push({ id: '', title: '', artist: '', tag: '华语', note: '', link: '', rec: false, learning: false });
         return renderSongs(view);
       }
       if (act === 'del-song') { state.draft.splice(+b.getAttribute('data-i'), 1); return renderSongs(view); }

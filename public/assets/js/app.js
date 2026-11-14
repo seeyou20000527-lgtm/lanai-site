@@ -125,13 +125,17 @@
     }
     $('#sideSpace').href = p.spaceUrl || '#';
     $('#sideLive').href = p.liveUrl || '#';
-    $('#footLive').href = p.liveUrl || '#';
     document.title = p.name || '辣奶火锅';
     if (site.live && site.live.isLive) {
       $('#tagline').textContent = '● 正在直播：' + (site.live.title || '辣奶火锅的直播间');
     }
   }
 
+  var SNS_ICON = {
+    douyin: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 5.8a4.5 4.5 0 0 1-2.4-2.3h-2.6v9.7a2.3 2.3 0 1 1-1.9-2.25v-2.6a4.9 4.9 0 1 0 4.5 4.88V9.1a7.2 7.2 0 0 0 3.6.96V7.5a4.6 4.6 0 0 1-1.2-.17z"/></svg>',
+    bili: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="4"/><path d="m8 3 3 4M16 3l-3 4"/><path d="M9.5 14v-3M14.5 14v-3" stroke-linecap="round"/></svg>',
+    replay: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m10.5 9.5 4.5 2.5-4.5 2.5z" fill="currentColor" stroke="none"/></svg>'
+  };
   function renderAbout() {
     var p = site.profile || {};
     $('#bioBox').innerHTML = (p.bio || []).map(function (t) { return '<p>' + esc(t) + '</p>'; }).join('');
@@ -139,6 +143,17 @@
       return '<div><dt>' + esc(f.label) + '</dt><dd>' + esc(f.value) + '</dd></div>';
     }).join('');
     $('#tagsBox').innerHTML = (p.tags || []).map(function (t) { return '<span>' + esc(t) + '</span>'; }).join('');
+    var links = [
+      { icon: 'douyin', label: '抖音', sub: '@辣奶火锅', href: p.douyin || '' },
+      { icon: 'bili', label: 'B 站主页', sub: 'space.bilibili.com', href: p.spaceUrl || '' },
+      { icon: 'replay', label: '录播号', sub: '直播回放', href: p.replay || '' }
+    ].filter(function (l) { return l.href; });
+    $('#aboutLinks').innerHTML = links.map(function (l) {
+      return '<a href="' + esc(l.href) + '" target="_blank" rel="noopener">' + SNS_ICON[l.icon] +
+        '<span class="lbl"><b>' + esc(l.label) + '</b><small>' + esc(l.sub) + '</small></span></a>';
+    }).join('');
+    var side = document.getElementById('sideReplay');
+    if (side) { side.href = p.replay || '#'; }
   }
 
   /* ---------------- 公告 ---------------- */
@@ -266,38 +281,22 @@
   function weekStart(d) { var x = new Date(d); x.setDate(x.getDate() - ((x.getDay() + 6) % 7)); return x; }
   function renderWeek(map) {
     var start = weekStart(calState.cursor);
-    var days = [], minH = 18, maxH = 24;
-    for (var i = 0; i < 7; i++) {
-      var d = new Date(start.getFullYear(), start.getMonth(), start.getDate() + i);
-      days.push(d);
-      (map[ymd(d)] || []).forEach(function (e) {
-        var h = Number(String(e.time || '20:00').split(':')[0]);
-        var end = h + Math.ceil(EV_MIN / 60);
-        if (h < minH) minH = h;
-        if (end > maxH) maxH = end;
-      });
-    }
-    minH = Math.max(0, minH); maxH = Math.min(24, Math.max(maxH, minH + 4));
-    var hours = maxH - minH, today = ymd(new Date());
-    var head = '<div class="wk-head"><div></div>' + days.map(function (d) {
-      return '<div class="' + (ymd(d) === today ? 'today' : '') + '">' + (d.getMonth() + 1) + '/' + d.getDate() + ' ' + WEEK[d.getDay()] + '</div>';
-    }).join('') + '</div>';
-    var times = '';
-    for (var h = minH; h <= maxH; h++) times += '<div>' + pad(h) + ':00</div>';
-    var cols = days.map(function (d) {
-      var evs = map[ymd(d)] || [], lines = '';
-      for (var k = 0; k <= hours; k++) lines += '<div class="wk-line" style="top:' + (k * HOUR_H) + 'px"></div>';
-      var blocks = evs.map(function (e) {
-        var parts = String(e.time || '20:00').split(':').map(Number);
-        var top = ((parts[0] * 60 + parts[1]) - minH * 60) / 60 * HOUR_H;
-        var height = Math.max(24, EV_MIN / 60 * HOUR_H - 2);
-        return '<div class="wk-ev ' + typeClass(e.type) + '" data-ev="' + evAttr(e) + '" style="top:' + top + 'px;height:' + height + 'px">' +
-          '<b>' + esc(e.title) + '</b><span>' + esc(e.time) + '</span></div>';
-      }).join('');
-      return '<div class="wk-col" style="height:' + (hours * HOUR_H) + 'px">' + lines + blocks + '</div>';
+    var today = ymd(new Date());
+    var days = [];
+    for (var i = 0; i < 7; i++) days.push(new Date(start.getFullYear(), start.getMonth(), start.getDate() + i));
+    var dow = days.map(function (d) {
+      return '<span class="' + (ymd(d) === today ? 'today' : '') + '">' + (d.getMonth() + 1) + '/' + d.getDate() + ' ' + WEEK[d.getDay()] + '</span>';
     }).join('');
-    return '<div class="wk-wrap"><div class="wk">' + head +
-      '<div class="wk-body"><div class="wk-times">' + times + '</div><div class="wk-days">' + cols + '</div></div></div></div>';
+    var cells = days.map(function (d) {
+      var key = ymd(d), evs = map[key] || [];
+      var cls = 'cal-cell wk-cell' + (key === today ? ' today' : '') + (key === calState.selected ? ' sel' : '');
+      return '<div class="' + cls + '" data-date="' + key + '">' +
+        '<div class="cal-num">' + d.getDate() + '</div>' +
+        (evs.length ? evs.map(function (e) {
+          return '<span class="chip wk-chip ' + typeClass(e.type) + '" data-ev="' + evAttr(e) + '"><b>' + esc(e.time || '20:00') + '</b>' + esc(e.title) + '</span>';
+        }).join('') : '<span class="wk-rest">休息</span>') + '</div>';
+    }).join('');
+    return '<div class="cal-dow">' + dow + '</div><div class="cal-grid wk-grid">' + cells + '</div>';
   }
   function renderDay(map) {
     var evs = map[calState.selected] || [];
@@ -334,6 +333,8 @@
         '<div class="cal-grid">' + monthCells(map) + '</div>';
     } else if (view === 'week') {
       var ws = weekStart(calState.cursor);
+      var selD = fromYmd(calState.selected);
+      if (selD < ws || selD > new Date(ws.getFullYear(), ws.getMonth(), ws.getDate() + 6)) calState.selected = ymd(ws);
       var we = new Date(ws.getFullYear(), ws.getMonth(), ws.getDate() + 6);
       var wc = 0;
       for (var i = 0; i < 7; i++) {
@@ -382,7 +383,7 @@
   /* ---------------- 歌单 ---------------- */
   function renderSongs() {
     var songs = site.songs || [];
-    var tags = ['全部'];
+    var tags = ['全部', '推荐', '在学'];
     songs.forEach(function (s) { if (s.tag && tags.indexOf(s.tag) < 0) tags.push(s.tag); });
     $('#songFilters').innerHTML = tags.map(function (t) {
       return '<button type="button" class="filter' + (t === songState.tag ? ' on' : '') + '" data-tag="' + esc(t) + '">' + esc(t) + '</button>';
@@ -390,7 +391,9 @@
     var q = songState.q.trim().toLowerCase();
     var rows = [];
     songs.forEach(function (s, i) {
-      if (songState.tag !== '全部' && s.tag !== songState.tag) return;
+      if (songState.tag === '推荐') { if (!s.rec) return; }
+      else if (songState.tag === '在学') { if (!s.learning) return; }
+      else if (songState.tag !== '全部' && s.tag !== songState.tag) return;
       if (q && (s.title + ' ' + (s.artist || '')).toLowerCase().indexOf(q) < 0) return;
       rows.push({ s: s, i: i });
     });
@@ -405,7 +408,8 @@
       return '<div class="song"><span class="no">' + pad(r.i + 1) + '</span>' +
         '<div><p class="ti">' + esc(s.title) + '</p><p class="ar">' + esc(s.artist || '') + '</p>' +
         (s.note ? '<p class="note">' + esc(s.note) + '</p>' : '') + '</div>' +
-        '<span class="tg">' + esc(s.tag || '歌曲') + '</span>' + act + '</div>';
+        '<span class="tg">' + esc(s.tag || '歌曲') + '</span>' +
+        (s.rec ? '<span class="bd rec">推荐</span>' : '') + (s.learning ? '<span class="bd learn">在学</span>' : '') + act + '</div>';
     }).join('') + (rows.length > shown.length
       ? '<div class="song-more"><button class="btn btn-sm" type="button" id="songMore">显示更多（还有 ' + (rows.length - shown.length) + ' 首）</button></div>'
       : '');
@@ -455,16 +459,19 @@
     $('#trackEmpty').hidden = list.length > 0;
     $('#trackList').innerHTML = list.map(function (m, i) {
       var playing = player.idx === i && !audio.paused && !audio.ended;
-      return '<div class="track' + (player.idx === i ? ' on' : '') + '">' +
-        '<button class="tr-play" type="button" data-play="' + i + '">' + (playing ? '❚❚' : '▶') + '</button>' +
+      return '<div class="track' + (player.idx === i ? ' on' : '') + '" data-i="' + i + '">' +
+        '<button class="tr-play" type="button" data-play="' + i + '" aria-label="播放">' + (playing ? '❚❚' : '▶') + '</button>' +
         '<img class="tr-cover" src="' + esc(m.cover || '/assets/img/avatar.png') + '" alt="">' +
         '<div class="tr-info"><b>' + esc(m.title) + '</b><span>' + esc(m.artist || '') + (m.size ? ' · ' + fmtSize(m.size) : '') + '</span></div>' +
         '<a class="tr-dl" href="/music/download/' + encodeURIComponent(m.id) + '">下载</a></div>';
     }).join('');
-    $$('#trackList [data-play]').forEach(function (b) {
-      b.onclick = function () {
-        var i = +b.getAttribute('data-play');
-        if (player.idx === i) togglePlay(); else playTrack(i);
+    $$('#trackList .track').forEach(function (el) {
+      el.onclick = function (e) {
+        if (e.target.closest('.tr-dl')) return;
+        var i = +el.getAttribute('data-i');
+        if (e.target.closest('[data-play]') && player.idx === i) { togglePlay(); return; }
+        if (player.idx !== i) playTrack(i);
+        openCD();
       };
     });
   }
@@ -509,6 +516,8 @@
     $('#cdDisc').style.animationDuration = (60 / bpm * 8).toFixed(2) + 's';
     var bili = $('#cdBili');
     if (m.bili) { bili.href = m.bili; bili.hidden = false; } else bili.hidden = true;
+    var panel = $('#cdPanel');
+    if (panel) panel.setAttribute('data-palette', m.palette || 'cream');
     renderLyrics(m.lyrics);
     renderMusic();
     loadComments(m.id);
@@ -557,11 +566,74 @@
     $('#cd').hidden = false;
     requestAnimationFrame(function () { $('#cd').classList.add('open'); });
     syncLyrics();
+    startEq();
   }
   function closeCD() {
     $('#cd').classList.remove('open');
+    stopEq();
     setTimeout(function () { $('#cd').hidden = true; }, 420);
   }
+  /* 律动条：用真实音频频谱带动顶部条形 */
+  var eq = { bars: [], raf: 0, actx: null, analyser: null, data: null, failed: false, fakeT: 0 };
+  function buildEq() {
+    if (eq.bars.length) return;
+    var box = $('#cdEq');
+    if (!box) return;
+    var n = Math.min(64, Math.max(28, Math.floor(window.innerWidth / 26)));
+    var html = '';
+    for (var i = 0; i < n; i++) html += '<span></span>';
+    box.innerHTML = html;
+    eq.bars = [].slice.call(box.children);
+  }
+  function eqRender(get) {
+    cancelAnimationFrame(eq.raf);
+    var loop = function () {
+      for (var i = 0; i < eq.bars.length; i++) eq.bars[i].style.height = get(i) + 'px';
+      eq.raf = requestAnimationFrame(loop);
+    };
+    loop();
+  }
+  function startEq() {
+    buildEq();
+    if (!eq.bars.length) return;
+    if (!eq.failed && !eq.actx) {
+      try {
+        var AC = window.AudioContext || window.webkitAudioContext;
+        eq.actx = new AC();
+        var src = eq.actx.createMediaElementSource(audio);
+        eq.analyser = eq.actx.createAnalyser();
+        eq.analyser.fftSize = 128;
+        eq.analyser.smoothingTimeConstant = .82;
+        src.connect(eq.analyser);
+        eq.analyser.connect(eq.actx.destination);
+        eq.data = new Uint8Array(eq.analyser.frequencyBinCount);
+      } catch (e) { eq.failed = true; }
+    }
+    if (eq.actx && eq.actx.state === 'suspended') eq.actx.resume().catch(function () {});
+    if (eq.actx && !eq.failed) {
+      eqRender(function (i) {
+        var d = eq.data;
+        eq.analyser.getByteFrequencyData(d);
+        var idx = Math.floor(i / eq.bars.length * d.length * .7);
+        var real = d[idx] / 255;
+        eq.fakeT += 0.0016;
+        var soft = (Math.sin(i * .5 + eq.fakeT * 9) * .5 + .5) * .18;
+        return 2 + Math.max(real, soft) * 42;
+      });
+    } else {
+      eqRender(function (i) {
+        eq.fakeT += 0.0004;
+        var v = Math.sin(i * .55 + eq.fakeT * 26) * Math.sin(i * .13 + eq.fakeT * 11);
+        return 3 + Math.abs(v) * 26;
+      });
+    }
+  }
+  function stopEq() {
+    cancelAnimationFrame(eq.raf);
+    eq.raf = 0;
+    eq.bars.forEach(function (b) { b.style.height = '2px'; });
+  }
+
   function loadComments(trackId) {
     var box = $('#cmList');
     if (!box) return;
@@ -570,17 +642,49 @@
       .then(function (j) { renderComments((j && j.items) || []); })
       .catch(function () { renderComments([]); });
   }
+  var likedIds = {};
+  try { likedIds = JSON.parse(localStorage.getItem('cm-liked') || '{}') || {}; } catch (e) { likedIds = {}; }
+
   function renderComments(items) {
-    $('#cmCount').textContent = items.length ? items.length + ' 条' : '';
+    var box = $('#cmList');
+    if ($('#cmCount')) $('#cmCount').textContent = items.length ? items.length + ' 条' : '';
+    var plCm = $('#plCm');
+    if (plCm) plCm.textContent = items.length ? '评论 · ' + items.length + ' 条' : '评论';
     if (!items.length) {
-      $('#cmList').innerHTML = '<p class="cm-empty">还没有留言，来说第一句吧。</p>';
+      box.innerHTML = '<p class="cm-empty">还没有评论，来说第一句吧。</p>';
       return;
     }
-    $('#cmList').innerHTML = items.slice().reverse().map(function (c) {
+    var hot = items.filter(function (c) { return (c.likes || 0) > 0; })
+      .sort(function (a, b) { return (b.likes || 0) - (a.likes || 0); }).slice(0, 3);
+    var rest = items.filter(function (c) { return hot.indexOf(c) < 0; })
+      .sort(function (a, b) { return new Date(b.createdAt) - new Date(a.createdAt); });
+    box.innerHTML = hot.concat(rest).map(function (c) {
       var d = new Date(c.createdAt);
       var ds = (d.getMonth() + 1) + '/' + d.getDate() + ' ' + pad(d.getHours()) + ':' + pad(d.getMinutes());
-      return '<div class="cm-item"><b>' + esc(c.name) + '</b><span>' + ds + '</span><p>' + esc(c.text) + '</p></div>';
+      var liked = !!likedIds[c.id];
+      return '<div class="cm-item' + (hot.indexOf(c) >= 0 ? ' hot' : '') + '">' +
+        '<div class="cm-body"><div class="who"><b>' + esc(c.name) + '</b><time>' + ds + '</time></div>' +
+        '<p>' + esc(c.text) + '</p></div>' +
+        '<button class="cm-like' + (liked ? ' on' : '') + '" type="button" data-like="' + esc(c.id) + '">' +
+        '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 20.3s-7.2-4.5-7.2-9.4A4 4 0 0 1 12 8.2a4 4 0 0 1 7.2 2.7c0 4.9-7.2 9.4-7.2 9.4z"/></svg>' +
+        '<span>' + (c.likes || 0) + '</span></button></div>';
     }).join('');
+    $$('[data-like]', box).forEach(function (b) {
+      b.onclick = function () {
+        var id = b.getAttribute('data-like');
+        if (likedIds[id]) return toast('已经点过赞啦');
+        b.disabled = true;
+        fetch('/api/comments/like', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id: id }) })
+          .then(function (r) { return r.ok ? r.json() : Promise.reject(new Error('点赞失败')); })
+          .then(function () {
+            likedIds[id] = 1;
+            try { localStorage.setItem('cm-liked', JSON.stringify(likedIds)); } catch (e) {}
+            var m = (site.music || [])[player.idx];
+            if (m) loadComments(m.id);
+          })
+          .catch(function () { b.disabled = false; toast('点赞失败，稍后再试', true); });
+      };
+    });
   }
   function seekAt(clientX) {
     var r = $('#plBar').getBoundingClientRect();
@@ -622,6 +726,16 @@
       document.addEventListener('pointerup', up);
     });
     $('#plExpand').onclick = openCD;
+    var plCm = $('#plCm');
+    if (plCm) plCm.onclick = function () {
+      openCD();
+      setTimeout(function () {
+        var cm = document.querySelector('.cd-comments');
+        if (cm) cm.scrollIntoView({ behavior: 'smooth', block: 'end' });
+        var t = $('#cmText');
+        if (t) t.focus({ preventScroll: true });
+      }, 460);
+    };
     $$('[data-cd-close]').forEach(function (el) { el.onclick = closeCD; });
     $('#cmName').value = localStorage.getItem('cm-name') || '';
     $('#cmForm').addEventListener('submit', function (e) {
@@ -643,7 +757,7 @@
       }).then(function () {
         $('#cmText').value = '';
         loadComments(m.id);
-        toast('留言成功');
+        toast('评论成功');
       }).catch(function (err) { toast(err.message, true); });
     });
     audio.addEventListener('play', setPlayingUI);
