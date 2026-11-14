@@ -500,7 +500,7 @@ function sanitizeSection(section, value) {
   if (section === 'profile') {
     const p = value || {};
     const out = {};
-    ['name', 'nameEn', 'handle', 'tagline', 'intro', 'qqGroup', 'uid', 'spaceUrl', 'liveUrl', 'email', 'avatar', 'art', 'artAlt', 'logo'].forEach((k) => {
+    ['name', 'nameEn', 'handle', 'tagline', 'intro', 'qqGroup', 'uid', 'spaceUrl', 'liveUrl', 'email', 'avatar', 'art', 'artAlt', 'logo', 'douyin', 'replay'].forEach((k) => {
       out[k] = clean(p[k], k === 'intro' ? 200 : 200);
     });
     out.bio = (Array.isArray(p.bio) ? p.bio : []).slice(0, 6).map((t) => clean(t, 600));
@@ -553,6 +553,7 @@ function sanitizeSection(section, value) {
       lyrics: clean(m && m.lyrics, 8000),
       bpm: Math.min(300, Math.max(20, Number(m && m.bpm) || 90)),
       bili: clean(m && m.bili, 300),
+      theme: /^#[0-9a-fA-F]{6}$/.test(String((m && m.theme) || '')) ? String(m.theme).toLowerCase() : '#f6ede5',
       file: clean(m && m.file, 300),
       size: Number(m && m.size) || 0,
       createdAt: m && m.createdAt ? clean(m.createdAt, 40) : new Date().toISOString()
@@ -585,7 +586,9 @@ function sanitizeSection(section, value) {
         artist: clean(s && s.artist, 40),
         tag: clean(s && s.tag, 8) || '华语',
         note: clean(s && s.note, 60),
-        link: clean(s && s.link, 300)
+        link: clean(s && s.link, 300),
+        rec: !!(s && s.rec),
+        learning: !!(s && s.learning)
       };
     }).filter((s) => s.title);
   }

@@ -566,12 +566,14 @@
   }
   function openCD() {
     $('#cd').hidden = false;
+    document.body.classList.add('cd-open');
     requestAnimationFrame(function () { $('#cd').classList.add('open'); });
     syncLyrics();
     startEq();
   }
   function closeCD() {
     $('#cd').classList.remove('open');
+    document.body.classList.remove('cd-open');
     stopEq();
     setTimeout(function () { $('#cd').hidden = true; }, 420);
   }
@@ -668,7 +670,13 @@
     var box = $('#cmList');
     if ($('#cmCount')) $('#cmCount').textContent = items.length ? items.length + ' 条' : '';
     var plCm = $('#plCm');
-    if (plCm) plCm.textContent = items.length ? '评论 · ' + items.length + ' 条' : '评论';
+    if (plCm) {
+      var badge = plCm.querySelector('b');
+      if (items.length) {
+        if (!badge) { badge = document.createElement('b'); plCm.appendChild(badge); }
+        badge.textContent = items.length;
+      } else if (badge) badge.remove();
+    }
     if (!items.length) {
       box.innerHTML = '<p class="cm-empty">还没有评论，来说第一句吧。</p>';
       return;
@@ -745,6 +753,11 @@
       document.addEventListener('pointerup', up);
     });
     $('#plExpand').onclick = openCD;
+    var playerBar = $('#player');
+    if (playerBar) playerBar.addEventListener('click', function (e) {
+      if (e.target.closest('button, a, input, .pl-bar')) return;
+      openCD();
+    });
     var plCm = $('#plCm');
     if (plCm) plCm.onclick = function () {
       openCD();

@@ -149,3 +149,6 @@ textarea { resize: vertical; min-height: 70px; }
 .swatches { display: flex; gap: 6px; }
 .swatches .sw { width: 24px; height: 24px; border-radius: 50%; border: 1px solid rgba(0,0,0,.12); cursor: pointer; padding: 0; }
 .swatches .sw:hover { transform: scale(1.08); }
+
+.track-acts { display: flex; align-items: center; gap: 10px; }
+.track-acts a { color: var(--rose-2); }

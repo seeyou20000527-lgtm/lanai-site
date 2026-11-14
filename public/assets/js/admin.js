@@ -291,7 +291,7 @@
           '<input value="' + esc(m.bili || '') + '" data-mi="' + i + '" data-mf="bili" placeholder="B站链接">' +
           '<span class="theme-cell"><input type="color" data-mi="' + i + '" data-mf="theme" value="' + (/^#[0-9a-f]{6}$/i.test(m.theme || '') ? m.theme : '#f6ede5') + '" title="展开区配色"></span></div>' +
           '<textarea data-mi="' + i + '" data-mf="lyrics" placeholder="歌词（支持 [00:12.30] 时间轴）">' + esc(m.lyrics) + '</textarea>' +
-          '<div class="row-b"><span>' + (m.size ? (m.size / 1048576).toFixed(1) + ' MB' : '') + ' · ' + (m.downloads || 0) + ' 次下载</span>' +
+          '<div class="row-b"><span>' + (m.size ? (m.size / 1048576).toFixed(1) + ' MB' : '') + ' · 配色 ' + (/^#[0-9a-f]{6}$/i.test(m.theme || '') ? m.theme : '#f6ede5') + '</span>' +
           '<span><a href="' + esc(m.file) + '" target="_blank">试听</a>　<button class="del" data-act="del-music" data-id="' + esc(m.id) + '">删除</button></span></div></div></div>';
       }).join('') : '<div class="empty">还没有上传歌曲。</div>') + '</div>';
 
@@ -347,6 +347,13 @@
           method: 'PUT', headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ section: 'music', value: state.site.music })
         }).then(function (r) { state.site.music = r.value; toast('歌单信息已保存'); return refreshAll(); })
+          .catch(function (err) { toast(err.message, true); });
+      }
+      if (act === 'save-track') {
+        api('/api/admin/site', {
+          method: 'PUT', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ section: 'music', value: state.site.music })
+        }).then(function (r) { state.site.music = r.value; toast('这首已保存'); return refreshAll(); })
           .catch(function (err) { toast(err.message, true); });
       }
       if (act === 'del-music') {
