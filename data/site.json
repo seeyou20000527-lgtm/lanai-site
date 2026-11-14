@@ -210,6 +210,16 @@
       "cover": "/assets/img/material-default.png",
       "format": "MP4",
       "res": ""
+    },
+    {
+      "id": "mat-mwgnt6xi",
+      "title": "片尾",
+      "desc": "片尾",
+      "category": "片尾",
+      "file": "/materials/uploads/mat-mwgnt6xi.mp4",
+      "cover": "/assets/img/material-default.png",
+      "format": "MP4",
+      "res": ""
     }
   ],
   "rules": {
