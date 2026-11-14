@@ -1,0 +1,16 @@
+name: keepalive
+
+# 免费实例 15 分钟没访问会休眠，第一次打开要等 30~60 秒（就是那个 APPLICATION LOADING 页面）。
+# 这个定时任务每 10 分钟敲一下 /api/health，让它一直热着。
+on:
+  schedule:
+    - cron: '*/10 * * * *'
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Render
+        run: |
+          curl -fsS -m 60 --retry 2 --retry-delay 5 https://lanai-site.onrender.com/api/health || true
