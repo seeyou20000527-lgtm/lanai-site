@@ -4143,6 +4143,19 @@
       "file": "/music/mmwgsj49u5788.mp3",
       "size": 6720783,
       "createdAt": "2026-11-14T19:20:24.961Z"
+    },
+    {
+      "id": "mmwgt937s11f1",
+      "title": "SYNC-TEST-测试",
+      "artist": "t",
+      "cover": "/assets/img/avatar.png",
+      "lyrics": "",
+      "bpm": 90,
+      "bili": "",
+      "theme": "#f6ede5",
+      "file": "/music/mmwgt937s11f1.wav",
+      "size": 88244,
+      "createdAt": "2026-11-14T19:40:36.617Z"
     }
   ]
 }
