@@ -102,21 +102,28 @@ async function ghPutFile(rel, buf, message) {
   if (!(await ghEnsureBranch())) return false;
   const url = GH_API + '/contents/' + rel.split('/').map(encodeURIComponent).join('/');
   const headers = ghHeaders();
-  let sha = null;
-  try {
-    const r = await fetch(url + '?ref=' + GH_DATA_BRANCH, { headers });
-    if (r.ok) sha = (await r.json()).sha;
-  } catch (e) {}
-  const payload = { message, content: Buffer.from(buf).toString('base64'), branch: GH_DATA_BRANCH };
-  if (sha) payload.sha = sha;
-  try {
-    const res = await fetch(url, { method: 'PUT', headers: Object.assign({ 'Content-Type': 'application/json' }, headers), body: JSON.stringify(payload) });
-    if (!res.ok) console.error('[gh] commit failed', rel, res.status, (await res.text()).slice(0, 160));
-    return res.ok;
-  } catch (e) {
-    console.error('[gh] commit error', rel, e.message);
-    return false;
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    let sha = null;
+    try {
+      const r = await fetch(url + '?ref=' + GH_DATA_BRANCH + '&t=' + Date.now(), { headers });
+      if (r.ok) sha = (await r.json()).sha;
+    } catch (e) {}
+    const payload = { message, content: Buffer.from(buf).toString('base64'), branch: GH_DATA_BRANCH };
+    if (sha) payload.sha = sha;
+    try {
+      const res = await fetch(url, { method: 'PUT', headers: Object.assign({ 'Content-Type': 'application/json' }, headers), body: JSON.stringify(payload) });
+      if (res.ok) return true;
+      const txt = (await res.text()).slice(0, 160);
+      console.error('[gh] commit failed', rel, res.status, txt, 'attempt', attempt);
+      if (res.status === 409 || res.status === 422) { await new Promise((r2) => setTimeout(r2, 500)); continue; }
+      if (res.status >= 500) { await new Promise((r2) => setTimeout(r2, 800)); continue; }
+      return false;
+    } catch (e) {
+      console.error('[gh] commit error', rel, e.message, 'attempt', attempt);
+      await new Promise((r2) => setTimeout(r2, 800));
+    }
   }
+  return false;
 }
 
 function scheduleCommit(rel, message, delay = 5000) {
@@ -128,6 +135,20 @@ function scheduleCommit(rel, message, delay = 5000) {
   }, delay);
   if (t.unref) t.unref();
   ghTimers.set(rel, t);
+}
+
+function cancelCommit(rel) {
+  const t = ghTimers.get(rel);
+  if (t) { clearTimeout(t); ghTimers.delete(rel); }
+}
+async function commitJsonNow(file, note) {
+  const rel = PERSIST_JSON[file];
+  if (!rel || !GH_TOKEN) return true;
+  cancelCommit(rel);
+  try {
+    const buf = await fsp.readFile(path.join(ROOT, rel));
+    return await ghPutFile(rel, buf, note || ('数据更新：' + file));
+  } catch (e) { return false; }
 }
 
 const HYDRATE = ['data/site.json', 'data/fanart.json'];
@@ -471,7 +492,6 @@ async function apiFanartUpload(req, res) {
   const id = Date.now().toString(36) + crypto.randomBytes(3).toString('hex');
   const safeName = id + ext;
   await fsp.writeFile(path.join(UPLOAD_DIR, safeName), body);
-  scheduleCommit('uploads/' + safeName, '二创投稿：' + safeName);
 
   const db = readJson('fanart.json', { items: [] });
   db.items = Array.isArray(db.items) ? db.items : [];
@@ -661,8 +681,8 @@ async function apiAdminImage(req, res) {
   if (!body.length) return sendJson(res, 400, { error: '没有收到图片。' });
   const name = field + '-' + Date.now().toString(36) + ext;
   await fsp.writeFile(path.join(IMG_UPLOAD_DIR, name), body);
-  scheduleCommit('public/assets/img/uploads/' + name, '图片素材：' + name);
-  sendJson(res, 200, { ok: true, url: '/assets/img/uploads/' + name });
+  const imgSynced = GH_TOKEN ? await ghPutFile('public/assets/img/uploads/' + name, body, '图片素材：' + name) : true;
+  sendJson(res, 200, { ok: true, url: '/assets/img/uploads/' + name, synced: imgSynced });
 }
 
 async function apiAdminMusic(req, res) {
@@ -683,7 +703,6 @@ async function apiAdminMusic(req, res) {
   const id = 'm' + Date.now().toString(36) + crypto.randomBytes(2).toString('hex');
   const name = id + ext;
   await fsp.writeFile(path.join(MUSIC_DIR, name), body);
-  scheduleCommit('public/music/' + name, '新歌：' + (meta.title || name), 2500);
 
   const item = {
     id, title,
@@ -701,7 +720,17 @@ async function apiAdminMusic(req, res) {
   site.music = Array.isArray(site.music) ? site.music : [];
   site.music.push(item);
   await writeJson('site.json', site);
-  sendJson(res, 201, { ok: true, item });
+  // 等云端存好再回话：这样「上传成功」就等于「已经进了仓库」
+  let synced = true;
+  if (GH_TOKEN) {
+    const okFile = await ghPutFile('public/music/' + name, body, '新歌：' + title);
+    const okJson = await commitJsonNow('site.json', '新歌上线：' + title);
+    synced = okFile && okJson;
+  }
+  sendJson(res, 201, {
+    ok: true, item, synced,
+    warning: synced ? '' : '音频已保存到服务器，但同步到云端失败；请稍后重试或告诉我'
+  });
 }
 
 async function apiAdminMaterialUpload(req, res) {
@@ -726,7 +755,6 @@ async function apiAdminMaterialUpload(req, res) {
   const id = slug + '-' + Date.now().toString(36);
   const safeName = id + ext;
   await fsp.writeFile(path.join(MATERIAL_UPLOAD_DIR, safeName), body);
-  scheduleCommit('public/materials/uploads/' + safeName, '物料：' + safeName);
 
   const isImage = /\.(png|jpe?g|webp|gif)$/i.test(safeName);
   // 影片没有缩略图，就从已有图片物料里随机挑一张当封面
@@ -751,7 +779,13 @@ async function apiAdminMaterialUpload(req, res) {
   site.materials = Array.isArray(site.materials) ? site.materials : [];
   site.materials.push(item);
   await writeJson('site.json', site);
-  sendJson(res, 201, { ok: true, item });
+  let synced = true;
+  if (GH_TOKEN) {
+    const okFile = await ghPutFile('public/materials/uploads/' + safeName, body, '物料：' + safeName);
+    const okJson = await commitJsonNow('site.json', '物料上线：' + title);
+    synced = okFile && okJson;
+  }
+  sendJson(res, 201, { ok: true, item, synced, warning: synced ? '' : '文件已上传，但同步云端失败' });
 }
 
 async function apiAdminMaterialDelete(req, res, id) {

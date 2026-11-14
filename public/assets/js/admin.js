@@ -346,7 +346,11 @@
             if (!r.ok) throw new Error(j.error || '上传失败');
             return j;
           });
-        }).then(function () { toast('已上传，前台音乐页就能播了'); return refreshAll(); })
+        }).then(function (j) {
+          if (j && j.warning) toast(j.warning, true);
+          else toast('已上传并同步到云端，前台马上能听');
+          return refreshAll();
+        })
           .catch(function (err) { toast(err.message, true); b.disabled = false; b.textContent = '上传并添加'; });
       }
       if (act === 'save-music') {
@@ -533,7 +537,11 @@
           headers: { 'x-material-meta': encodeURIComponent(JSON.stringify(meta)) },
           body: file
         }).then(function (r) { return r.json().then(function (j) { if (!r.ok) throw new Error(j.error || '上传失败'); return j; }); })
-          .then(function () { toast('物料已添加'); return refreshAll(); })
+          .then(function (j) {
+            if (j && j.warning) toast(j.warning, true);
+            else toast('物料已添加并同步到云端');
+            return refreshAll();
+          })
           .catch(function (err) { toast(err.message, true); b.disabled = false; b.textContent = '上传并添加'; });
       }
     };
