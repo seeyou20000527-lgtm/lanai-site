@@ -54,80 +54,73 @@
   },
   "schedule": [
     {
-      "date": "2026-11-04",
-      "time": "20:00",
-      "title": "沸腾杂谈 · 十一月开场",
-      "type": "杂谈",
-      "note": "带好蘸料"
-    },
-    {
-      "date": "2026-11-07",
-      "time": "20:30",
-      "title": "辣味歌回 · 把情歌唱成麻辣烫",
-      "type": "歌回",
-      "note": "点歌打在弹幕里"
-    },
-    {
-      "date": "2026-11-11",
-      "time": "21:00",
-      "title": "恐怖游戏 · 嘴上说不怕",
-      "type": "游戏",
-      "note": "胆小者弹幕护体"
-    },
-    {
-      "date": "2026-11-14",
-      "time": "20:00",
-      "title": "沸腾杂谈 · 本周瓜田大乱炖",
-      "type": "杂谈",
-      "note": "今晚有新品试吃"
-    },
-    {
       "date": "2026-11-16",
       "time": "20:30",
-      "title": "歌回 · 冬天第一首情歌",
+      "title": "歌杂",
+      "type": "歌回",
+      "note": ""
+    },
+    {
+      "date": "2026-11-17",
+      "time": "21:00",
+      "title": "歌杂",
       "type": "歌回",
       "note": ""
     },
     {
       "date": "2026-11-18",
+      "time": "20:00",
+      "title": "歌杂",
+      "type": "歌回",
+      "note": ""
+    },
+    {
+      "date": "2026-11-19",
+      "time": "20:30",
+      "title": "歌杂",
+      "type": "歌回",
+      "note": ""
+    },
+    {
+      "date": "2026-11-20",
       "time": "21:00",
-      "title": "游戏 · 恐怖游戏第二锅",
-      "type": "游戏",
+      "title": "满月歌会",
+      "type": "活动",
       "note": ""
     },
     {
       "date": "2026-11-21",
       "time": "20:00",
-      "title": "深夜食堂 · 锅不能空，人不能睡",
-      "type": "杂谈",
-      "note": "边吃边播"
-    },
-    {
-      "date": "2026-11-22",
-      "time": "19:00",
-      "title": "粉丝歌会 · 冬天第一锅",
-      "type": "活动",
-      "note": "报名见动态"
-    },
-    {
-      "date": "2026-11-25",
-      "time": "20:00",
-      "title": "杂谈 · 月末结算",
-      "type": "杂谈",
-      "note": ""
-    },
-    {
-      "date": "2026-11-28",
-      "time": "21:00",
-      "title": "歌回 · 月末点歌台",
+      "title": "歌杂",
       "type": "歌回",
       "note": ""
     },
     {
-      "date": "2026-12-02",
+      "date": "2026-11-22",
+      "time": "19:00",
+      "title": "歌杂",
+      "type": "活动",
+      "note": ""
+    },
+    {
+      "date": "2026-11-23",
       "time": "20:00",
-      "title": "十二月开场 · 火锅局",
-      "type": "杂谈",
+      "title": "歌杂",
+      "type": "歌回",
+      "note": ""
+    },
+    {
+      "date": "2026-11-24",
+      "time": "21:00",
+      "title": "歌杂",
+      "type": "歌回",
+      "note": ""
+    },
+    {
+      "date": "2026-11-25",
+      "time": "20:00",
+      "title": "歌杂",
+      "type": "歌回",
       "note": ""
     }
   ],
@@ -138,27 +131,6 @@
       "title": "新物料上架：立绘、头像包、双色壁纸",
       "text": "这次放出了两张立绘源文件、四色头像包和新壁纸，全部免费下载，禁止转载。",
       "link": "#materials"
-    },
-    {
-      "date": "2026-11-10",
-      "tag": "二创",
-      "title": "11 月二创征集：冬天第一锅",
-      "text": "投稿你的火锅二创，入选作品会出现在本站展厅，并可能在直播间轮播。",
-      "link": "#fanart"
-    },
-    {
-      "date": "2026-11-06",
-      "tag": "排期",
-      "title": "11 月排期公布",
-      "text": "固定周三、周六晚开播，周五不定期加播「深夜食堂」。可以在月历里订阅。",
-      "link": "#calendar"
-    },
-    {
-      "date": "2026-10-30",
-      "tag": "活动",
-      "title": "百天纪念 & 万圣节小活动",
-      "text": "感谢大家陪我过完第一个一百天，锅底没糊，感情也没糊。",
-      "link": ""
     }
   ],
   "materials": [
@@ -221,6 +193,46 @@
       "cover": "/materials/uploads/mat-mwga5357.png",
       "format": "PNG",
       "res": ""
+    },
+    {
+      "id": "mat-mwgsjy82",
+      "title": "红包封面",
+      "desc": "红包封面",
+      "category": "壁纸",
+      "file": "/materials/uploads/mat-mwgsjy82.jpg",
+      "cover": "/materials/uploads/mat-mwgsjy82.jpg",
+      "format": "JPG",
+      "res": ""
+    },
+    {
+      "id": "mat-mwgsk9xw",
+      "title": "片头",
+      "desc": "片头",
+      "category": "片头",
+      "file": "/materials/uploads/mat-mwgsk9xw.mp4",
+      "cover": "/materials/uploads/mat-mwgsjy82.jpg",
+      "format": "MP4",
+      "res": ""
+    },
+    {
+      "id": "mat-mwgskq2p",
+      "title": "片尾",
+      "desc": "片尾",
+      "category": "片尾",
+      "file": "/materials/uploads/mat-mwgskq2p.mp4",
+      "cover": "/materials/uploads/mat-mwga5357.png",
+      "format": "MP4",
+      "res": ""
+    },
+    {
+      "id": "mat-mwgslome",
+      "title": "奶锅魔杖",
+      "desc": "奶锅概念魔杖",
+      "category": "魔杖",
+      "file": "/materials/uploads/mat-mwgslome.gif",
+      "cover": "/materials/uploads/mat-mwgslome.gif",
+      "format": "GIF",
+      "res": ""
     }
   ],
   "rules": {
@@ -279,7 +291,7 @@
       "tag": "国语",
       "note": "",
       "link": "",
-      "rec": false,
+      "rec": true,
       "learning": false
     },
     {
@@ -289,7 +301,7 @@
       "tag": "国语",
       "note": "",
       "link": "",
-      "rec": false,
+      "rec": true,
       "learning": false
     },
     {
@@ -300,7 +312,7 @@
       "note": "",
       "link": "",
       "rec": false,
-      "learning": false
+      "learning": true
     },
     {
       "id": "s5",
@@ -309,7 +321,7 @@
       "tag": "国语",
       "note": "",
       "link": "",
-      "rec": false,
+      "rec": true,
       "learning": false
     },
     {
@@ -319,7 +331,7 @@
       "tag": "国语",
       "note": "",
       "link": "",
-      "rec": false,
+      "rec": true,
       "learning": false
     },
     {
@@ -359,7 +371,7 @@
       "tag": "国语",
       "note": "",
       "link": "",
-      "rec": false,
+      "rec": true,
       "learning": false
     },
     {
@@ -1239,7 +1251,7 @@
       "tag": "国语",
       "note": "☆",
       "link": "",
-      "rec": false,
+      "rec": true,
       "learning": false
     },
     {
@@ -1309,7 +1321,7 @@
       "tag": "国语",
       "note": "☆",
       "link": "",
-      "rec": false,
+      "rec": true,
       "learning": false
     },
     {
@@ -1419,7 +1431,7 @@
       "tag": "国语",
       "note": "",
       "link": "",
-      "rec": false,
+      "rec": true,
       "learning": false
     },
     {
@@ -1459,7 +1471,7 @@
       "tag": "国语",
       "note": "☆",
       "link": "",
-      "rec": false,
+      "rec": true,
       "learning": false
     },
     {
@@ -3459,7 +3471,7 @@
       "tag": "国语",
       "note": "",
       "link": "",
-      "rec": false,
+      "rec": true,
       "learning": false
     },
     {
@@ -3469,7 +3481,7 @@
       "tag": "国语",
       "note": "",
       "link": "",
-      "rec": false,
+      "rec": true,
       "learning": false
     },
     {
@@ -3499,7 +3511,7 @@
       "tag": "国语",
       "note": "",
       "link": "",
-      "rec": false,
+      "rec": true,
       "learning": false
     },
     {
@@ -3829,7 +3841,7 @@
       "tag": "国语",
       "note": "",
       "link": "",
-      "rec": false,
+      "rec": true,
       "learning": false
     },
     {
@@ -3839,7 +3851,7 @@
       "tag": "国语",
       "note": "",
       "link": "",
-      "rec": false,
+      "rec": true,
       "learning": false
     },
     {
@@ -3939,7 +3951,7 @@
       "tag": "国语",
       "note": "",
       "link": "",
-      "rec": false,
+      "rec": true,
       "learning": false
     },
     {
@@ -3949,7 +3961,7 @@
       "tag": "国语",
       "note": "",
       "link": "",
-      "rec": false,
+      "rec": true,
       "learning": false
     },
     {
@@ -3959,7 +3971,7 @@
       "tag": "国语",
       "note": "",
       "link": "",
-      "rec": false,
+      "rec": true,
       "learning": false
     },
     {
@@ -3969,7 +3981,7 @@
       "tag": "国语",
       "note": "",
       "link": "",
-      "rec": false,
+      "rec": true,
       "learning": false
     },
     {
@@ -3979,7 +3991,7 @@
       "tag": "国语",
       "note": "",
       "link": "",
-      "rec": false,
+      "rec": true,
       "learning": false
     },
     {
@@ -3989,7 +4001,7 @@
       "tag": "国语",
       "note": "",
       "link": "",
-      "rec": false,
+      "rec": true,
       "learning": false
     },
     {
@@ -3999,7 +4011,7 @@
       "tag": "国语",
       "note": "",
       "link": "",
-      "rec": false,
+      "rec": true,
       "learning": false
     }
   ],
@@ -4023,10 +4035,10 @@
       "lyrics": "作词 : 张卡斯\n作曲 : 张卡斯\n编曲 : 张卡斯\n人は猫dala-da-da-da\nPico bala-ba-ba-ba\nBibo bala-ba-ba-ba\n絶対にそう ny-ny-nya-nya-nya\nDido bala-ba-ba-ba\nnino na-ra-na-na-na\n叮咚 （叮叮咚咚） 收到总部命令\n前往蓝星 调查人类习性\n惺忪 （惺惺忪忪）困倦还未清零 （哈～）\n披上伪装 开始秘密潜行\n这独来独往的身影\n和那目中无人的神情\n这无法无天的行径\n似曾相识\n（难道说……哦！）\n人は猫dala-da-da-da\nPico bala-ba-ba-ba\nBibo bala-ba-ba-ba\n絶対にそう ny-ny-nya-nya-nya\nDido ba-ra-ba-ba-ba\nnino na-ra-na-na-na\n(人は猫)\n(絶対にそう)\n说白了泡面 辣条 充电线\n它们本质上就是\n罐头 猫条 毛线球\n无论说得多上流\n猫咪就是喜欢装模作样\n大模大样 装得像模像样\n觉得我们多高尚 它们多低档\n到头来还不是一模一样\n这独来独往的身影\n和那目中无人的神情\n这无法无天的行径\n似曾相识\n人は猫dala-da-da-da\nPico bala-ba-ba-ba\nBibo bala-ba-ba-ba\n本当にそう ny-ny-nya-nya-nya\nDido ba-ra-ba-ba-ba\nnino na-ra-na-na-na\n人は猫dala-da-da-da\nPico bala-ba-ba-ba\nBibo bala-ba-ba-ba\n本当にそう ny-ny-nya-nya-nya\nDido da-ra-da-da-da\nnino na-ra-na-na-na\n（人は猫）\n(絶対にそう)",
       "bpm": 148,
       "bili": "https://www.bilibili.com/video/BV1Anxq6yE57/?spm_id_from=333.1387.homepage.video_card.click&vd_source=86311d67fd3b6a5227854cb0fa1f0fb1",
-      "theme": "#f6ede5",
+      "theme": "#e9c5a5",
       "file": "/music/mmwgc4cs8005c.mp3",
       "size": 3269952,
-      "createdAt": "2026-11-14T16:35:31.654Z"
+      "createdAt": "2026-11-14T11:41:02.288Z"
     },
     {
       "id": "mmwgcy3365454",
@@ -4036,14 +4048,14 @@
       "lyrics": "作詞：應曉璃@SoundJoin詞曲\n作曲：應曉璃@SoundJoin詞曲\n\n還沒來得及習慣\n獨自入睡的不安\n你外套味道還沒散\n假裝你還在身旁\n牆上的合照剩一半\n你晾的衣服還沒乾\n桌上的晚餐 還來不及吃完\n我的心你還沒還\n你說要替我保管\n是你教我勇敢 讓我絢爛\n卻把我丟在原地不堪\n你我 怎麼兩清 怎麼忍心\n怎麼做回甲乙丙丁\n難道 非要耗盡 所有委屈\n再賠上這一條爛命\n愛情 這場酷刑 教人看清\n愛與不愛之間的差距\n若我落下淚滴 能否換來 一點同情\n牆上的合照剩一半\n你晾的衣服還沒乾\n桌上的晚餐 還來不及吃完\n我的心你還沒還\n你說要替我保管\n是你教我勇敢 讓我絢爛\n卻把我丟在原地不堪\n你我 怎麼兩清 怎麼忍心\n怎麼做回甲乙丙丁\n難道 非要耗盡 所有委屈\n再賠上這一條爛命\n愛情 這場酷刑 教人看清\n愛與不愛之間的差距\n若我落下淚滴 能否換來 一點同情\n你我 怎麼兩清 怎麼忍心\n怎麼做回甲乙丙丁\n難道 非要耗盡 所有委屈\n再賠上這一條爛命\n愛情 這場酷刑 教人看清\n愛與不愛之間的差距\n若我落下淚滴 能否換來 一點同情",
       "bpm": 66,
       "bili": "https://www.bilibili.com/video/BV1U1WR6YErp?spm_id_from=333.788.videopod.sections&vd_source=86311d67fd3b6a5227854cb0fa1f0fb1",
-      "theme": "#f6ede5",
+      "theme": "#e2d8ee",
       "file": "/music/mmwgcy3365454.mp3",
       "size": 5053248,
-      "createdAt": "2026-11-14T16:35:31.654Z"
+      "createdAt": "2026-11-14T12:04:09.420Z"
     },
     {
       "id": "mmwgn0om1a84d",
-      "title": "回忆的沙漏",
+      "title": "回忆的沙漏live",
       "artist": "辣奶火锅",
       "cover": "/assets/img/uploads/music-mwgmzukx.png",
       "lyrics": "作词：庭竹\n作曲：G.E.M.邓紫棋\n编曲：Lupo Groinig\n监制：Lupo Groinig\n\n拼图一片片失落　像枫叶的冷漠\n墙上的钟　默默数著寂寞\n咖啡飘散过香味　剩苦涩陪著我\n想念的心　埋葬我在深夜的脆弱\n无尽的苍穹　满天的星座　你的光亮一闪而过\n只想要记住这永恒的瞬间\n\n像流星的坠落　灿烂夺去了轮廓\n这刹那过后　世界只是　回忆的沙漏\n像流星的坠落　绚丽地点亮了整个星空\n像你故事在我生命留下　不褪色的伤口\n\n湖水守候著沉默　等待天边的月\n孤独的水面　却漆黑整夜\n夜雾凝结的泪光　被蒸发在角落\n他无情的　遗忘我在追忆的旋涡\n无尽的苍穹　满天的星座　你的光亮一闪而过\n只想要记住这永恒的瞬间\n\n像流星的坠落　灿烂夺去了轮廓\n这刹那过后　世界只是　回忆的沙漏\n像流星的坠落　绚丽地点亮了整个星空\n像你故事在我生命留下　不褪色的伤口\n\n在黑夜的尽头　是你的捉弄　和无声的伤痛\n燃烧过后　只剩静默\n\n像流星的坠落　灿烂夺去了轮廓\n这刹那过后　世界只是　回忆的沙漏\n流星坠落　绚丽地点亮了整个星空\n像你故事在我生命留下　不褪色的伤口 嗯～",
@@ -4051,8 +4063,86 @@
       "bili": "",
       "theme": "#e7edf6",
       "file": "/music/mmwgn0om1a84d.mp3",
-      "size": 5474429,
+      "size": 5474000,
       "createdAt": "2026-11-14T16:46:06.950Z"
+    },
+    {
+      "id": "mmwgrk3spdbfa",
+      "title": "海屿你",
+      "artist": "辣奶火锅",
+      "cover": "/assets/img/uploads/music-mwgrjcen.png",
+      "lyrics": "像開敗的花 浪也拍打著沙\n我卻對你情有獨鍾\n我陪你留下 說最浪漫的話\n即便是青春的懵懂\n但是我們漸行漸遠\n逐漸帶上現實的枷鎖\n信任在短短解釋後崩塌\n我不知為何瘋狂對你執著\n我們之間的故事還不多\n這回憶的漩渦快要把我吞沒\n求你別離開我 whoa-whoa\n因為我欠你太多\n手鬆開的沉默 連著我這顆心也死了\n對於你是解脫 而我如此落魄\n求你別離開我",
+      "bpm": 66,
+      "bili": "https://www.bilibili.com/video/BV1uLnJ64EAM/?spm_id_from=333.1387.homepage.video_card.click&vd_source=86311d67fd3b6a5227854cb0fa1f0fb1",
+      "theme": "#96b2de",
+      "file": "/music/mmwgrk3spdbfa.mp3",
+      "size": 1858176,
+      "createdAt": "2026-11-14T18:53:11.357Z"
+    },
+    {
+      "id": "mmwgsen256716",
+      "title": "突然的陀螺",
+      "artist": "辣奶火锅",
+      "cover": "/assets/img/uploads/music-mwgsa2ad.png",
+      "lyrics": "听见你说\n感觉滔搏其实还是给LOL\n外战看滔博\n我点过但是我没听过\n路边一坨\n被宙活抽陀螺\n我已习惯\n你突然间被零封\n外战满败 LPL变小丑\n沟槽小奶油 是个人都踩你头\n没成绩有脾气 不是坑就是送\n\n哥哥紧紧地 将他余生绑在滔博\n年年换队友 把净化用来解了击飞\n结晶也是某些粉丝最纯粹\n钞票装满兜 接Q又送头\n尽了力的69 绝望被人开抽\n把开摆刻进你DNA\n犯病也是搏至无憾的精髓\n\n天天口号多 年年最幽默\n如果仅有此生 就不要粉滔博",
+      "bpm": 90,
+      "bili": "",
+      "theme": "#d25151",
+      "file": "/music/mmwgsen256716.mp3",
+      "size": 5544646,
+      "createdAt": "2026-11-14T19:16:56.049Z"
+    },
+    {
+      "id": "mmwgsfvvheda8",
+      "title": "同类",
+      "artist": "辣奶火锅",
+      "cover": "/assets/img/uploads/music-mwgsf3r0.png",
+      "lyrics": "作詞：易家揚     作曲：李偲菘\n\n\n同類\n\n雨後的城市 寂寞又狼狽\n路邊的座位 它空著在等誰\n\n我拉住時間 它卻不理會\n有沒有別人 跟我一樣很想被安慰\n\n風 停了又吹 我忽然想起誰\n天 亮了又黑 我過了好幾歲\n心 暖了又灰 世界 有時候 孤單的很需要另一個同類\n\n愛 收了又給 我們都不太完美\n夢 作了又碎 我們有幾次機會 去追\n\n我拉住時間 它卻不理會\n有沒有別人 跟我一樣很想被安慰\n\n風 停了又吹 我忽然想起誰\n天 亮了又黑 我又過了好幾歲\n心 暖了又灰 世界 有時候 孤單的很需要另一個同類\n\n愛 收了又給 我們都不太完美\n夢 作了又碎 我們有幾次機會 去追\n不曉得為甚麼愛 又稀少又昂貴\n\n雲在半空中 被微風剪碎\n回憶也許美 可是正在飛走對不對",
+      "bpm": 90,
+      "bili": "",
+      "theme": "#a8cfd7",
+      "file": "/music/mmwgsfvvheda8.mp3",
+      "size": 5041214,
+      "createdAt": "2026-11-14T19:17:54.150Z"
+    },
+    {
+      "id": "mmwgsh90k78c9",
+      "title": "大展鸿图",
+      "artist": "辣奶火锅",
+      "cover": "/assets/img/uploads/music-mwgsg8r8.png",
+      "lyrics": "別墅裡面唱k\n水池裡面銀龍魚\n我送阿叔茶具\n他研墨下筆直接給我四個字\n大展鴻圖大師親手提筆字\n大展鴻圖搬來放在辦公室\n大展鴻圖關公都點頭\n有料\n鴻運不能總是當頭因為\n他說要玩就要玩的大\n賊船越大老鼠才坐的下\n得罪小人沒關係\n得罪君子我看不起\n世上君子不貪杯\n等於得罪了道\n黑灰藍白道亦有道\n逆流才會水漲船高\n愛財如命的人沒有義\n我說是對兄弟不是pusy\n細佬安之若命\n顛佬聽天由命\n攬佬拿把霜之哀傷\n劍指妖魔革命\n人太沈迷收米\n人情軟過玻璃\n江湖總是形形色色\n誰還沒點詬病\n阿叔喜歡看風景\n街頭中無道\n攬佬要沒錢也得博命搵\n勞力士還是AMG\n別墅裡面唱k\n水池裡面銀龍魚\n我送阿叔茶具\n他研墨下筆直接給我四個字\n大展鴻圖大師親手提筆字\n大展鴻圖搬來放在辦公室\n大展鴻圖關公都點頭\n鴻運不能總是當頭因為\n騎樓混著，66 大順 man we good\n(無錯)\n騎行越秀，小北淘金我的 hood\n(無錯)\n帝女花，是我的 《California love》\n聽任劍輝跟白雪仙，白雲吃個農家樂\n太平館西餐廳搬了，但精氣神還在這\n敵人幻想變泡沫，像燒臘店的外賣盒\n路上買個九爺雞，火鍋里燙個娃娃菜\n那宵夜來自大排檔，我們卻被人當大牌\n廣東人系北京，唱住粵語 rap man we Stand up，\n話 Stand 唔到概，d 佢到佢阿媽都唔認得\n珠江 skr，當我賽龍舟，然後啫啫煲，同 yum 涼茶\nuhh cook cook cook\n中華小當家\n廣東街頭潮流 trendsetter\n海印打口 CD 箱子肩背著\n在那 spa 游泳池，水質必須夠乾淨，\n這是”潛規則”\n老字號絕不會變味了\n叉燒包加蜂蜜點綴著\n吃的粽子絕對是那鹼水的\n大展宏圖，我練字練累了\nThen I pusssssh\n別墅裡面唱k\n水池裡面銀龍魚\n我送阿叔茶具\n他研墨下筆直接給我四個字\n大展鴻圖大師親手提筆字\n大展鴻圖搬來放在辦公室\n大展鴻圖關公都點頭\n鴻運不能總是當頭因為",
+      "bpm": 90,
+      "bili": "",
+      "theme": "#c9c9c9",
+      "file": "/music/mmwgsh90k78c9.mp3",
+      "size": 5024287,
+      "createdAt": "2026-11-14T19:18:57.849Z"
+    },
+    {
+      "id": "mmwgsi3smb213",
+      "title": "像鱼",
+      "artist": "辣奶火锅",
+      "cover": "/assets/img/uploads/music-mwgshkix.png",
+      "lyrics": "這是一首簡單的歌 沒有什麼獨特\n試著代入我的心事 它那麼幼稚 像個頑皮的孩子\n多麼可笑的心事 只剩我還在堅持\n誰能看透我的眼睛 讓我能夠不再失明\n我要記住你的樣子 (樣子) 像魚記住水的擁抱 (ah)\n像雲在天空中停靠\n夜晚的來到 也不會忘了陽光的溫暖\n我要忘了你的樣子 (樣子) 像魚忘了海的味道 (ah)\n放下所有夢和煩惱 卻放不下回憶的乞討\n多麼可笑的心事 只剩我還在堅持 (ah)\n誰能看透我的眼睛 讓我能夠不再失明\n記住你的樣子 (樣子) 像魚記住水的擁抱 (ah)\n像雲在天空中停靠\n夜晚的來到 也不會忘了陽光的溫暖\n我要忘了你的樣子 (樣子) 像魚忘了海的味道 (ah)\n放下所有夢和煩惱 卻放不下回憶的乞討\n只剩自己就好",
+      "bpm": 90,
+      "bili": "",
+      "theme": "#8eb1e6",
+      "file": "/music/mmwgsi3smb213.mp3",
+      "size": 6912626,
+      "createdAt": "2026-11-14T19:19:37.658Z"
+    },
+    {
+      "id": "mmwgsj49u5788",
+      "title": "当冬夜渐暖",
+      "artist": "辣奶火锅",
+      "cover": "/assets/img/uploads/music-mwgsihg5.png",
+      "lyrics": "作詞：藤井樹     作曲：饒善強\n\n\n\n很多事情 不是誰說了就算\n即使傷心 結果還是自己擔\n多少次失望表示著多少次期盼\n事實證明 幸福很難\n\n我們之間 不是誰說了就算\n拉扯的愛 徒增結局的難堪\n一百次相愛只要有一次的絢爛\n下一次 會更勇敢\n\n當冬夜漸暖 當大海也不再那麼藍\n當月色的純白變得陰暗\n那只是代表快樂不再那麼簡單\n\n當冬夜漸暖 當夏夜的樹上不再有蟬\n當回憶老去的痕跡斑斑\n那只是因為悲傷從來 都不會有答案\n\n我們之間 不是誰說了就算\n拉扯的愛 徒增結局的難堪\n一百次相愛只要有一次的絢爛\n下一次 會更勇敢\n\n當冬夜漸暖 當大海也不再那麼藍\n當月色的純白變得陰暗\n那只是代表快樂不再那麼簡單\n\n當冬夜漸暖 當夏夜的樹上不再有蟬\n當回憶老去的痕跡斑斑\n那只是因為悲傷從來 都不會有答案\n\n當冬夜漸暖 當青春也都煙消雲散\n當美麗的故事都有遺憾\n那只是習慣把愛當做喜歡\n重要的是 我們如何愛過那一段",
+      "bpm": 90,
+      "bili": "",
+      "theme": "#fafaff",
+      "file": "/music/mmwgsj49u5788.mp3",
+      "size": 6720783,
+      "createdAt": "2026-11-14T19:20:24.961Z"
     }
   ]
 }
