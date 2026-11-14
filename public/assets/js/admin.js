@@ -25,6 +25,10 @@
         try { body = JSON.parse(t || '{}'); } catch (e) {}
         if (r.status === 401) { showLogin(); throw new Error('请先登录'); }
         if (!r.ok) throw new Error(body.error || ('HTTP ' + r.status));
+        // 通知前台标签页刷新数据
+        if (opts.method && opts.method !== 'GET') {
+          try { localStorage.setItem('site-updated', String(Date.now())); } catch (e) {}
+        }
         return body;
       });
     });

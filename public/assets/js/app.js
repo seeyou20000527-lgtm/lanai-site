@@ -990,7 +990,10 @@
   function copyQQ() { copyText((site.profile && site.profile.qqGroup) || '858862396', '群号已复制，快来锅里泡着'); }
 
   function setupEvents() {
-    window.addEventListener('hashchange', function () { go(routeFromHash()); });
+    window.addEventListener('hashchange', function () { refreshSite(); go(routeFromHash()); });
+    document.addEventListener('visibilitychange', function () { if (!document.hidden) refreshSite(); });
+    window.addEventListener('storage', function (e) { if (e.key === 'site-updated') refreshSite(true); });
+    window.addEventListener('focus', function () { refreshSite(); });
     $('#qqBox').onclick = copyQQ;
     $('#qqBox').onkeydown = function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); copyQQ(); } };
     $('#qqCopy').onclick = copyQQ;
@@ -1023,10 +1026,28 @@
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') $('#modal').hidden = true; });
   }
 
+  /* ---------------- 数据刷新（后台改完，前台自动跟上） ---------------- */
+  var lastSiteLoad = 0;
+  function refreshSite(force) {
+    if (!force && Date.now() - lastSiteLoad < 15000) return;
+    lastSiteLoad = Date.now();
+    fetch('/api/site', { cache: 'no-store' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) {
+        if (!d) return;
+        site = d;
+        renderProfile(); renderNav(); renderNotices(); renderAbout(); renderSongs();
+        renderMusic(); renderMaterials(); renderRules(); renderGallery(); renderHome(); renderCal();
+        renderPage(state.route || routeFromHash());
+      })
+      .catch(function () {});
+  }
+
   /* ---------------- 启动 ---------------- */
   fetch('/api/site').then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
     .then(function (data) {
       site = data;
+      lastSiteLoad = Date.now();
       state.route = routeFromHash();
       renderProfile();
       renderNav();
