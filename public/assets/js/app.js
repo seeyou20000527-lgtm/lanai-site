@@ -535,6 +535,8 @@
     if (!m) return;
     player.idx = i;
     player.wantPlay = true;
+    var gg = ensureGraph();
+    if (gg.ctx && gg.ctx.state === 'suspended') gg.ctx.resume().catch(function () {});
     audio.src = m.file;
     audio.play().catch(function () {});
     $('#player').hidden = false;
@@ -562,6 +564,8 @@
   }
   function togglePlay() {
     if (!audio.src) return;
+    var gg = ensureGraph();
+    if (gg.ctx && gg.ctx.state === 'suspended') gg.ctx.resume().catch(function () {});
     if (audio.paused) { player.wantPlay = true; audio.play().catch(function () {}); }
     else { player.wantPlay = false; audio.pause(); }
   }
@@ -624,6 +628,35 @@
   }
   /* 律动：真实频谱画成一条波浪，浮在展开区上沿 */
   var eq = { raf: 0, actx: null, analyser: null, data: null, failed: false, fakeT: 0, levels: [] };
+  var graph = { ctx: null, gain: null, analyser: null, failed: false };
+  function storedVolume() {
+    var v = Number(localStorage.getItem('pl-vol'));
+    return isFinite(v) && v >= 0 && v <= 100 ? v : 80;
+  }
+  function ensureGraph() {
+    if (graph.ctx || graph.failed) return graph;
+    try {
+      var AC = window.AudioContext || window.webkitAudioContext;
+      var ctx = new AC();
+      var src = ctx.createMediaElementSource(audio);
+      var gain = ctx.createGain();
+      var analyser = ctx.createAnalyser();
+      analyser.fftSize = 256;
+      analyser.smoothingTimeConstant = .85;
+      src.connect(gain);
+      gain.connect(analyser);
+      analyser.connect(ctx.destination);
+      gain.gain.value = storedVolume() / 100;
+      graph.ctx = ctx; graph.gain = gain; graph.analyser = analyser;
+    } catch (e) { graph.failed = true; }
+    return graph;
+  }
+  function applyVolume(v) {
+    var g = ensureGraph();
+    if (g.gain) g.gain.gain.value = v / 100;
+    audio.volume = v / 100;
+    audio.muted = v === 0;
+  }
   function hexToRgb(hex) {
     var m = /^#?([a-f0-9]{6})$/i.exec(String(hex || '').trim());
     if (!m) return null;
@@ -660,18 +693,11 @@
   function startEq() {
     var N = 72;
     if (!eq.levels.length) { eq.levels = []; for (var i = 0; i < N; i++) eq.levels.push(0); }
-    if (!eq.failed && !eq.actx) {
-      try {
-        var AC = window.AudioContext || window.webkitAudioContext;
-        eq.actx = new AC();
-        var src = eq.actx.createMediaElementSource(audio);
-        eq.analyser = eq.actx.createAnalyser();
-        eq.analyser.fftSize = 256;
-        eq.analyser.smoothingTimeConstant = .85;
-        src.connect(eq.analyser);
-        eq.analyser.connect(eq.actx.destination);
-        eq.data = new Uint8Array(eq.analyser.frequencyBinCount);
-      } catch (e) { eq.failed = true; }
+    var g = ensureGraph();
+    if (g.analyser && !eq.analyser) {
+      eq.actx = g.ctx;
+      eq.analyser = g.analyser;
+      eq.data = new Uint8Array(eq.analyser.frequencyBinCount);
     }
     if (eq.actx && eq.actx.state === 'suspended') eq.actx.resume().catch(function () {});
     cancelAnimationFrame(eq.raf);
@@ -764,9 +790,7 @@
     if (audio.duration) audio.currentTime = p * audio.duration;
   }
   function setupPlayer() {
-    var vol = Number(localStorage.getItem('pl-vol'));
-    if (!isFinite(vol) || vol < 0 || vol > 100) vol = 80;
-    audio.volume = vol / 100;
+    var vol = storedVolume();
     $('#plVolume').value = vol;
     applyMode();
     setupMediaSession();
@@ -783,14 +807,20 @@
     };
     $('#plVolume').addEventListener('input', function () {
       var v = Number(this.value);
-      audio.volume = v / 100;
-      audio.muted = v === 0;
+      applyVolume(v);
       localStorage.setItem('pl-vol', String(v));
     });
-    $('#plMute').onclick = function () {
-      audio.muted = !audio.muted;
-      this.style.color = audio.muted ? 'var(--rose-2)' : '';
+    var volWrap = $('#plVol');
+    $('#plMute').onclick = function (e) {
+      e.stopPropagation();
+      if (volWrap) volWrap.classList.toggle('open');
     };
+    document.addEventListener('click', function (e) {
+      if (volWrap && !e.target.closest('#plVol')) volWrap.classList.remove('open');
+    });
+    if (volWrap) volWrap.addEventListener('click', function (e) {
+      if (e.target.id === 'plVolume') e.stopPropagation();
+    });
     $('#plBar').addEventListener('pointerdown', function (e) {
       seekAt(e.clientX);
       var move = function (ev) { seekAt(ev.clientX); };
