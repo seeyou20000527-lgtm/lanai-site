@@ -193,6 +193,16 @@
       "cover": "/materials/uploads/mat-mwga5357.png",
       "format": "PNG",
       "res": ""
+    },
+    {
+      "id": "mat-mwgsjy82",
+      "title": "红包封面",
+      "desc": "红包封面",
+      "category": "壁纸",
+      "file": "/materials/uploads/mat-mwgsjy82.jpg",
+      "cover": "/materials/uploads/mat-mwgsjy82.jpg",
+      "format": "JPG",
+      "res": ""
     }
   ],
   "rules": {
