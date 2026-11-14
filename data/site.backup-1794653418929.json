@@ -1,0 +1,271 @@
+{
+  "profile": {
+    "name": "辣奶火锅",
+    "nameEn": "LANAI HOTPOT",
+    "handle": "@辣奶火锅",
+    "tagline": "一口奶香，两口上头。",
+    "intro": "火锅系虚拟主播。锅底是奶香麻辣，主食是大家的弹幕；嘴比锅底烫，心比豆腐软。",
+    "qqGroup": "858862396",
+    "uid": "123456789",
+    "spaceUrl": "https://space.bilibili.com/123456789",
+    "liveUrl": "https://live.bilibili.com/1234567",
+    "email": "hello@example.com",
+    "avatar": "/assets/img/avatar.png",
+    "art": "/assets/img/char-bun.png",
+    "artAlt": "/assets/img/char-long.png",
+    "logo": "/assets/img/logo.png",
+    "bio": [
+      "我是住在沸腾锅底里的火锅系虚拟主播辣奶火锅。白天是奶香锅，晚上是麻辣锅，直播间的蘸料位永远给你留着。",
+      "平时主要做杂谈、歌回和游戏，偶尔深夜开一锅「食堂」，边吃边聊到天亮。心愿是有一天能在线下和大家吃一顿真的火锅。"
+    ],
+    "tags": [
+      "火锅系",
+      "杂谈",
+      "歌回",
+      "深夜食堂"
+    ],
+    "facts": [
+      {
+        "label": "出道日",
+        "value": "2025.08.08"
+      },
+      {
+        "label": "生日",
+        "value": "08.08"
+      },
+      {
+        "label": "身高",
+        "value": "155cm"
+      },
+      {
+        "label": "喜欢",
+        "value": "火锅 / 唱歌 / 熬夜"
+      }
+    ]
+  },
+  "live": {
+    "isLive": false,
+    "title": "",
+    "startedAt": ""
+  },
+  "schedule": [
+    {
+      "date": "2026-11-04",
+      "time": "20:00",
+      "duration": 120,
+      "title": "沸腾杂谈 · 十一月开场",
+      "type": "杂谈",
+      "note": "带好蘸料"
+    },
+    {
+      "date": "2026-11-07",
+      "time": "20:30",
+      "duration": 120,
+      "title": "辣味歌回 · 把情歌唱成麻辣烫",
+      "type": "歌回",
+      "note": "点歌打在弹幕里"
+    },
+    {
+      "date": "2026-11-11",
+      "time": "21:00",
+      "duration": 150,
+      "title": "恐怖游戏 · 嘴上说不怕",
+      "type": "游戏",
+      "note": "胆小者弹幕护体"
+    },
+    {
+      "date": "2026-11-14",
+      "time": "20:00",
+      "duration": 150,
+      "title": "沸腾杂谈 · 本周瓜田大乱炖",
+      "type": "杂谈",
+      "note": "今晚有新品试吃"
+    },
+    {
+      "date": "2026-11-16",
+      "time": "20:30",
+      "duration": 120,
+      "title": "歌回 · 冬天第一首情歌",
+      "type": "歌回",
+      "note": ""
+    },
+    {
+      "date": "2026-11-18",
+      "time": "21:00",
+      "duration": 180,
+      "title": "游戏 · 恐怖游戏第二锅",
+      "type": "游戏",
+      "note": ""
+    },
+    {
+      "date": "2026-11-21",
+      "time": "20:00",
+      "duration": 150,
+      "title": "深夜食堂 · 锅不能空，人不能睡",
+      "type": "杂谈",
+      "note": "边吃边播"
+    },
+    {
+      "date": "2026-11-22",
+      "time": "19:00",
+      "duration": 120,
+      "title": "粉丝歌会 · 冬天第一锅",
+      "type": "活动",
+      "note": "报名见动态"
+    },
+    {
+      "date": "2026-11-25",
+      "time": "20:00",
+      "duration": 120,
+      "title": "杂谈 · 月末结算",
+      "type": "杂谈",
+      "note": ""
+    },
+    {
+      "date": "2026-11-28",
+      "time": "21:00",
+      "duration": 180,
+      "title": "歌回 · 月末点歌台",
+      "type": "歌回",
+      "note": ""
+    },
+    {
+      "date": "2026-12-02",
+      "time": "20:00",
+      "duration": 120,
+      "title": "十二月开场 · 火锅局",
+      "type": "杂谈",
+      "note": ""
+    }
+  ],
+  "news": [
+    {
+      "date": "2026-11-14",
+      "tag": "物料",
+      "title": "新物料上架：立绘、头像包、双色壁纸",
+      "text": "这次放出了两张立绘源文件、四色头像包和新壁纸，全部免费下载，禁止转载。",
+      "link": "#materials"
+    },
+    {
+      "date": "2026-11-10",
+      "tag": "二创",
+      "title": "11 月二创征集：冬天第一锅",
+      "text": "投稿你的火锅二创，入选作品会出现在本站展厅，并可能在直播间轮播。",
+      "link": "#fanart"
+    },
+    {
+      "date": "2026-11-06",
+      "tag": "排期",
+      "title": "11 月排期公布",
+      "text": "固定周三、周六晚开播，周五不定期加播「深夜食堂」。可以在月历里订阅。",
+      "link": "#calendar"
+    },
+    {
+      "date": "2026-10-30",
+      "tag": "活动",
+      "title": "百天纪念 & 万圣节小活动",
+      "text": "感谢大家陪我过完第一个一百天，锅底没糊，感情也没糊。",
+      "link": ""
+    }
+  ],
+  "materials": [
+    {
+      "id": "char-bun",
+      "title": "立绘 · 牛角包",
+      "desc": "官方立绘源文件，透明底 PNG，做二创、剪辑、印刷都够用。",
+      "category": "立绘",
+      "file": "/materials/char-bun.png",
+      "cover": "/materials/cover-char-bun.png",
+      "format": "PNG",
+      "res": "425×1400"
+    },
+    {
+      "id": "char-long",
+      "title": "立绘 · 长发",
+      "desc": "长发版本立绘，同样透明底，随便换发型。",
+      "category": "立绘",
+      "file": "/materials/char-long.png",
+      "cover": "/materials/cover-char-long.png",
+      "format": "PNG",
+      "res": "430×1400"
+    },
+    {
+      "id": "mat-mwg7qkwj",
+      "title": "哈气衣服复杂版",
+      "desc": "哈气",
+      "category": "表情包",
+      "file": "/materials/uploads/mat-mwg7qkwj.png",
+      "cover": "/materials/uploads/mat-mwg7qkwj.png",
+      "format": "PNG",
+      "res": ""
+    },
+    {
+      "id": "mat-mwg7s51w",
+      "title": "哈气无字版",
+      "desc": "哈气",
+      "category": "表情包",
+      "file": "/materials/uploads/mat-mwg7s51w.png",
+      "cover": "/materials/uploads/mat-mwg7s51w.png",
+      "format": "PNG",
+      "res": ""
+    },
+    {
+      "id": "mat-mwga4ndt",
+      "title": "LOGO无莲花",
+      "desc": "LOGO",
+      "category": "LOGO",
+      "file": "/materials/uploads/mat-mwga4ndt.png",
+      "cover": "/materials/uploads/mat-mwga4ndt.png",
+      "format": "PNG",
+      "res": ""
+    },
+    {
+      "id": "mat-mwga5357",
+      "title": "LOGO有莲花",
+      "desc": "LOGO",
+      "category": "LOGO",
+      "file": "/materials/uploads/mat-mwga5357.png",
+      "cover": "/materials/uploads/mat-mwga5357.png",
+      "format": "PNG",
+      "res": ""
+    }
+  ],
+  "rules": {
+    "allowed": [
+      "用作个人头像、壁纸、手机锁屏",
+      "临摹、剪辑、手书、表情包等二创",
+      "在直播间 / 动态里 @我 或带话题分享",
+      "把二创投稿到本站「二创展厅」"
+    ],
+    "forbidden": [
+      "把我的官方物料二次转载、搬运到其他平台",
+      "印成周边售卖、用于商业宣传或接商单",
+      "裁掉水印冒充原创、二次售卖",
+      "投喂给 AI 训练或生成模型"
+    ],
+    "notes": [
+      {
+        "title": "二创版权归作者",
+        "text": "二创作品的版权属于创作者本人，本站仅作展示。想转载别人的二创，请先获得作者同意并标注出处。"
+      },
+      {
+        "title": "非商业企划好商量",
+        "text": "想用物料做联动手书、翻唱封面、非盈利企划，先私信说明用途，一般都会同意——记得标注「物料来自辣奶火锅」。"
+      },
+      {
+        "title": "发现盗用请告诉我",
+        "text": "看到搬运、盗图、冒充原创，欢迎带链接私信举报，我会处理。"
+      }
+    ]
+  },
+  "upload": {
+    "maxSizeMB": 12,
+    "types": [
+      "绘画",
+      "剪辑",
+      "文字",
+      "手工",
+      "其他"
+    ]
+  }
+}

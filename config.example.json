@@ -1,0 +1,14 @@
+{
+  "host": "127.0.0.1",
+  "port": 8787,
+  "siteName": "辣奶火锅 · 官方小站",
+  "admin": {
+    "username": "lanai",
+    "password": "把这里改成你的强密码"
+  },
+  "adminToken": "",
+  "sessionHours": 12,
+  "trustProxy": false,
+  "cookieSecure": false,
+  "maxUploadMB": 12
+}

@@ -1,0 +1,23 @@
+node_modules/
+__pycache__/
+backups/
+logs/
+
+# 运行数据（留言、投稿、统计、直播状态都不进仓库）
+data/live.json
+data/comments.json
+data/fanart.json
+data/stats.json
+
+# 粉丝投稿（含 IP，不进仓库）
+uploads/*
+!uploads/.gitkeep
+
+# 站点自己的图片（立绘 / 封面 / 物料）要进仓库，不然线上会缺图
+
+# 配置文件里有后台密码，不要提交
+config.json
+
+*.log
+.DS_Store
+Thumbs.db

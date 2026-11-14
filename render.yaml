@@ -1,0 +1,22 @@
+# Render 一键部署（免费版可先用来看效果）
+# 注意：免费版没有持久磁盘，服务休眠/重新部署后，后台改的内容和上传文件会回到仓库版本。
+# 长期使用请加 Disk（付费）或换一台小服务器。
+services:
+  - type: web
+    name: lanai-site
+    runtime: node
+    plan: free
+    buildCommand: ""
+    startCommand: node server.js
+    healthCheckPath: /api/health
+    envVars:
+      - key: HOST
+        value: 0.0.0.0
+      - key: TRUST_PROXY
+        value: "1"
+      - key: COOKIE_SECURE
+        value: "1"
+      - key: ADMIN_USER
+        value: lanai
+      - key: ADMIN_PASSWORD
+        sync: false          # 在 Render 面板里填，不进仓库

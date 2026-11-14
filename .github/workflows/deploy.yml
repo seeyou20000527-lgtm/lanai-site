@@ -1,0 +1,39 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  check:
+    name: 语法检查
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: node --check
+        run: |
+          node --check server.js
+          node --check public/assets/js/app.js
+          node --check public/assets/js/admin.js
+
+  deploy:
+    name: 部署到服务器
+    needs: check
+    runs-on: ubuntu-latest
+    steps:
+      - name: SSH 部署
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          script: |
+            set -e
+            cd /opt/lanai-huoguo
+            git pull --ff-only
+            docker compose up -d --build
+            docker image prune -f

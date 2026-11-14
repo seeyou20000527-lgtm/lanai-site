@@ -1,0 +1,17 @@
+services:
+  lanai:
+    build: .
+    container_name: lanai-site
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8787:8787"   # 只给本机的 Caddy / Nginx 反代用
+    environment:
+      - HOST=0.0.0.0
+      - TRUST_PROXY=1           # 反代后取真实 IP，限流才准
+      - COOKIE_SECURE=1         # 上了 HTTPS 再开
+    volumes:
+      - ./data:/app/data
+      - ./uploads:/app/uploads
+      - ./public/music:/app/public/music
+      - ./public/materials/uploads:/app/public/materials/uploads
+      - ./public/assets/img/uploads:/app/public/assets/img/uploads

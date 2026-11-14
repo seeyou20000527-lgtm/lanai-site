@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>站务后台 · 辣奶火锅</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="/assets/img/favicon.png">
+<link rel="stylesheet" href="/assets/css/style.css?v=2">
+<link rel="stylesheet" href="/assets/css/admin.css?v=7">
+</head>
+<body class="admin">
+
+<div class="login-wrap" id="loginView" hidden>
+  <form class="login-card" id="loginForm">
+    <img src="/assets/img/logo.png" alt="">
+    <h1>站务后台</h1>
+    <p>辣奶火锅 · 官方小站</p>
+    <div class="fld"><label for="username">账号</label><input id="username" value="lanai" autocomplete="username" placeholder="lanai" spellcheck="false"></div>
+    <div class="fld" style="margin-top:12px">
+      <label for="password">密码</label>
+      <div style="position:relative">
+        <input id="password" type="password" autocomplete="current-password" placeholder="请输入密码" style="padding-right:64px">
+        <button type="button" id="pwToggle" style="position:absolute;right:6px;top:50%;transform:translateY(-50%);border:none;background:none;font-size:11px;color:var(--ink-3);cursor:pointer;padding:4px 8px">显示</button>
+      </div>
+    </div>
+    <p id="loginErr" hidden style="margin:12px 0 0;font-size:12px;color:#b0564f;text-align:left;line-height:1.5"></p>
+    <button class="btn btn-solid" type="submit" style="width:100%;margin-top:18px" id="loginBtn">登录</button>
+    <p style="margin:16px 0 0;font-size:11px;line-height:1.7">默认账号 <code>lanai</code>，密码在 <code>config.json</code> 里查看或修改<br>忘记密码就把 config.json 打开抄一下</p>
+  </form>
+</div>
+
+<div class="app" id="app" hidden>
+  <aside class="adm-side">
+    <div class="brand"><a href="/"><img src="/assets/img/logo.png" alt="辣奶火锅"></a></div>
+    <nav id="sideNav"></nav>
+    <div class="bottom">
+      <a id="viewSite" href="/" target="_blank">← 查看前台</a>
+      <a id="logout">退出登录</a>
+    </div>
+  </aside>
+  <main class="adm-main">
+    <div class="main-head">
+      <div><h1 id="pageTitle">概览</h1><p id="pageSub"></p></div>
+      <div id="headActions"></div>
+    </div>
+    <div id="view"></div>
+  </main>
+</div>
+
+<div class="crop-modal" id="cropModal" hidden>
+  <div class="crop-bg" data-crop-close></div>
+  <div class="crop-panel">
+    <h3 id="cropTitle">裁剪图片</h3>
+    <p class="crop-tip">拖动图片调整位置，滑块缩放；框里看到的就是最终效果。</p>
+    <div class="crop-stage" id="cropStage"><img id="cropImg" alt=""></div>
+    <input type="range" id="cropZoom" min="1" max="4" step="0.01" value="1" aria-label="缩放">
+    <div class="crop-actions">
+      <button type="button" class="btn btn-sm" data-crop-close>取消</button>
+      <button type="button" class="btn btn-sm btn-solid" id="cropSave">保存并使用</button>
+    </div>
+  </div>
+</div>
+<input type="file" id="imgPicker" accept="image/png,image/jpeg,image/webp" hidden>
+
+<div class="toast" id="toast"></div>
+<script src="/assets/js/admin.js?v=9"></script>
+</body>
+</html>

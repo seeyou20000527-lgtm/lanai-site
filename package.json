@@ -1,0 +1,10 @@
+{
+  "name": "lanai-huoguo-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "辣奶火锅的粉丝小站：物料下载 / 二创投稿 / 开播资讯",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  }
+}

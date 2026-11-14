@@ -1,0 +1,20 @@
+# Caddy 会自动申请并续期 HTTPS 证书
+# 用法：把 your-domain.com 换成你的域名，然后 caddy reload
+{
+    email you@example.com
+}
+
+your-domain.com {
+    encode zstd gzip
+
+    # 反代到 Node 服务
+    reverse_proxy 127.0.0.1:8787 {
+        header_up X-Forwarded-For {remote_host}
+    }
+
+    header {
+        Strict-Transport-Security "max-age=31536000; includeSubDomains"
+        X-Content-Type-Options nosniff
+        Referrer-Policy no-referrer
+    }
+}
