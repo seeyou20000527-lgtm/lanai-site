@@ -914,15 +914,46 @@ const RAW_MAP = [
   ['/music/', 'public/music/'],
   ['/assets/img/uploads/', 'public/assets/img/uploads/']
 ];
-function rawFallback(res, pathname) {
+const MIME_BY_EXT = {
+  '.mp3': 'audio/mpeg', '.m4a': 'audio/mp4', '.wav': 'audio/wav', '.ogg': 'audio/ogg',
+  '.mp4': 'video/mp4', '.webm': 'video/webm', '.mov': 'video/quicktime',
+  '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.webp': 'image/webp', '.gif': 'image/gif',
+  '.zip': 'application/zip', '.pdf': 'application/pdf'
+};
+
+/* 文件不在本地（重启后临时盘清空）就从 git 里取回来，直接转发字节，
+   不再用 302 —— iOS 的 <audio> 对跨域跳转很不友好，会直接放不出来 */
+async function rawFallback(req, res, pathname) {
   if (!GH_TOKEN) return false;
   for (const [prefix, rel] of RAW_MAP) {
-    if (pathname.startsWith(prefix)) {
-      const rest = pathname.slice(prefix.length);
-      if (!rest || rest.includes('..')) return false;
-      res.writeHead(302, { Location: GH_RAW + rel + rest, 'Cache-Control': 'public, max-age=300' });
-      res.end();
+    if (!pathname.startsWith(prefix)) continue;
+    const rest = pathname.slice(prefix.length);
+    if (!rest || rest.includes('..')) return false;
+    try {
+      const headers = { 'User-Agent': 'lanai-site' };
+      if (req.headers.range) headers.Range = req.headers.range;
+      const r = await fetch(GH_RAW + rel + rest, { headers });
+      if (!r.ok) {
+        res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
+        res.end('Not Found');
+        return true;
+      }
+      const buf = Buffer.from(await r.arrayBuffer());
+      const ext = path.extname(rest).toLowerCase();
+      const out = {
+        'Content-Type': MIME_BY_EXT[ext] || 'application/octet-stream',
+        'Accept-Ranges': 'bytes',
+        'Cache-Control': 'public, max-age=600',
+        'Content-Length': String(buf.length)
+      };
+      const cr = r.headers.get('content-range');
+      if (cr) out['Content-Range'] = cr;
+      res.writeHead(r.status === 206 ? 206 : 200, out);
+      res.end(buf);
       return true;
+    } catch (e) {
+      console.error('[raw-proxy]', pathname, e.message);
+      return false;
     }
   }
   return false;
@@ -954,7 +985,7 @@ async function handle(req, res) {
         return sendText(res, 404, 'Not Found');
       }
       const localFile = path.join(UPLOAD_DIR, name);
-      if (!fs.existsSync(localFile) && rawFallback(res, pathname)) return;
+      if (!fs.existsSync(localFile) && await rawFallback(req, res, pathname)) return;
       return serveStatic(req, res, '/' + name, { base: UPLOAD_DIR });
     }
     if (pathname.startsWith('/music/download/')) return apiMusicDownload(req, res, pathname.slice('/music/download/'.length));
@@ -992,7 +1023,7 @@ async function handle(req, res) {
 
   if (method === 'GET' || method === 'HEAD') {
     const local = path.join(PUBLIC_DIR, pathname);
-    if (!fs.existsSync(local) && rawFallback(res, pathname)) return;
+    if (!fs.existsSync(local) && await rawFallback(req, res, pathname)) return;
     return serveStatic(req, res, pathname);
   }
   return sendJson(res, 404, { error: 'Not Found' });
