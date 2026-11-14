@@ -1,20 +1,6 @@
 {
   "items": [
     {
-      "id": "mwgnnpv8e77ddc",
-      "title": "『AI』LOGO",
-      "author": "奶龙",
-      "category": "绘画",
-      "link": "",
-      "image": "/uploads/mwgnnpv8e77ddc.png",
-      "originalName": "de46333b-6f23-4f5b-8c11-41d633f06fc2.png",
-      "bytes": 1518454,
-      "status": "approved",
-      "createdAt": "2026-11-14T17:04:01.464Z",
-      "ip": "49.158.211.100",
-      "reviewedAt": "2026-11-14T17:05:00.207Z"
-    },
-    {
       "id": "mwgnotn989db19",
       "title": "『AI』奶锅哥哥",
       "author": "奶龙",
@@ -54,7 +40,7 @@
       "status": "approved",
       "createdAt": "2026-11-14T18:44:53.248Z",
       "ip": "112.20.5.34",
-      "reviewedAt": "2026-11-14T18:51:26.937Z"
+      "reviewedAt": "2026-11-14T19:23:12.827Z"
     }
   ]
 }
