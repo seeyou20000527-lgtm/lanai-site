@@ -26,10 +26,10 @@
     { id: 'notices', label: '公告', icon: 'bell' },
     { id: 'about', label: '简介', icon: 'user' },
     { id: 'calendar', label: '月历', icon: 'calendar' },
-    { id: 'materials', label: '物料', icon: 'download' },
-    { id: 'fanart', label: '二创', icon: 'image' },
     { id: 'songs', label: '歌单', icon: 'music' },
     { id: 'music', label: '音乐', icon: 'disc' },
+    { id: 'materials', label: '物料', icon: 'download' },
+    { id: 'fanart', label: '二创', icon: 'image' },
     { id: 'rules', label: '规则', icon: 'shield', hidden: true }
   ];
   var EV_MIN = 120;
