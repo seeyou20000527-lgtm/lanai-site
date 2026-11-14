@@ -369,7 +369,7 @@
     var list = mats.filter(function (m) { return matFilter === '全部' || m.category === matFilter; });
     $('#matGrid').innerHTML = list.map(function (m) {
       var cover = m.cover || (/\.(png|jpe?g|webp|gif)$/i.test(m.file || '') ? m.file : '/assets/img/material-default.png');
-      return '<article class="mat"><div class="mat-cover"><img loading="lazy" src="' + esc(cover) + '" alt="' + esc(m.title) + '"></div>' +
+      return '<article class="mat"><div class="mat-cover"><img loading="lazy" src="' + esc(cover) + '" alt="' + esc(m.title) + '" onerror="' + IMG_FB + '"></div>' +
         '<div class="mat-body"><div class="mat-cat">' + esc(m.category) + (m.format ? ' · ' + esc(m.format) : '') + (m.res ? ' · ' + esc(m.res) : '') + '</div>' +
         '<h3>' + esc(m.title) + '</h3><p>' + esc(m.desc) + '</p>' +
         '<div class="mat-foot"><span class="mat-meta"><b>↓ ' + (m.downloads || 0) + '</b> · ' + fmtSize(m.size) + '</span>' +
@@ -498,7 +498,7 @@
       var playing = player.idx === i && !audio.paused && !audio.ended;
       return '<div class="track' + (player.idx === i ? ' on' : '') + '" data-i="' + i + '">' +
         '<button class="tr-play" type="button" data-play="' + i + '" aria-label="播放">' + (playing ? '❚❚' : '▶') + '</button>' +
-        '<img class="tr-cover" src="' + esc(m.cover || '/assets/img/avatar.png') + '" alt="">' +
+        '<img class="tr-cover" src="' + esc(m.cover || '/assets/img/avatar.png') + '" alt="" onerror="' + IMG_FB + '">' +
         '<div class="tr-info"><b>' + esc(m.title) + '</b><span>' + esc(m.artist || '') + (m.size ? ' · ' + fmtSize(m.size) : '') + '</span></div>' +
         '<a class="tr-dl" href="/music/download/' + encodeURIComponent(m.id) + '">下载</a></div>';
     }).join('');
@@ -899,6 +899,7 @@
       return '<div class="note"><h4>' + esc(n.title) + '</h4><p>' + esc(n.text) + '</p></div>';
     }).join('');
   }
+  var IMG_FB = "this.onerror=null;this.src='/assets/img/material-default.png'";
   function renderGallery() {
     var items = site.fanart || [];
     $('#galCount').textContent = items.length + ' 件';

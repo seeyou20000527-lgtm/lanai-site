@@ -418,8 +418,8 @@ button, input, select, textarea { font: inherit; color: inherit; }
   border-top: 1px solid var(--line);
   box-shadow: 0 -12px 30px -26px rgba(90, 60, 40, .55);
 }
-.pl-dl { width: 62px; align-self: stretch; display: grid; place-items: center; flex-shrink: 0; border-right: 1px solid var(--line); color: var(--ink-3); transition: .15s; }
-.pl-dl svg { width: 19px; height: 19px; }
+.pl-dl { width: 46px; height: 46px; display: grid; place-items: center; flex-shrink: 0; border-radius: 50%; color: var(--ink-2); transition: .15s; margin-right: 2px; }
+.pl-dl svg { width: 20px; height: 20px; }
 .pl-dl:hover { color: var(--rose-2); background: #fdf8f5; }
 .pl-ctrl { display: flex; align-items: center; gap: 2px; flex-shrink: 0; padding-left: 8px; }
 .pl-skip { width: 30px; height: 30px; border: none; background: none; cursor: pointer; color: var(--ink-2); display: grid; place-items: center; border-radius: 50%; }
@@ -436,9 +436,9 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .pl-info { min-width: 0; display: block; }
 .pl-info b { display: block; font-size: 13.5px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .pl-info span { font-size: 11px; color: var(--ink-3); }
-.pl-time { font-size: 11.5px; color: var(--ink-3); font-variant-numeric: tabular-nums; margin-left: auto; flex-shrink: 0; }
+.pl-time { font-size: 11.5px; color: var(--ink-3); font-variant-numeric: tabular-nums; flex-shrink: 0; margin: 0 10px 0 6px; }
 .pl-cm {
-  margin-left: auto; width: 46px; height: 46px; display: grid; place-items: center;
+  margin-left: auto; width: 44px; height: 44px; display: grid; place-items: center;
   border: none; background: none; border-radius: 50%; cursor: pointer; color: var(--ink-2);
   font-family: inherit; position: relative; flex-shrink: 0;
 }
@@ -492,7 +492,7 @@ body.has-player .foot { margin-bottom: 8px; }
   padding: 48px 42px 0; display: flex; flex-direction: column; gap: 10px;
 }
 .cd-panel.cd-dark { --ink: #f7f0eb; --ink-2: #d8ccc5; --ink-3: #a89a92; --line: rgba(255, 255, 255, .14); --surface: rgba(255, 255, 255, .06); }
-.cd-panel.cd-dark .cd-lyrics .ly { color: #a4968f; }
+.cd-panel.cd-dark .cd-lyrics .ly { color: #b3a49c; }
 .cd-panel.cd-dark .cd-lyrics .ly.active { color: #fff; text-shadow: 0 2px 18px rgba(255, 220, 210, .4); }
 .cd-panel.cd-dark .cd-meta h2 { color: #fdf6f2; }
 .cd-panel.cd-dark .cm-form input { background: rgba(255, 255, 255, .1); border-color: rgba(255, 255, 255, .18); color: #f3ebe6; }
@@ -521,31 +521,27 @@ body.pl-playing .cd-wave { opacity: .95; }
 .cd-dl { font-size: 11.5px; color: var(--ink-3); }
 .cd-dl:hover { color: var(--rose-2); }
 .cd-disc {
-  width: 300px; height: 300px; border-radius: 50%; overflow: hidden; flex-shrink: 0; position: relative;
+  width: 356px; height: 356px; border-radius: 50%; overflow: hidden; flex-shrink: 0; position: relative; transform: translateX(-26px);
   box-shadow: 0 46px 60px -34px rgba(80, 50, 40, .62), 0 10px 24px -16px rgba(80, 50, 40, .4), inset 0 0 0 1px rgba(255, 255, 255, .45);
   animation: spin 16s linear infinite; animation-play-state: paused;
 }
 body.pl-playing .cd-disc { animation-play-state: running; }
 .cd-disc img { width: 100%; height: 100%; object-fit: cover; }
-.cd-disc::after {
-  content: ""; position: absolute; left: 50%; top: 50%; width: 30px; height: 30px; margin: -15px 0 0 -15px;
-  border-radius: 50%; background: #fff; box-shadow: inset 0 0 0 7px rgba(0, 0, 0, .06);
-}
 @keyframes spin { to { transform: rotate(360deg); } }
-.cd-meta h2 { font-size: clamp(20px, 2.6vw, 27px); margin: 2px 0 6px; font-weight: 600; }
+.cd-meta h2 { font-size: clamp(24px, 3vw, 34px); margin: 2px 0 8px; font-weight: 500; font-family: "Songti SC", "SimSun", "STSong", "Noto Serif SC", serif; letter-spacing: .06em; }
 .cd-meta p { margin: 0; font-size: 13px; color: var(--ink-2); }
 .cd-lyrics { padding: 8px 0 24px; text-align: center; }
-.cd-lyrics .ly { font-size: 18px; color: var(--ink-3); margin: 15px 0; cursor: pointer; transition: color .2s, font-size .2s; text-shadow: 0 1px 0 rgba(255, 255, 255, .7); }
+.cd-lyrics .ly { font-size: 20px; color: #6b625d; margin: 16px 0; cursor: pointer; transition: color .2s, font-size .2s; text-shadow: none; }
 .cd-lyrics .ly:hover { color: var(--ink-2); }
-.cd-lyrics .ly.active { color: var(--ink); font-size: 24px; font-weight: 600; text-shadow: 0 3px 18px rgba(150, 100, 90, .3); }
+.cd-lyrics .ly.active { color: #3a3532; font-size: 27px; font-weight: 600; text-shadow: none; }
 .cd-nolyric { color: var(--ink-3); font-size: 13px; text-align: center; margin: 30px 0; }
 
 /* 雾白色方形滚动条，无轨道无箭头 */
-.cd-left::-webkit-scrollbar, .cm-list::-webkit-scrollbar { width: 9px; }
+.cd-left::-webkit-scrollbar, .cm-list::-webkit-scrollbar { width: 5px; }
 .cd-left::-webkit-scrollbar-track, .cm-list::-webkit-scrollbar-track { background: transparent; }
-.cd-left::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, .92); border-radius: 3px; box-shadow: 0 0 0 1px rgba(190, 165, 155, .18); }
+.cd-left::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, .95); border-radius: 999px; box-shadow: 0 0 0 1px rgba(190, 165, 155, .14); }
 .cd-left::-webkit-scrollbar-thumb:hover { background: #fff; }
-.cm-list::-webkit-scrollbar-thumb { background: rgba(200, 180, 170, .35); border-radius: 3px; }
+.cm-list::-webkit-scrollbar-thumb { background: rgba(200, 180, 170, .4); border-radius: 999px; }
 ::-webkit-scrollbar-button { display: none; height: 0; width: 0; }
 
 .cd-comments { border-top: 1px solid var(--line); padding: 14px 0 16px; display: grid; gap: 8px; flex-shrink: 0; }
@@ -658,7 +654,7 @@ body.pl-playing .cd-disc { animation-play-state: running; }
   .cd-wave { top: -34px; height: 34px; }
   .cd-body { grid-template-columns: 1fr; gap: 10px; }
   .cd-right { order: -1; flex-direction: row; align-items: center; justify-content: flex-start; text-align: left; gap: 14px; padding: 0 4px; }
-  .cd-disc { width: 92px; height: 92px; }
+  .cd-disc { width: 92px; height: 92px; transform: none; }
   .cd-meta h2 { font-size: 17px; margin: 0 0 3px; }
   .cd-meta p { font-size: 11.5px; }
   .cd-bili, .cd-dl { display: none; }

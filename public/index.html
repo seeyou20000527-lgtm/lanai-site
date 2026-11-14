@@ -16,7 +16,7 @@
 <meta property="og:title" content="辣奶火锅">
 <meta property="og:description" content="一口奶香，两口上头。简介 / 月历 / 物料 / 二创 / 歌单。">
 <meta property="og:image" content="/assets/img/og.png">
-<link rel="stylesheet" href="/assets/css/style.css?v=20">
+<link rel="stylesheet" href="/assets/css/style.css?v=21">
 </head>
 <body>
 
@@ -334,9 +334,6 @@
 <audio id="audioEl" preload="metadata" playsinline></audio>
 
 <div class="player" id="player" hidden>
-  <a class="pl-dl" id="plDl" href="#" title="下载这首歌">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="m7.5 10.5 4.5 4.5 4.5-4.5"/><path d="M5 19h14"/></svg>
-  </a>
   <div class="pl-ctrl">
     <button class="pl-skip" id="plPrev" type="button" aria-label="上一首">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5h2v14H8zM19 5v14l-9-7z"/></svg>
@@ -361,6 +358,9 @@
     </button>
     <div class="pl-vol-pop"><input type="range" id="plVolume" min="0" max="100" value="80" aria-label="音量"></div>
   </div>
+  <a class="pl-dl" id="plDl" href="#" title="下载这首歌" aria-label="下载">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="m7.5 10.5 4.5 4.5 4.5-4.5"/><path d="M5 19h14"/></svg>
+  </a>
   <div class="pl-bar" id="plBar" role="slider" aria-label="播放进度" tabindex="0"><i id="plFill"></i><em id="plDot"></em></div>
 </div>
 
@@ -410,7 +410,7 @@
 </div>
 <div class="toast" id="toast" role="status"></div>
 
-<script src="/assets/js/app.js?v=20"></script>
+<script src="/assets/js/app.js?v=21"></script>
 
 </body>
 </html>

@@ -33,11 +33,12 @@ const TRUST_PROXY = process.env.TRUST_PROXY === '1' || CONFIG.trustProxy === tru
 const COOKIE_SECURE = process.env.COOKIE_SECURE === '1' || CONFIG.cookieSecure === true;
 const COOKIE_FLAGS = '; HttpOnly; SameSite=Lax; Path=/' + (COOKIE_SECURE ? '; Secure' : '');
 const MAX_UPLOAD = (Number(CONFIG.maxUploadMB) || 12) * 1024 * 1024;
-const MAX_MATERIAL = 40 * 1024 * 1024;
+const MAX_MATERIAL = 60 * 1024 * 1024;
 const SITE_NAME = CONFIG.siteName || '辣奶火锅 · 官方小站';
 
 const UPLOAD_EXT = new Set(['.png', '.jpg', '.jpeg', '.webp', '.gif', '.zip', '.pdf']);
-const MATERIAL_EXT = new Set(['.png', '.jpg', '.jpeg', '.webp', '.gif', '.zip', '.mp4', '.psd', '.txt']);
+const MATERIAL_EXT = new Set(['.png', '.jpg', '.jpeg', '.webp', '.gif', '.zip', '.mp4', '.webm', '.mov', '.psd', '.txt']);
+const VIDEO_EXT = new Set(['.mp4', '.webm', '.mov']);
 const MIME = {
   '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8',
   '.js': 'text/javascript; charset=utf-8', '.json': 'application/json; charset=utf-8',
@@ -693,7 +694,7 @@ async function apiAdminMusic(req, res) {
 
 async function apiAdminMaterialUpload(req, res) {
   if (Number(req.headers['content-length'] || 0) > MAX_MATERIAL) {
-    return sendJson(res, 413, { error: '文件太大（上限 40 MB）。' });
+    return sendJson(res, 413, { error: '文件太大（上限 60 MB）。' });
   }
   let meta;
   try { meta = JSON.parse(decodeURIComponent(String(req.headers['x-material-meta'] || '{}'))); }
@@ -702,7 +703,7 @@ async function apiAdminMaterialUpload(req, res) {
   const filename = String(meta.filename || 'file.png');
   const ext = path.extname(filename).toLowerCase();
   if (!title) return sendJson(res, 400, { error: '给物料起个名字吧。' });
-  if (!MATERIAL_EXT.has(ext)) return sendJson(res, 400, { error: '支持 png / jpg / webp / gif / zip / mp4 / psd / txt。' });
+  if (!MATERIAL_EXT.has(ext)) return sendJson(res, 400, { error: '支持 png / jpg / webp / gif / zip / mp4 / webm / mov / psd / txt。' });
 
   let body;
   try { body = await readBody(req, MAX_MATERIAL); }
@@ -716,13 +717,21 @@ async function apiAdminMaterialUpload(req, res) {
   scheduleCommit('public/materials/uploads/' + safeName, '物料：' + safeName);
 
   const isImage = /\.(png|jpe?g|webp|gif)$/i.test(safeName);
+  // 影片没有缩略图，就从已有图片物料里随机挑一张当封面
+  let videoCover = '/assets/img/material-default.png';
+  if (!isImage) {
+    const pool = (readJson('site.json', {}).materials || [])
+      .map((m) => m.cover || '')
+      .filter((c) => /\.(png|jpe?g|webp|gif)$/i.test(c));
+    if (pool.length) videoCover = pool[Math.floor(Math.random() * pool.length)];
+  }
   const item = {
     id,
     title,
     desc: clean(meta.desc, 160),
     category: clean(meta.category, 12) || '其他',
     file: '/materials/uploads/' + safeName,
-    cover: isImage ? '/materials/uploads/' + safeName : '/assets/img/material-default.png',
+    cover: isImage ? '/materials/uploads/' + safeName : videoCover,
     format: ext.replace('.', '').toUpperCase(),
     res: clean(meta.res, 30)
   };

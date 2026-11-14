@@ -167,7 +167,7 @@
       (items.length ? '<div class="pending-grid">' + items.map(function (i) {
         var isImg = /\.(png|jpe?g|webp|gif)$/i.test(i.image || '');
         return '<article class="pcard">' +
-          (isImg ? '<img loading="lazy" src="' + esc(i.image) + '" alt="">' : '<div class="ph">📦</div>') +
+          (isImg ? '<img loading="lazy" src="' + esc(i.image) + '" alt="" onerror="this.onerror=null;this.src=\'/assets/img/material-default.png\'">' : '<div class="ph">📦</div>') +
           '<div class="b"><h4>' + esc(i.title) + '</h4>' +
           '<p>' + esc(i.author) + ' · ' + esc(i.category) + ' · ' + fmtDate(i.createdAt) + '</p>' +
           '<div class="acts">' +
@@ -287,7 +287,7 @@
       '<h2 style="margin:0">已有歌曲 <span class="sub">共 ' + list.length + ' 首</span></h2>' +
       '<button class="btn btn-sm btn-solid" data-act="save-music">保存修改</button></div>' +
       (list.length ? list.map(function (m, i) {
-        return '<div class="music-item"><img src="' + esc(m.cover || '/assets/img/avatar.png') + '" alt="">' +
+        return '<div class="music-item"><img src="' + esc(m.cover || '/assets/img/avatar.png') + '" alt="" onerror="this.onerror=null;this.src=\'/assets/img/avatar.png\'">' +
           '<div class="b"><input value="' + esc(m.title) + '" data-mi="' + i + '" data-mf="title" placeholder="歌名">' +
           '<input value="' + esc(m.artist) + '" data-mi="' + i + '" data-mf="artist" placeholder="歌手">' +
           '<div class="mi-row"><input value="' + esc(m.cover) + '" data-mi="' + i + '" data-mf="cover" placeholder="封面地址">' +
@@ -475,18 +475,19 @@
     view.innerHTML =
       '<div class="panel"><h2>上传新物料</h2>' +
       '<div class="form-grid">' +
-      '<div class="fld full"><label>文件（png / jpg / webp / zip / mp4 / psd）</label><input type="file" id="matFile"></div>' +
+      '<div class="fld full"><label>文件（图片 / 影片 mp4·webm·mov / zip / psd，≤ 60 MB）</label>' +
+      '<input type="file" id="matFile" accept=".png,.jpg,.jpeg,.webp,.gif,.zip,.mp4,.webm,.mov,.psd,.txt"></div>' +
       '<div class="fld"><label>标题</label><input id="matTitle" placeholder="例：冬季壁纸 · 奶油"></div>' +
       '<div class="fld"><label>分类</label><input id="matCat" placeholder="壁纸 / 头像 / 立绘 / 直播素材" value="壁纸"></div>' +
       '<div class="fld full"><label>描述</label><input id="matDesc" placeholder="一句话说明"></div>' +
       '<div class="fld"><label>格式（自动识别可留空）</label><input id="matFormat" placeholder="PNG"></div>' +
       '<div class="fld"><label>尺寸</label><input id="matRes" placeholder="1920×1080"></div>' +
       '<div class="full"><button class="btn btn-solid btn-sm" data-act="upload-mat">上传并添加</button></div>' +
-      '</div><p style="font-size:11px;color:var(--ink-3);margin:10px 0 0">图片会自动当封面；zip 等文件会使用默认封面，之后可以在 JSON 里换。</p></div>' +
+      '</div><p style="font-size:11px;color:var(--ink-3);margin:10px 0 0">图片会自动当封面；影片会从已有图片物料里随机挑一张当封面；zip 等文件用默认封面。</p></div>' +
       '<div class="panel"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h2 style="margin:0">现有物料 <span class="sub">共 ' + (state.site.materials || []).length + ' 份</span></h2>' +
       '<button class="btn btn-sm btn-solid" data-act="save-mats">保存修改</button></div>' +
       '<div class="mats">' + (state.site.materials || []).map(function (m, i) {
-        return '<div class="mat-edit"><img src="' + esc(m.cover || '/assets/img/material-default.png') + '" alt="">' +
+        return '<div class="mat-edit"><img src="' + esc(m.cover || '/assets/img/material-default.png') + '" alt="" onerror="this.onerror=null;this.src=\'/assets/img/material-default.png\'">' +
           '<div class="b"><input value="' + esc(m.title) + '" data-mi="' + i + '" data-mf="title">' +
           '<input value="' + esc(m.desc) + '" data-mi="' + i + '" data-mf="desc">' +
           '<div style="display:flex;gap:6px"><input value="' + esc(m.category) + '" data-mi="' + i + '" data-mf="category" style="flex:1">' +
