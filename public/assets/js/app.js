@@ -78,6 +78,8 @@
     var to = $('#page-' + route);
     if (!from || !to) return;
     state.route = route;
+    if (route === 'music') showMusicLoader();
+    document.body.classList.toggle('gal-on', route === 'fanart');
     renderNav();
     renderPage(route);
 
@@ -93,6 +95,19 @@
       to.classList.add('on');
       window.scrollTo(0, 0);
     }, 160);
+  }
+
+  var musicTimer = 0;
+  function showMusicLoader() {
+    var el = $('#musicLoader');
+    if (!el) return;
+    el.hidden = false;
+    el.classList.remove('off');
+    clearTimeout(musicTimer);
+    musicTimer = setTimeout(function () {
+      el.classList.add('off');
+      setTimeout(function () { el.hidden = true; }, 420);
+    }, 2000);
   }
 
   function renderPage(route) {
@@ -188,53 +203,45 @@
     $('#mLink').hidden = true;
     $('#modal').hidden = false;
   }
-  function renderNoticeNews() {
-    var list = (site.news || []).slice().sort(function (x, y) {
-      return String(y.date || '').localeCompare(String(x.date || ''));
-    });
-    var box = $('#newsList');
-    if (!box) return;
-    $('#newsCount').textContent = list.length ? list.length + ' 条' : '';
-    if (!list.length) {
-      box.innerHTML = '<li class="news-empty">还没有资讯。</li>';
-      return;
-    }
-    box.innerHTML = list.map(function (n) {
-      var tag = n.tag ? '<span class="nl-tag">' + esc(n.tag) + '</span>' : '';
-      var date = '<span class="nl-date">' + esc(String(n.date || '').replace(/-/g, '/').slice(2)) + '</span>';
-      var body = '<div class="nl-body">' + (tag + esc(n.title) ? '<b>' + esc(n.title) + '</b>' : '') +
-        (n.text ? '<p>' + esc(n.text) + '</p>' : '') + '</div>';
-      return '<li>' + (n.link ? '<a href="' + esc(n.link) + '">' + date + body + '</a>' : '<div>' + date + body + '</div>') + '</li>';
-    }).join('');
-  }
-
   function renderNotices() {
-    renderNoticeNews();
-    var list = site.notices || [];
-    var hero = $('#noticeHero'), hist = $('#noticeHistory');
+    var list = (site.notices || []).slice();
+    var hero = $('#noticeHero');
+    var feed = $('#noticeFeed');
+    if (!hero) return;
+
     if (!list.length) {
       hero.innerHTML = '<div class="empty-box"><div class="big">📣</div>暂时没有公告。</div>';
-      hist.innerHTML = '';
-      $('#noticeCount').textContent = '';
-      $('#noticeEmpty').hidden = false;
-      return;
+    } else {
+      var cur = list[0];
+      hero.innerHTML = '<div class="notice-hero">' +
+        '<div class="nh-body">' +
+        '<div><span class="n-tag">' + esc(cur.tag || '活动') + '</span><span class="n-date">' + esc(fmtDate(cur.date)) + '</span></div>' +
+        '<h2>' + esc(cur.title) + '</h2>' +
+        (cur.text ? '<p>' + esc(cur.text) + '</p>' : '') +
+        (cur.link ? '<a class="btn btn-solid btn-sm" href="' + esc(cur.link) + '">查看活动</a>'
+          : '<button class="btn btn-solid btn-sm" type="button" data-notice="0">查看详情</button>') +
+        '</div>' +
+        (cur.image ? '<div class="nh-img"><img src="' + esc(cur.image) + '" alt="' + esc(cur.title) + '" onerror="this.onerror=null;this.style.display=\'none\'"></div>' : '') +
+        '</div>';
     }
-    var cur = list[0];
-    hero.innerHTML = '<div class="notice-hero">' +
-      '<div class="notice-meta"><span class="n-tag">' + esc(cur.tag || '公告') + '</span><span class="n-date">' + esc(fmtDate(cur.date)) + '</span></div>' +
-      '<h2>' + esc(cur.title) + '</h2><p>' + esc(cur.text) + '</p>' +
-      (cur.link ? '<a class="btn btn-solid btn-sm" href="' + esc(cur.link) + '">查看活动</a>' : '<button class="btn btn-solid btn-sm" type="button" data-notice="0">查看详情</button>') +
-      '</div>';
-    var past = list.slice(1);
-    $('#noticeCount').textContent = past.length ? past.length + ' 条' : '';
-    $('#noticeEmpty').hidden = past.length > 0;
-    hist.innerHTML = past.map(function (n, i) {
-      var act = n.link
-        ? '<a class="btn btn-sm" href="' + esc(n.link) + '">查看活动</a>'
-        : '<button class="btn btn-sm" type="button" data-notice="' + (i + 1) + '">查看活动</button>';
-      return '<article class="notice-card"><div class="top"><span class="n-tag">' + esc(n.tag || '公告') + '</span><span class="n-date">' + esc(fmtDate(n.date)) + '</span></div>' +
-        '<h4>' + esc(n.title) + '</h4><p>' + esc(n.text) + '</p>' + act + '</article>';
-    }).join('');
+
+    var items = list.slice(1).map(function (n) { return Object.assign({}, n, { kind: 'notice' }); })
+      .concat((site.news || []).map(function (n) { return Object.assign({}, n, { kind: 'news' }); }));
+    items.sort(function (x, y) { return String(y.date || '').localeCompare(String(x.date || '')); });
+
+    if (feed) {
+      $('#noticeCount').textContent = items.length ? items.length + ' 条' : '';
+      $('#noticeEmpty').hidden = items.length > 0;
+      feed.innerHTML = items.map(function (n) {
+        var date = '<span class="nl-date">' + esc(String(n.date || '').replace(/-/g, '/').slice(2)) + '</span>';
+        var tag = '<span class="nl-tag">' + esc(n.tag || (n.kind === 'notice' ? '活动' : '资讯')) + '</span>';
+        var body = '<div class="nl-body">' + tag + '<b>' + esc(n.title) + '</b>' +
+          (n.text ? '<p>' + esc(n.text) + '</p>' : '') + '</div>';
+        var inner = '<div class="nf-item' + (n.kind === 'news' ? ' nf-past' : '') + '">' + date + body + '</div>';
+        return '<li>' + (n.link ? '<a href="' + esc(n.link) + '">' + inner + '</a>' : inner) + '</li>';
+      }).join('');
+    }
+
     $$('#page-notices [data-notice]').forEach(function (b) {
       b.onclick = function () { openNotice(list[+b.getAttribute('data-notice')]); };
     });
@@ -1089,7 +1096,8 @@
         if (!d) return;
         site = d;
         renderProfile(); renderNav(); renderNotices(); renderAbout(); renderSongs();
-        renderMusic(); renderMaterials(); renderRules(); renderGallery(); renderHome(); renderCal();
+        document.body.classList.toggle('gal-on', state.route === 'fanart');
+      renderMusic(); renderMaterials(); renderRules(); renderGallery(); renderHome(); renderCal();
         renderPage(state.route || routeFromHash());
       })
       .catch(function () {});
@@ -1099,6 +1107,8 @@
   function setupUI() {
     function markImg(img) {
       if (!img || img.classList.contains('img-in')) return;
+      // 背景装饰图有自定义透明度，不能被淡入动画覆盖
+      if (img.closest && img.closest('.gal-bg')) return;
       if (img.complete && img.naturalWidth) { img.classList.add('img-in'); return; }
       img.addEventListener('load', function () { img.classList.add('img-in'); }, { once: true });
     }

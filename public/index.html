@@ -16,7 +16,7 @@
 <meta property="og:title" content="辣奶火锅">
 <meta property="og:description" content="一口奶香，两口上头。简介 / 月历 / 物料 / 二创 / 歌单。">
 <meta property="og:image" content="/assets/img/og.png">
-<link rel="stylesheet" href="/assets/css/style.css?v=27">
+<link rel="stylesheet" href="/assets/css/style.css?v=29">
 </head>
 <body>
 
@@ -51,6 +51,7 @@
   </aside>
 
   <div class="main">
+    <div class="gal-bg" aria-hidden="true"><img src="/assets/img/gal-bg.webp" alt=""></div>
     <div class="live-bar" id="liveBar" hidden>
       <span class="lb-dot"></span>
       <span class="lb-text">正在直播<b id="liveBarTitle"></b></span>
@@ -117,21 +118,13 @@
           <p>当前活动和最近的通知，往期活动都收在下面。</p>
         </header>
         <div id="noticeHero"></div>
-        <div class="notice-history">
-          <div class="notice-head">
-            <h3>往期活动</h3>
-            <span id="noticeCount"></span>
-          </div>
-          <div class="notice-grid" id="noticeHistory"></div>
+        <div class="notice-feed">
+          <div class="nb-head"><h3>公告与资讯</h3><span id="noticeCount"></span></div>
+          <ul class="news-list" id="noticeFeed"></ul>
           <div class="empty-box" id="noticeEmpty" hidden>
             <div class="big">📣</div>
-            还没有往期活动。
+            暂时没有更多消息。
           </div>
-        </div>
-
-        <div class="news-block">
-          <div class="nb-head"><h3>资讯</h3><span id="newsCount"></span></div>
-          <ul class="news-list" id="newsList"></ul>
         </div>
       </section>
 
@@ -461,9 +454,16 @@
   </div>
 </div>
 
+<div class="music-loader" id="musicLoader" hidden>
+  <div class="ml-inner">
+    <img src="/assets/img/loading.webp" alt="">
+    <span class="ml-text">正在打开音乐区…</span>
+  </div>
+</div>
+
 <div class="toast" id="toast" role="status"></div>
 
-<script src="/assets/js/app.js?v=27"></script>
+<script src="/assets/js/app.js?v=29"></script>
 
 </body>
 </html>

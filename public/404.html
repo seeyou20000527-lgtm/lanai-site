@@ -4,15 +4,28 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>锅空了 · 404</title>
-<link rel="stylesheet" href="/assets/css/style.css?v=2">
+<link rel="icon" href="/assets/img/avatar.png">
+<link rel="stylesheet" href="/assets/css/style.css">
+<style>
+  .e404 { min-height: 100vh; display: grid; place-items: center; padding: 40px 24px; text-align: center;
+    background: linear-gradient(180deg, #fff 0%, #fff 55%, #fdf7f3 100%); }
+  .e404 img { width: min(300px, 62vw); height: auto; animation: bob 3s ease-in-out infinite; }
+  @keyframes bob { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-8px) } }
+  .e404 h1 { margin: 26px 0 6px; font-size: clamp(26px, 4vw, 38px); font-weight: 500;
+    font-family: "Songti SC", "SimSun", serif; letter-spacing: .06em; }
+  .e404 p { margin: 0 0 22px; color: #8a7d76; font-size: 13px; }
+  .e404 a { display: inline-block; padding: 10px 22px; border-radius: 999px; background: #2f2a27; color: #fff;
+    font-size: 13px; transition: .2s; }
+  .e404 a:hover { background: #c98f89; }
+</style>
 </head>
 <body>
-<div class="wrap" style="min-height:100vh;display:grid;place-items:center;text-align:center">
+<div class="e404">
   <div>
-    <img src="/assets/img/logo.png" alt="辣奶火锅" style="height:64px;margin:0 auto 18px">
-    <h1 style="font-size:26px;font-weight:600;margin:0 0 8px">这口锅是空的</h1>
-    <p style="color:var(--ink-2);font-size:14px;margin:0 0 22px">页面没找到，回首页捞一捞吧。</p>
-    <a class="btn btn-solid" href="/">回到首页</a>
+    <img src="/assets/img/chibi.png" alt="奶锅趴趴">
+    <h1>锅底空了</h1>
+    <p>这个页面被吃掉了 · 404</p>
+    <a href="/">回首页看看</a>
   </div>
 </div>
 </body>

@@ -165,3 +165,7 @@ textarea { resize: vertical; min-height: 70px; }
 .cm-top time { color: var(--ink-3); font-size: 11px; }
 .cm-like-n { color: var(--rose-2); font-size: 11px; }
 .cm-row p { margin: 5px 0 0; font-size: 13px; color: var(--ink-2); line-height: 1.6; word-break: break-word; }
+
+.cover-row { display: flex; gap: 8px; margin-top: 8px; }
+.cover-row input { flex: 1; }
+.cover-row .btn { flex-shrink: 0; white-space: nowrap; }

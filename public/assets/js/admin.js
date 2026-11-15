@@ -399,6 +399,10 @@
           '<button class="del" data-act="del-notice" data-i="' + i + '">✕</button></div></div>' +
           '<textarea placeholder="正文：活动时间、参与方式、注意事项…" data-k="' + i + '" data-f="text">' + esc(n.text) + '</textarea>' +
           '<input value="' + esc(n.link) + '" placeholder="跳转链接（选填，例如 #/fanart 或 https://…）" data-k="' + i + '" data-f="link" style="margin-top:8px">' +
+          '<div class="cover-row">' +
+          '<input id="ntCover' + i + '" value="' + esc(n.image || '') + '" placeholder="官宣图（选填，右图会出现在大卡片右侧）" data-k="' + i + '" data-f="image">' +
+          '<button class="btn btn-sm" type="button" data-pick="notice" data-input="ntCover' + i + '" data-ratio="1.6">上传图片</button>' +
+          '</div>' +
           '</div>';
       }).join('') +
       '<p style="font-size:11px;color:var(--ink-3);margin:12px 0 0">活动公告会以前台「公告」页最上面的大卡片展示，其余收进「往期活动」。点「置顶」调整顺序。</p></div>';
