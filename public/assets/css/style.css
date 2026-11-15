@@ -877,21 +877,25 @@ body.is-ios .pl-time { margin-right: 0; }
 
 /* ---------------- 船员礼 + 中式画框 ---------------- */
 .hero { grid-template-columns: minmax(0, 1fr) minmax(400px, 520px) minmax(320px, 500px); }
-.crew-card { position: relative; padding: 8px 0 8px 6%; text-align: left; }
-.crew-title { margin: 0 0 26px; font-family: "Songti SC", "SimSun", "STSong", serif; font-size: 22px; font-weight: 600;
-  letter-spacing: .42em; color: #a33b32; animation: crewSway 3.6s ease-in-out infinite; transform-origin: 50% 60%; }
+.crew-card { position: relative; width: fit-content; max-width: 100%; margin: 0 auto; padding: 8px 0; text-align: center; }
+.crew-title { margin: 0 0 30px; font-family: "STXingkai", "华文行楷", "KaiTi", "楷体", "STKaiti", serif; font-size: 38px; font-weight: 400;
+  letter-spacing: .3em; text-indent: .3em; color: #2b2523; animation: crewSway 3.6s ease-in-out infinite; transform-origin: 50% 60%; }
 @keyframes crewSway { 0%, 100% { transform: rotate(-1.5deg) translateY(0); } 50% { transform: rotate(1.5deg) translateY(-2px); } }
 @media (prefers-reduced-motion: reduce) { .crew-title { animation: none; } }
-.crew-groups { display: grid; gap: 20px; }
-.crew-line { display: grid; grid-template-columns: 52px minmax(0, 1fr); align-items: baseline; gap: 14px;
-  padding-left: calc(var(--i) * 40px); }
-.crew-rank { flex-shrink: 0; width: 46px; font-family: "Songti SC", "SimSun", serif; font-size: 15px;
-  letter-spacing: .18em; color: #a33b32; position: relative; }
+.crew-groups { display: grid; gap: 24px; text-align: left; }
+.crew-line { display: grid; grid-template-columns: 62px minmax(0, 1fr); align-items: baseline; gap: 16px;
+  padding-left: calc(var(--i) * 46px); }
+.crew-rank { flex-shrink: 0; width: 56px; font-family: "STXingkai", "华文行楷", "KaiTi", "楷体", serif; font-size: 20px;
+  letter-spacing: .1em; position: relative; }
+.crew-line[data-k="captain"] .crew-rank { color: #6e8894; }
+.crew-line[data-k="admiral"] .crew-rank { color: #8b7e9b; }
+.crew-line[data-k="governor"] .crew-rank { color: #a8706a; }
 .crew-rank::after { content: ""; position: absolute; left: 0; right: 8px; bottom: -4px; height: 1px;
   background: linear-gradient(90deg, rgba(163,59,50,.45), transparent); }
-.crew-gift { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; font-size: 11.5px;
-  color: var(--ink-2); letter-spacing: .02em; }
-.crew-gift i { font-style: normal; line-height: 1.75; }
+.crew-gift { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; font-size: 11.5px;
+  color: #6f655f; letter-spacing: .06em; }
+.crew-gift i { font-style: normal; line-height: 1.85; position: relative; padding-left: 12px; }
+.crew-gift i::before { content: ""; position: absolute; left: 0; top: .82em; width: 4px; height: 1px; background: rgba(163,59,50,.35); }
 @media (max-width: 900px) {
   .hero { grid-template-columns: 1fr; }
   .crew-card { padding: 4px 2px 18px; }

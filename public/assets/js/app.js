@@ -268,7 +268,7 @@
     });
     if (d.title && $('#crewTitle')) $('#crewTitle').textContent = d.title;
     $('#crewGroups').innerHTML = groups.map(function (g) {
-      return '<div class="crew-line" style="--i:' + g.i + '">' +
+      return '<div class="crew-line" data-k="' + esc(g.key) + '" style="--i:' + g.i + '">' +
         '<span class="crew-rank">' + esc(g.name) + '</span>' +
         '<span class="crew-gift">' + g.gifts.map(function (x) {
           return '<i>' + (x ? esc(x) : '&nbsp;') + '</i>';
