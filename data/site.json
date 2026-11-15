@@ -210,6 +210,16 @@
       "cover": "/materials/uploads/mat-mwgsjy82.jpg",
       "format": "JPG",
       "res": ""
+    },
+    {
+      "id": "mat-mwi4jujt",
+      "title": "哈气衣服简单版",
+      "desc": "哈气",
+      "category": "表情包",
+      "file": "/materials/uploads/mat-mwi4jujt.png",
+      "cover": "/materials/uploads/mat-mwi4jujt.png",
+      "format": "PNG",
+      "res": ""
     }
   ],
   "rules": {
