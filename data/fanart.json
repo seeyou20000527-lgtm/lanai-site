@@ -37,9 +37,10 @@
       "image": "/uploads/mwi2xsyx3694cd.jpg",
       "originalName": "春2.jpg",
       "bytes": 1335904,
-      "status": "pending",
+      "status": "approved",
       "createdAt": "2026-11-15T16:59:32.459Z",
-      "ip": "49.158.211.100"
+      "ip": "49.158.211.100",
+      "reviewedAt": "2026-11-15T17:02:32.775Z"
     },
     {
       "id": "mwi31d3lc064c5",
@@ -50,9 +51,10 @@
       "image": "/uploads/mwi31d3lc064c5.png",
       "originalName": "1793bb32-5293-4907-8b9a-19e7ec2cffe5.png",
       "bytes": 2131719,
-      "status": "pending",
+      "status": "approved",
       "createdAt": "2026-11-15T17:02:18.515Z",
-      "ip": "49.158.211.100"
+      "ip": "49.158.211.100",
+      "reviewedAt": "2026-11-15T17:02:31.787Z"
     }
   ]
 }
