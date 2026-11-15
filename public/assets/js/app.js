@@ -249,6 +249,15 @@
     });
   }
 
+  function setupFeed() {
+    var btn = $('#feedBtn'), modal = $('#feedModal');
+    if (!btn || !modal) return;
+    btn.onclick = function () { modal.hidden = false; };
+    $('[data-feed-close]').forEach(function (el) { el.onclick = function () { modal.hidden = true; }; });
+    var img = $('#feedQr');
+    if (img) img.onerror = function () { img.style.display = 'none'; };
+  }
+
   function renderCrew() {
     var card = $('#crewCard');
     if (!card) return;
@@ -1293,6 +1302,7 @@
       setupEvents();
       setupPlayer();
       setupUI();
+      setupFeed();
       var boot = $('#bootSkeleton');
       if (boot) { boot.classList.add('off'); setTimeout(function () { if (boot.parentNode) boot.parentNode.removeChild(boot); }, 400); }
       // 直接打开带锚点的页面

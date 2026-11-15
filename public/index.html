@@ -16,7 +16,7 @@
 <meta property="og:title" content="辣奶火锅">
 <meta property="og:description" content="一口奶香，两口上头。简介 / 月历 / 物料 / 二创 / 歌单。">
 <meta property="og:image" content="/assets/img/og.png">
-<link rel="stylesheet" href="/assets/css/style.css?v=39">
+<link rel="stylesheet" href="/assets/css/style.css?v=40">
 </head>
 <body>
 
@@ -149,6 +149,7 @@
             <div class="about-links" id="aboutLinks"></div>
           </div>
         </div>
+        <button class="feed-btn" id="feedBtn" type="button"><span>🍚</span>投喂大米饭</button>
       </section>
 
       <!-- 月历 -->
@@ -474,9 +475,19 @@
   </div>
 </div>
 
+<div class="feed-modal" id="feedModal" hidden>
+  <div class="feed-bg" data-feed-close></div>
+  <div class="feed-box">
+    <h3>投喂一碗大米饭</h3>
+    <p>扫码用支付宝请奶锅吃饭 · 心意都收到啦</p>
+    <img id="feedQr" src="/assets/img/alipay-qr.png" alt="支付宝收款码">
+    <button class="feed-close" type="button" data-feed-close aria-label="关闭">✕</button>
+  </div>
+</div>
+
 <div class="toast" id="toast" role="status"></div>
 
-<script src="/assets/js/app.js?v=39"></script>
+<script src="/assets/js/app.js?v=40"></script>
 
 </body>
 </html>
