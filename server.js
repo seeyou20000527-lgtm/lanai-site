@@ -616,8 +616,8 @@ function sanitizeSection(section, value) {
     return {
       title: clean(v.title, 20) || '本月船员礼',
       groups: (Array.isArray(v.groups) ? v.groups : []).slice(0, 3).map((x, i) => ({
-        key: ['governor', 'admiral', 'captain'][i] || 'captain',
-        name: clean(x && x.name, 8) || ['总督', '提督', '舰长'][i],
+        key: ['captain', 'admiral', 'governor'][i] || 'captain',
+        name: clean(x && x.name, 8) || ['舰长', '提督', '总督'][i],
         gifts: g(x && x.gifts)
       }))
     };

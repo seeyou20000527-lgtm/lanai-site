@@ -876,32 +876,27 @@ body.is-ios .pl-vol { display: none; }
 body.is-ios .pl-time { margin-right: 0; }
 
 /* ---------------- 船员礼 + 中式画框 ---------------- */
-.hero { grid-template-columns: minmax(0, 1fr) minmax(300px, 400px) minmax(340px, 560px); }
-.crew-card { position: relative; padding: 26px 22px; text-align: center; }
-.crew-card::before { content: ""; position: absolute; inset: 0; border: 1px solid rgba(178, 58, 48, .28); border-radius: 14px;
-  box-shadow: inset 0 0 0 5px #fff, inset 0 0 0 6px rgba(178, 58, 48, .16); }
-.crew-card::after { content: ""; position: absolute; inset: 8px; border-radius: 10px; pointer-events: none;
-  background:
-    radial-gradient(circle at 0 0, rgba(178,58,48,.5) 0 2px, transparent 2.5px) 0 0/12px 12px no-repeat,
-    radial-gradient(circle at 100% 0, rgba(178,58,48,.5) 0 2px, transparent 2.5px) 100% 0/12px 12px no-repeat,
-    radial-gradient(circle at 0 100%, rgba(178,58,48,.5) 0 2px, transparent 2.5px) 0 100%/12px 12px no-repeat,
-    radial-gradient(circle at 100% 100%, rgba(178,58,48,.5) 0 2px, transparent 2.5px) 100% 100%/12px 12px no-repeat; }
-.crew-title { margin: 0 0 16px; font-family: "Songti SC", "SimSun", "STSong", serif; font-size: 21px; font-weight: 600;
-  letter-spacing: .34em; color: #a33b32; animation: crewSway 3.6s ease-in-out infinite; transform-origin: 50% 60%; }
-@keyframes crewSway { 0%, 100% { transform: rotate(-1.6deg) translateY(0); } 50% { transform: rotate(1.6deg) translateY(-2px); } }
+.hero { grid-template-columns: minmax(0, 1fr) minmax(400px, 520px) minmax(320px, 500px); }
+.crew-card { position: relative; padding: 8px 0 8px 6%; text-align: left; }
+.crew-title { margin: 0 0 26px; font-family: "Songti SC", "SimSun", "STSong", serif; font-size: 22px; font-weight: 600;
+  letter-spacing: .42em; color: #a33b32; animation: crewSway 3.6s ease-in-out infinite; transform-origin: 50% 60%; }
+@keyframes crewSway { 0%, 100% { transform: rotate(-1.5deg) translateY(0); } 50% { transform: rotate(1.5deg) translateY(-2px); } }
 @media (prefers-reduced-motion: reduce) { .crew-title { animation: none; } }
-.crew-groups { display: grid; gap: 14px; }
-.crew-row { display: grid; grid-template-columns: 46px 1fr; align-items: start; gap: 10px; text-align: left; }
-.crew-ico { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center;
-  font-size: 13px; color: #fff; background: #c9554a; font-family: "Songti SC", serif; }
-.crew-row[data-k="admiral"] .crew-ico { background: #d98b52; }
-.crew-row[data-k="captain"] .crew-ico { background: #c9a04a; }
-.crew-name { font-family: "Songti SC", "SimSun", serif; font-size: 13px; color: #a33b32; letter-spacing: .2em; }
-.crew-gifts { margin: 3px 0 0; padding: 0; list-style: none; }
-.crew-gifts li { font-size: 12px; color: var(--ink-2); line-height: 1.85; letter-spacing: .04em; }
-.crew-gifts li::before { content: "· "; color: rgba(163, 59, 50, .6); }
-.empty-crew { font-size: 12px; color: var(--ink-3); }
-
+.crew-groups { display: grid; gap: 20px; }
+.crew-line { display: grid; grid-template-columns: 52px minmax(0, 1fr); align-items: baseline; gap: 14px;
+  padding-left: calc(var(--i) * 40px); }
+.crew-rank { flex-shrink: 0; width: 46px; font-family: "Songti SC", "SimSun", serif; font-size: 15px;
+  letter-spacing: .18em; color: #a33b32; position: relative; }
+.crew-rank::after { content: ""; position: absolute; left: 0; right: 8px; bottom: -4px; height: 1px;
+  background: linear-gradient(90deg, rgba(163,59,50,.45), transparent); }
+.crew-gift { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; font-size: 11.5px;
+  color: var(--ink-2); letter-spacing: .02em; }
+.crew-gift i { font-style: normal; line-height: 1.75; }
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; }
+  .crew-card { padding: 4px 2px 18px; }
+  .crew-line { margin-left: calc(var(--i) * 26px); }
+}
 .hero-art { border: none !important; outline: 1px solid rgba(178,58,48,.34); outline-offset: 7px; }
 .hero-frame { position: relative; }
 

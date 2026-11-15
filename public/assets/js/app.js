@@ -251,18 +251,28 @@
     var card = $('#crewCard');
     if (!card) return;
     var d = site.crew || {};
-    var groups = (d.groups && d.groups.length) ? d.groups : [
-      { key: 'governor', name: '总督', gifts: ['定制主题曲 · 由你点题', '年度手写信 · 亲笔', '专属形象定制 · 同款立绘'] },
-      { key: 'admiral', name: '提督', gifts: ['月度点歌 · 三首', '生日专属祝福 · 直播', '限定语音 · 一段'] },
-      { key: 'captain', name: '舰长', gifts: ['专属粉丝牌 · 烫金', '月度感谢榜 · 署名', '抽奖优先权 · 一次'] }
+    var defs = [
+      { key: 'captain', name: '舰长' },
+      { key: 'admiral', name: '提督' },
+      { key: 'governor', name: '总督' }
     ];
+    var src = d.groups || [];
+    var groups = defs.map(function (def, i) {
+      var g = null;
+      for (var k = 0; k < src.length; k++) if (src[k] && src[k].key === def.key) g = src[k];
+      var gifts = (g && g.gifts) ? g.gifts.slice(0, 3) : ['专属粉丝牌 · 烫金', '月度感谢榜 · 署名', '抽奖优先权 · 一次'];
+      if (def.key === 'admiral' && !g) gifts = ['月度点歌 · 三首', '生日专属祝福 · 直播', '限定语音 · 一段'];
+      if (def.key === 'governor' && !g) gifts = ['定制主题曲 · 由你点题', '年度手写信 · 亲笔', '专属形象定制 · 同款立绘'];
+      while (gifts.length < 3) gifts.push('');
+      return { key: def.key, name: (g && g.name) || def.name, gifts: gifts, i: i };
+    });
     if (d.title && $('#crewTitle')) $('#crewTitle').textContent = d.title;
     $('#crewGroups').innerHTML = groups.map(function (g) {
-      return '<div class="crew-row" data-k="' + esc(g.key) + '">' +
-        '<span class="crew-ico">' + esc((g.name || '')[0] || '礼') + '</span>' +
-        '<div><div class="crew-name">' + esc(g.name) + '</div><ul class="crew-gifts">' +
-        (g.gifts || []).filter(function (x) { return x; }).map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') +
-        '</ul></div></div>';
+      return '<div class="crew-line" style="--i:' + g.i + '">' +
+        '<span class="crew-rank">' + esc(g.name) + '</span>' +
+        '<span class="crew-gift">' + g.gifts.map(function (x) {
+          return '<i>' + (x ? esc(x) : '&nbsp;') + '</i>';
+        }).join('') + '</span></div>';
     }).join('');
   }
 
