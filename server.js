@@ -353,6 +353,7 @@ async function buildSitePayload() {
     rules: site.rules || { allowed: [], forbidden: [], notes: [] },
     songs: site.songs || [],
     notices: site.notices || [],
+    crew: site.crew || null,
     upload: site.upload || {},
     counts: {
       materials: materials.length,

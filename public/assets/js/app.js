@@ -148,6 +148,7 @@
   }
 
   var SNS_ICON = {
+    weibo: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M9.8 20.3c-4 0-7.3-2-7.3-4.5 0-1.3.8-2.9 2.3-4.4 2-2 4.3-2.9 5.4-2.2.5.3.3 1-.2 1.9-.2.4.1.5.4.3 1.6-.7 3-.7 3.5.1.3.4.2.9-.1 1.5 0 .2.1.3.3.3 1.3.4 1.9 1 1.9 1.9 0 2.1-3.1 5.1-6.2 5.1Zm-.4-1.6c2.2 0 4-1.3 4-2.7 0-1.3-1.6-2-3.6-1.6-2 .4-3.4 1.6-3.4 2.6 0 .9 1.3 1.7 3 1.7Zm7.5-6.6a.9.9 0 0 1-.1-1.8c.7-.1 1.2-.8 1-1.5-.2-.8-1-1.2-1.8-1a.9.9 0 1 1-.4-1.8 2.9 2.9 0 0 1 3.7 2.2c.4 1.7-.6 3.4-2.4 3.9h-.1Zm2.6 2.3a.8.8 0 0 1-.1-1.5c.5-.1.8-.6.7-1.1-.2-.6-.8-.9-1.4-.7a.8.8 0 1 1-.4-1.5c1.4-.4 2.7.4 3 1.8.3 1.3-.5 2.6-1.8 3Z"/></svg>',
     douyin: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 5.8a4.5 4.5 0 0 1-2.4-2.3h-2.6v9.7a2.3 2.3 0 1 1-1.9-2.25v-2.6a4.9 4.9 0 1 0 4.5 4.88V9.1a7.2 7.2 0 0 0 3.6.96V7.5a4.6 4.6 0 0 1-1.2-.17z"/></svg>',
     bili: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="4"/><path d="m8 3 3 4M16 3l-3 4"/><path d="M9.5 14v-3M14.5 14v-3" stroke-linecap="round"/></svg>',
     replay: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m10.5 9.5 4.5 2.5-4.5 2.5z" fill="currentColor" stroke="none"/></svg>'
@@ -160,9 +161,10 @@
     }).join('');
     $('#tagsBox').innerHTML = (p.tags || []).map(function (t) { return '<span>' + esc(t) + '</span>'; }).join('');
     var links = [
-      { icon: 'douyin', label: '抖音', sub: '@辣奶火锅', href: p.douyin || '' },
       { icon: 'bili', label: 'B 站主页', sub: 'space.bilibili.com', href: p.spaceUrl || '' },
-      { icon: 'replay', label: '录播号', sub: '直播回放', href: p.replay || '' }
+      { icon: 'douyin', label: '抖音', sub: '@辣奶火锅', href: p.douyin || 'https://www.douyin.com/user/self?from_tab_name=main&showSubTab=video&showTab=post' },
+      { icon: 'weibo', label: '微博', sub: 'weibo.com', href: p.weibo || 'https://weibo.com/u/7549763297' },
+      { icon: 'replay', label: '录播号', sub: '直播回放', href: p.replay || 'https://space.bilibili.com/1164726515' }
     ].filter(function (l) { return l.href; });
     $('#aboutLinks').innerHTML = links.map(function (l) {
       return '<a href="' + esc(l.href) + '" target="_blank" rel="noopener">' + SNS_ICON[l.icon] +
