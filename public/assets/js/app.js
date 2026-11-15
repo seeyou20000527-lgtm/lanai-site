@@ -221,7 +221,7 @@
         (cur.link ? '<a class="btn btn-solid btn-sm" href="' + esc(cur.link) + '">查看活动</a>'
           : '<button class="btn btn-solid btn-sm" type="button" data-notice="0">查看详情</button>') +
         '</div>' +
-        (cur.image ? '<div class="nh-img"><img src="' + esc(cur.image) + '" alt="' + esc(cur.title) + '" onerror="this.onerror=null;this.style.display=\'none\'"></div>' : '') +
+        (cur.cover ? '<div class="nh-img"><img src="' + esc(cur.cover) + '" alt="' + esc(cur.title) + '" onerror="this.onerror=null;this.style.display=\'none\'"></div>' : '') +
         '</div>';
     }
 

@@ -400,7 +400,7 @@
           '<textarea placeholder="正文：活动时间、参与方式、注意事项…" data-k="' + i + '" data-f="text">' + esc(n.text) + '</textarea>' +
           '<input value="' + esc(n.link) + '" placeholder="跳转链接（选填，例如 #/fanart 或 https://…）" data-k="' + i + '" data-f="link" style="margin-top:8px">' +
           '<div class="cover-row">' +
-          '<input id="ntCover' + i + '" value="' + esc(n.image || '') + '" placeholder="官宣图（选填，右图会出现在大卡片右侧）" data-k="' + i + '" data-f="image">' +
+          '<input id="ntCover' + i + '" value="' + esc(n.cover || '') + '" placeholder="官宣图（选填，会出现在大卡片右侧）" data-k="' + i + '" data-f="cover">' +
           '<button class="btn btn-sm" type="button" data-pick="notice" data-input="ntCover' + i + '" data-ratio="1.6">上传图片</button>' +
           '</div>' +
           '</div>';
