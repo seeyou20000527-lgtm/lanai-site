@@ -16,7 +16,7 @@
 <meta property="og:title" content="辣奶火锅">
 <meta property="og:description" content="一口奶香，两口上头。简介 / 月历 / 物料 / 二创 / 歌单。">
 <meta property="og:image" content="/assets/img/og.png">
-<link rel="stylesheet" href="/assets/css/style.css?v=26">
+<link rel="stylesheet" href="/assets/css/style.css?v=27">
 </head>
 <body>
 
@@ -63,6 +63,7 @@
     </div>
 
     <div class="boot" id="bootSkeleton">
+      <div class="boot-art"><img src="/assets/img/loading.webp" alt="" width="180"></div>
       <div class="boot-ph"><i style="width:34%;height:12px"></i><i style="width:52%;height:34px;margin-top:10px"></i><i style="width:24%;height:12px;margin-top:14px"></i></div>
       <div class="boot-card"></div>
       <div class="boot-row"><i></i><i></i><i></i></div>
@@ -126,6 +127,11 @@
             <div class="big">📣</div>
             还没有往期活动。
           </div>
+        </div>
+
+        <div class="news-block">
+          <div class="nb-head"><h3>资讯</h3><span id="newsCount"></span></div>
+          <ul class="news-list" id="newsList"></ul>
         </div>
       </section>
 
@@ -457,7 +463,7 @@
 
 <div class="toast" id="toast" role="status"></div>
 
-<script src="/assets/js/app.js?v=26"></script>
+<script src="/assets/js/app.js?v=27"></script>
 
 </body>
 </html>

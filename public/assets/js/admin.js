@@ -44,8 +44,7 @@
     { id: 'overview', label: '概览' },
     { id: 'fanart', label: '二创审核' },
     { id: 'calendar', label: '月历' },
-    { id: 'notices', label: '公告' },
-    { id: 'news', label: '资讯' },
+    { id: 'notices', label: '公告 / 资讯' },
     { id: 'materials', label: '物料' },
     { id: 'comments', label: '评论' },
     { id: 'songs', label: '歌单' },
@@ -110,7 +109,7 @@
     else if (state.tab === 'fanart') renderFanart(view);
     else if (state.tab === 'calendar') renderCalendar(view);
     else if (state.tab === 'notices') renderNotices(view);
-    else if (state.tab === 'news') renderNews(view);
+
     else if (state.tab === 'materials') renderMaterials(view);
     else if (state.tab === 'comments') renderCommentsAdmin(view);
     else if (state.tab === 'songs') renderSongs(view);
@@ -381,16 +380,15 @@
     };
   }
 
-  /* ---------------- 公告 ---------------- */
-  function renderNotices(view) {
-    if (!state.draft) state.draft = (state.site.notices || []).map(function (n) { return Object.assign({}, n); });
-    view.innerHTML =
-      '<div class="panel">' +
+  /* ---------------- 公告 / 资讯（合并成一个页面） ---------------- */
+  function noticePanelHtml() {
+    var d = state.draftN || [];
+    return '<div class="panel">' +
       '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:10px;flex-wrap:wrap">' +
-      '<h2 style="margin:0">公告 <span class="sub">共 ' + state.draft.length + ' 条</span></h2>' +
+      '<h2 style="margin:0">活动公告 <span class="sub">共 ' + d.length + ' 条 · 第一条置顶</span></h2>' +
       '<div style="display:flex;gap:8px"><button class="btn btn-sm" data-act="add-notice">+ 发一条</button>' +
       '<button class="btn btn-sm btn-solid" data-act="save-notices">保存公告</button></div></div>' +
-      state.draft.map(function (n, i) {
+      d.map(function (n, i) {
         return '<div class="notice-item">' +
           '<div class="top">' +
           '<input type="date" value="' + esc(n.date) + '" data-k="' + i + '" data-f="date">' +
@@ -403,81 +401,80 @@
           '<input value="' + esc(n.link) + '" placeholder="跳转链接（选填，例如 #/fanart 或 https://…）" data-k="' + i + '" data-f="link" style="margin-top:8px">' +
           '</div>';
       }).join('') +
-      '<p style="font-size:11px;color:var(--ink-3);margin:12px 0 0">第一条会显示在前台「公告」页最上面，其余收进「往期活动」。点「置顶」可以调整顺序。</p></div>';
+      '<p style="font-size:11px;color:var(--ink-3);margin:12px 0 0">活动公告会以前台「公告」页最上面的大卡片展示，其余收进「往期活动」。点「置顶」调整顺序。</p></div>';
+  }
+
+  function newsPanelHtml() {
+    var d = state.draftW || [];
+    return '<div class="panel news-editor" style="margin-top:16px">' +
+      '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:10px;flex-wrap:wrap">' +
+      '<h2 style="margin:0">资讯 <span class="sub">共 ' + d.length + ' 条 · 杂项小消息</span></h2>' +
+      '<div style="display:flex;gap:8px"><button class="btn btn-sm" data-act="add-news">+ 加一条</button>' +
+      '<button class="btn btn-sm btn-solid" data-act="save-news">保存资讯</button></div></div>' +
+      '<div class="row head-row"><span>日期</span><span>标签</span><span>标题</span><span>内容</span><span>链接</span><span></span></div>' +
+      d.map(function (n, i) {
+        return '<div class="row">' +
+          '<input type="date" value="' + esc(n.date) + '" data-grp="news" data-k="' + i + '" data-f="date">' +
+          '<input value="' + esc(n.tag) + '" placeholder="物料" data-grp="news" data-k="' + i + '" data-f="tag">' +
+          '<input value="' + esc(n.title) + '" placeholder="标题" data-grp="news" data-k="' + i + '" data-f="title">' +
+          '<input value="' + esc(n.text) + '" placeholder="一句话说明" data-grp="news" data-k="' + i + '" data-f="text">' +
+          '<input value="' + esc(n.link || '') + '" placeholder="#materials" data-grp="news" data-k="' + i + '" data-f="link">' +
+          '<button class="del" data-act="del-news" data-i="' + i + '">✕</button></div>';
+      }).join('') +
+      '<p style="font-size:11px;color:var(--ink-3);margin:12px 0 0">资讯是杂项小消息，前台会显示在活动公告下面，也会出现在首页「最近的事」。</p></div>';
+  }
+
+  function renderNotices(view) {
+    if (!state.draftN) state.draftN = (state.site.notices || []).map(function (n) { return Object.assign({}, n); });
+    if (!state.draftW) state.draftW = (state.site.news || []).map(function (n) { return Object.assign({}, n); });
+    view.innerHTML = noticePanelHtml() + newsPanelHtml();
 
     view.oninput = function (e) {
       var el = e.target;
-      if (el.dataset && el.dataset.k !== undefined) state.draft[+el.dataset.k][el.dataset.f] = el.value;
+      if (!el.dataset || el.dataset.k === undefined) return;
+      var arr = el.dataset.grp === 'news' ? state.draftW : state.draftN;
+      arr[+el.dataset.k][el.dataset.f] = el.value;
     };
     view.onclick = function (e) {
       var b = e.target.closest('[data-act]');
       if (!b) return;
       var act = b.getAttribute('data-act');
       if (act === 'add-notice') {
-        state.draft.unshift({ id: '', date: new Date().toISOString().slice(0, 10), tag: '活动', title: '', text: '', link: '' });
+        state.draftN.unshift({ id: '', date: new Date().toISOString().slice(0, 10), tag: '活动', title: '', text: '', link: '' });
         return renderNotices(view);
       }
-      if (act === 'del-notice') { state.draft.splice(+b.getAttribute('data-i'), 1); return renderNotices(view); }
+      if (act === 'del-notice') { state.draftN.splice(+b.getAttribute('data-i'), 1); return renderNotices(view); }
       if (act === 'pin-notice') {
         var i = +b.getAttribute('data-i');
-        var item = state.draft.splice(i, 1)[0];
-        state.draft.unshift(item);
+        var item = state.draftN.splice(i, 1)[0];
+        state.draftN.unshift(item);
         return renderNotices(view);
       }
       if (act === 'save-notices') {
-        var val = state.draft.filter(function (n) { return n.title && n.title.trim(); });
+        var val = state.draftN.filter(function (n) { return n.title && n.title.trim(); });
         api('/api/admin/site', {
           method: 'PUT', headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ section: 'notices', value: val })
-        }).then(function (r) { state.site.notices = r.value; state.draft = null; toast('公告已保存'); renderNotices(view); })
+        }).then(function (r) { state.site.notices = r.value; state.draftN = null; toast('公告已保存'); renderNotices(view); })
           .catch(function (err) { toast(err.message, true); });
       }
-    };
-  }
-
-  /* ---------------- 资讯 ---------------- */
-  function renderNews(view) {
-    if (!state.draft) state.draft = (state.site.news || []).map(function (n) { return Object.assign({}, n); });
-    view.innerHTML =
-      '<div class="panel news-editor">' +
-      '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:10px;flex-wrap:wrap">' +
-      '<h2 style="margin:0">资讯 <span class="sub">共 ' + state.draft.length + ' 条</span></h2>' +
-      '<div style="display:flex;gap:8px"><button class="btn btn-sm" data-act="add-news">+ 加一条</button>' +
-      '<button class="btn btn-sm btn-solid" data-act="save-news">保存资讯</button></div></div>' +
-      '<div class="row head-row"><span>日期</span><span>标签</span><span>标题</span><span>内容</span><span>链接</span><span></span></div>' +
-      state.draft.map(function (n, i) {
-        return '<div class="row">' +
-          '<input type="date" value="' + esc(n.date) + '" data-k="' + i + '" data-f="date">' +
-          '<input value="' + esc(n.tag) + '" placeholder="物料" data-k="' + i + '" data-f="tag">' +
-          '<input value="' + esc(n.title) + '" placeholder="标题" data-k="' + i + '" data-f="title">' +
-          '<input value="' + esc(n.text) + '" placeholder="一句话说明" data-k="' + i + '" data-f="text">' +
-          '<input value="' + esc(n.link || '') + '" placeholder="#materials" data-k="' + i + '" data-f="link">' +
-          '<button class="del" data-act="del-news" data-i="' + i + '">✕</button></div>';
-      }).join('') + '</div>';
-
-    view.oninput = function (e) {
-      var el = e.target;
-      if (el.dataset && el.dataset.k !== undefined) state.draft[+el.dataset.k][el.dataset.f] = el.value;
-    };
-    view.onclick = function (e) {
-      var b = e.target.closest('[data-act]');
-      if (!b) return;
-      var act = b.getAttribute('data-act');
       if (act === 'add-news') {
-        state.draft.unshift({ date: new Date().toISOString().slice(0, 10), tag: '公告', title: '', text: '', link: '' });
-        return renderNews(view);
+        state.draftW.unshift({ date: new Date().toISOString().slice(0, 10), tag: '资讯', title: '', text: '', link: '' });
+        return renderNotices(view);
       }
-      if (act === 'del-news') { state.draft.splice(+b.getAttribute('data-i'), 1); return renderNews(view); }
+      if (act === 'del-news') { state.draftW.splice(+b.getAttribute('data-i'), 1); return renderNotices(view); }
       if (act === 'save-news') {
-        var val = state.draft.filter(function (n) { return n.title; });
+        var v2 = state.draftW.filter(function (n) { return n.title && n.title.trim(); });
         api('/api/admin/site', {
           method: 'PUT', headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ section: 'news', value: val })
-        }).then(function (r) { state.site.news = r.value; state.draft = null; toast('资讯已保存'); renderNews(view); })
+          body: JSON.stringify({ section: 'news', value: v2 })
+        }).then(function (r) { state.site.news = r.value; state.draftW = null; toast('资讯已保存'); renderNotices(view); })
           .catch(function (err) { toast(err.message, true); });
       }
     };
   }
+
+  function renderNews(view) { renderNotices(view); }
 
   /* ---------------- 物料 ---------------- */
   function renderMaterials(view) {

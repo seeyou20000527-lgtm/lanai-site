@@ -188,7 +188,28 @@
     $('#mLink').hidden = true;
     $('#modal').hidden = false;
   }
+  function renderNoticeNews() {
+    var list = (site.news || []).slice().sort(function (x, y) {
+      return String(y.date || '').localeCompare(String(x.date || ''));
+    });
+    var box = $('#newsList');
+    if (!box) return;
+    $('#newsCount').textContent = list.length ? list.length + ' 条' : '';
+    if (!list.length) {
+      box.innerHTML = '<li class="news-empty">还没有资讯。</li>';
+      return;
+    }
+    box.innerHTML = list.map(function (n) {
+      var tag = n.tag ? '<span class="nl-tag">' + esc(n.tag) + '</span>' : '';
+      var date = '<span class="nl-date">' + esc(String(n.date || '').replace(/-/g, '/').slice(2)) + '</span>';
+      var body = '<div class="nl-body">' + (tag + esc(n.title) ? '<b>' + esc(n.title) + '</b>' : '') +
+        (n.text ? '<p>' + esc(n.text) + '</p>' : '') + '</div>';
+      return '<li>' + (n.link ? '<a href="' + esc(n.link) + '">' + date + body + '</a>' : '<div>' + date + body + '</div>') + '</li>';
+    }).join('');
+  }
+
   function renderNotices() {
+    renderNoticeNews();
     var list = site.notices || [];
     var hero = $('#noticeHero'), hist = $('#noticeHistory');
     if (!list.length) {
@@ -241,9 +262,16 @@
         '<p class="next-note">' + esc(next.e.type || '直播') + (next.e.note ? ' · ' + esc(next.e.note) : '') + '</p>' +
         '<a class="btn btn-sm" href="#/calendar">查看排期</a>';
     }
-    $('#newsMini').innerHTML = (site.notices || []).slice(0, 4).map(function (n) {
+    var feed = (site.notices || []).slice(0, 2).map(function (n) {
+      return { date: n.date, tag: n.tag || '活动', title: n.title, hot: true };
+    }).concat((site.news || []).slice().sort(function (x, y) {
+      return String(y.date || '').localeCompare(String(x.date || ''));
+    }).slice(0, 3).map(function (n) {
+      return { date: n.date, tag: n.tag || '资讯', title: n.title, hot: false };
+    })).sort(function (x, y) { return String(y.date || '').localeCompare(String(x.date || '')); }).slice(0, 5);
+    $('#newsMini').innerHTML = feed.map(function (n) {
       var inner = '<span class="d">' + esc(String(n.date || '').slice(5).replace('-', '/')) + '</span>' +
-        '<span class="t">' + esc(n.tag ? '[' + n.tag + '] ' : '') + esc(n.title) + '</span>';
+        '<span class="t' + (n.hot ? ' hot' : '') + '">' + esc(n.tag ? '[' + n.tag + '] ' : '') + esc(n.title) + '</span>';
       return '<li><a href="#/notices">' + inner + '</a></li>';
     }).join('');
   }
