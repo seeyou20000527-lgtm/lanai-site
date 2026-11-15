@@ -220,6 +220,16 @@
       "cover": "/materials/uploads/mat-mwi4jujt.png",
       "format": "PNG",
       "res": ""
+    },
+    {
+      "id": "mat-mwi4ko97",
+      "title": "红包封面",
+      "desc": "红包封面",
+      "category": "壁纸",
+      "file": "/materials/uploads/mat-mwi4ko97.jpg",
+      "cover": "/materials/uploads/mat-mwi4ko97.jpg",
+      "format": "JPG",
+      "res": ""
     }
   ],
   "rules": {
