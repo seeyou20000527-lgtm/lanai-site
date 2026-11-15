@@ -46,6 +46,7 @@
     { id: 'calendar', label: '月历' },
     { id: 'notices', label: '公告 / 资讯' },
     { id: 'materials', label: '物料' },
+    { id: 'crew', label: '船员礼' },
     { id: 'comments', label: '评论' },
     { id: 'songs', label: '歌单' },
     { id: 'music', label: '音乐' },
@@ -97,7 +98,8 @@
   /* ---------------- 渲染入口 ---------------- */
   function render() {
     var view = $('#view');
-    var titles = { overview: ['概览', '一眼看完站点状态'], fanart: ['二创审核', '通过的投稿才会出现在前台展厅'], calendar: ['月历', '直播排期，改完点保存'], news: ['资讯', '首页「最近的事」内容'], comments: ['评论', '管理每条评论，可以删除'], materials: ['物料', '上传新物料、改标题和描述'], notices: ['公告', '当前活动放第一条，其余为往期活动'], songs: ['歌单', '直播会唱的歌，前台「歌单」页展示'], music: ['音乐', '上传自己唱的翻唱，前台可播放和下载'], profile: ['资料', '简介、QQ 群、B 站链接'] };
+    var titles = { overview: ['概览', '一眼看完站点状态'], fanart: ['二创审核', '通过的投稿才会出现在前台展厅'], calendar: ['月历', '直播排期，改完点保存'], news: ['资讯', '首页「最近的事」内容'], crew: ['本月船员礼', '首页中间那块，改完立刻更新'],
+    comments: ['评论', '管理每条评论，可以删除'], materials: ['物料', '上传新物料、改标题和描述'], notices: ['公告', '当前活动放第一条，其余为往期活动'], songs: ['歌单', '直播会唱的歌，前台「歌单」页展示'], music: ['音乐', '上传自己唱的翻唱，前台可播放和下载'], profile: ['资料', '简介、QQ 群、B 站链接'] };
     $('#pageTitle').textContent = titles[state.tab][0];
     $('#pageSub').textContent = titles[state.tab][1];
     $('#headActions').innerHTML = '';
@@ -111,6 +113,7 @@
     else if (state.tab === 'notices') renderNotices(view);
 
     else if (state.tab === 'materials') renderMaterials(view);
+    else if (state.tab === 'crew') renderCrewAdmin(view);
     else if (state.tab === 'comments') renderCommentsAdmin(view);
     else if (state.tab === 'songs') renderSongs(view);
     else if (state.tab === 'music') renderMusic(view);
@@ -548,6 +551,55 @@
           })
           .catch(function (err) { toast(err.message, true); b.disabled = false; b.textContent = '上传并添加'; });
       }
+    };
+  }
+
+  /* ---------------- 船员礼 ---------------- */
+  var CREW_DEF = [
+    { key: 'governor', name: '总督' },
+    { key: 'admiral', name: '提督' },
+    { key: 'captain', name: '舰长' }
+  ];
+  function crewDraft() {
+    if (state.crewDraft) return state.crewDraft;
+    var cur = state.site.crew || {};
+    var gs = cur.groups && cur.groups.length ? cur.groups : [];
+    state.crewDraft = {
+      title: cur.title || '本月船员礼',
+      groups: CREW_DEF.map(function (d, i) {
+        var g = gs.find(function (x) { return x.key === d.key; }) || gs[i] || {};
+        return { key: d.key, name: g.name || d.name, gifts: (g.gifts || ['', '', '']).concat(['', '', '']).slice(0, 3) };
+      })
+    };
+    return state.crewDraft;
+  }
+  function renderCrewAdmin(view) {
+    var d = crewDraft();
+    view.innerHTML = '<div class="panel">' +
+      '<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px">' +
+      '<h2 style="margin:0">本月船员礼</h2><button class="btn btn-sm btn-solid" data-act="save-crew">保存并更新前台</button></div>' +
+      '<div class="fld" style="margin-bottom:18px"><label>标题（会轻微摇晃）</label><input id="crewTitleIn" value="' + esc(d.title) + '"></div>' +
+      d.groups.map(function (g, gi) {
+        return '<div style="margin-bottom:16px"><div style="font-size:12px;color:var(--ink-3);margin-bottom:6px">' + esc(g.name) + ' · 三个礼物</div>' +
+          g.gifts.map(function (v, i) {
+            return '<input style="width:100%;margin-bottom:6px" data-gi="' + gi + '" data-v="' + i + '" value="' + esc(v) + '" placeholder="第 ' + (i + 1) + ' 项">';
+          }).join('') + '</div>';
+      }).join('') +
+      '<p style="font-size:11px;color:var(--ink-3);margin:6px 0 0">留空的项目不会显示。</p></div>';
+    view.oninput = function (e) {
+      var el = e.target;
+      if (el.id === 'crewTitleIn') { d.title = el.value; return; }
+      if (el.dataset && el.dataset.gi !== undefined) d.groups[+el.dataset.gi].gifts[+el.dataset.v] = el.value;
+    };
+    view.onclick = function (e) {
+      var b = e.target.closest('[data-act="save-crew"]');
+      if (!b) return;
+      b.disabled = true;
+      api('/api/admin/site', {
+        method: 'PUT', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ section: 'crew', value: d })
+      }).then(function (r) { state.site.crew = r.value; state.crewDraft = null; toast('已保存，前台已更新'); renderCrewAdmin(view); })
+        .catch(function (err) { toast(err.message, true); b.disabled = false; });
     };
   }
 

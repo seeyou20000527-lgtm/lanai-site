@@ -247,8 +247,28 @@
     });
   }
 
+  function renderCrew() {
+    var card = $('#crewCard');
+    if (!card) return;
+    var d = site.crew || {};
+    var groups = (d.groups && d.groups.length) ? d.groups : [
+      { key: 'governor', name: '总督', gifts: ['定制主题曲 · 由你点题', '年度手写信 · 亲笔', '专属形象定制 · 同款立绘'] },
+      { key: 'admiral', name: '提督', gifts: ['月度点歌 · 三首', '生日专属祝福 · 直播', '限定语音 · 一段'] },
+      { key: 'captain', name: '舰长', gifts: ['专属粉丝牌 · 烫金', '月度感谢榜 · 署名', '抽奖优先权 · 一次'] }
+    ];
+    if (d.title && $('#crewTitle')) $('#crewTitle').textContent = d.title;
+    $('#crewGroups').innerHTML = groups.map(function (g) {
+      return '<div class="crew-row" data-k="' + esc(g.key) + '">' +
+        '<span class="crew-ico">' + esc((g.name || '')[0] || '礼') + '</span>' +
+        '<div><div class="crew-name">' + esc(g.name) + '</div><ul class="crew-gifts">' +
+        (g.gifts || []).filter(function (x) { return x; }).map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') +
+        '</ul></div></div>';
+    }).join('');
+  }
+
   /* ---------------- 首页 ---------------- */
   function renderHome() {
+    renderCrew();
     var evs = (site.schedule || []).slice().sort(function (a, b) { return (a.date + a.time).localeCompare(b.date + b.time); });
     var now = Date.now();
     var next = null;
@@ -1111,9 +1131,9 @@
       .then(function (d) {
         if (!d) return;
         site = d;
-        renderProfile(); renderNav(); renderNotices(); renderAbout(); renderSongs();
+        renderProfile(); renderCrew(); renderNav(); renderNotices(); renderAbout(); renderSongs();
         document.body.classList.toggle('gal-on', state.route === 'fanart');
-      renderMusic(); renderMaterials(); renderRules(); renderGallery(); renderHome(); renderCal();
+      renderCrew(); renderMusic(); renderMaterials(); renderRules(); renderGallery(); renderHome(); renderCal();
         renderPage(state.route || routeFromHash());
       })
       .catch(function () {});

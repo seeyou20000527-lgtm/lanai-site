@@ -610,6 +610,18 @@ function sanitizeSection(section, value) {
       createdAt: m && m.createdAt ? clean(m.createdAt, 40) : new Date().toISOString()
     })).filter((m) => m.title && m.file);
   }
+  if (section === 'crew') {
+    const v = value || {};
+    const g = (arr) => (Array.isArray(arr) ? arr : []).slice(0, 3).map((x) => clean(x, 40));
+    return {
+      title: clean(v.title, 20) || '本月船员礼',
+      groups: (Array.isArray(v.groups) ? v.groups : []).slice(0, 3).map((x, i) => ({
+        key: ['governor', 'admiral', 'captain'][i] || 'captain',
+        name: clean(x && x.name, 8) || ['总督', '提督', '舰长'][i],
+        gifts: g(x && x.gifts)
+      }))
+    };
+  }
   if (section === 'notices') {
     return (Array.isArray(value) ? value : []).slice(0, 100).map((n, i) => {
       let id = clean(n && n.id, 40).replace(/[^a-zA-Z0-9_-]/g, '');
