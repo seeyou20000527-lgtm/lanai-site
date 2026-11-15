@@ -504,6 +504,18 @@
     set('seekbackward', function (d) { audio.currentTime = Math.max(0, audio.currentTime - ((d && d.seekOffset) || 10)); });
     set('seekforward', function (d) { audio.currentTime = Math.min(audio.duration || 0, audio.currentTime + ((d && d.seekOffset) || 10)); });
   }
+  function syncPosition() {
+    if (!('mediaSession' in navigator) || !navigator.mediaSession.setPositionState) return;
+    if (!isFinite(audio.duration) || audio.duration <= 0) return;
+    try {
+      navigator.mediaSession.setPositionState({
+        duration: audio.duration,
+        playbackRate: audio.playbackRate || 1,
+        position: Math.min(audio.currentTime, audio.duration)
+      });
+    } catch (e) {}
+  }
+
   function updateMediaSession(m) {
     if (!('mediaSession' in navigator) || !window.MediaMetadata) return;
     try {
@@ -691,29 +703,25 @@
     var v = Number(localStorage.getItem('pl-vol'));
     return isFinite(v) && v >= 0 && v <= 100 ? v : 80;
   }
+  /* 不再把声音接进 WebAudio：MediaElementSource 会让 iOS 在后台/锁屏时
+     把 AudioContext 挂起 → 直接静音，而且会让系统音量键失效。
+     现在音量交给 <audio>.volume（安卓/桌面）或手机音量键（iOS）。 */
+  var IS_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   function ensureGraph() {
-    if (graph.ctx || graph.failed) return graph;
-    try {
-      var AC = window.AudioContext || window.webkitAudioContext;
-      var ctx = new AC();
-      var src = ctx.createMediaElementSource(audio);
-      var gain = ctx.createGain();
-      var analyser = ctx.createAnalyser();
-      analyser.fftSize = 256;
-      analyser.smoothingTimeConstant = .85;
-      src.connect(gain);
-      gain.connect(analyser);
-      analyser.connect(ctx.destination);
-      gain.gain.value = storedVolume() / 100;
-      graph.ctx = ctx; graph.gain = gain; graph.analyser = analyser;
-    } catch (e) { graph.failed = true; }
+    graph.failed = true;
     return graph;
   }
   function applyVolume(v) {
-    var g = ensureGraph();
-    if (g.gain) g.gain.gain.value = v / 100;
-    audio.volume = v / 100;
-    audio.muted = v === 0;
+    var pct = Math.max(0, Math.min(100, Number(v))) / 100;
+    if (IS_IOS) {
+      // iOS 不允许改 volume，一律满音量，由实体音量键控制
+      audio.volume = 1;
+      audio.muted = false;
+      return;
+    }
+    audio.volume = pct;
+    audio.muted = pct === 0;
   }
   function hexToRgb(hex) {
     var m = /^#?([a-f0-9]{6})$/i.exec(String(hex || '').trim());
@@ -940,6 +948,7 @@
       $('#plTime').textContent = fmtTime(audio.currentTime) + ' / ' + fmtTime(audio.duration);
       syncLyrics();
       syncMediaState();
+      if (!syncPosition._t || Date.now() - syncPosition._t > 900) { syncPosition._t = Date.now(); syncPosition(); }
     });
     document.addEventListener('keydown', function (e) {
       if (e.code === 'Space' && !/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName) && !audio.paused) {
@@ -1105,6 +1114,11 @@
 
   /* ---------------- 视觉细节 ---------------- */
   function setupUI() {
+    if (IS_IOS) {
+      document.body.classList.add('is-ios');
+      var vol = $('#plVol');
+      if (vol) vol.setAttribute('title', '用手机音量键调节');
+    }
     function markImg(img) {
       if (!img || img.classList.contains('img-in')) return;
       // 背景装饰图有自定义透明度，不能被淡入动画覆盖

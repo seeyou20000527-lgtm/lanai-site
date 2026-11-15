@@ -866,3 +866,7 @@ body.gal-on .gal-bg { opacity: 1; }
   .nh-img { aspect-ratio: 16 / 9; }
   .ml-inner img { width: 78vw; }
 }
+
+/* iOS：站内音量条无效，隐藏，交给实体键 */
+body.is-ios .pl-vol { display: none; }
+body.is-ios .pl-time { margin-right: 0; }
