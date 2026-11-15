@@ -210,36 +210,6 @@
       "cover": "/materials/uploads/mat-mwgsjy82.jpg",
       "format": "JPG",
       "res": ""
-    },
-    {
-      "id": "mat-mwgsk9xw",
-      "title": "片头",
-      "desc": "片头",
-      "category": "片头",
-      "file": "/materials/uploads/mat-mwgsk9xw.mp4",
-      "cover": "/materials/uploads/mat-mwgsjy82.jpg",
-      "format": "MP4",
-      "res": ""
-    },
-    {
-      "id": "mat-mwgskq2p",
-      "title": "片尾",
-      "desc": "片尾",
-      "category": "片尾",
-      "file": "/materials/uploads/mat-mwgskq2p.mp4",
-      "cover": "/materials/uploads/mat-mwga5357.png",
-      "format": "MP4",
-      "res": ""
-    },
-    {
-      "id": "mat-mwgslome",
-      "title": "奶锅魔杖",
-      "desc": "奶锅概念魔杖",
-      "category": "魔杖",
-      "file": "/materials/uploads/mat-mwgslome.gif",
-      "cover": "/materials/uploads/mat-mwgslome.gif",
-      "format": "GIF",
-      "res": ""
     }
   ],
   "rules": {
