@@ -874,6 +874,26 @@ async function apiCommentsLike(req, res) {
   sendJson(res, 200, { ok: true, likes: item.likes });
 }
 
+function apiAdminComments(req, res) {
+  const db = readJson('comments.json', { items: [] });
+  const site = readJson('site.json', {});
+  const titles = {};
+  (site.music || []).forEach((m) => { titles[m.id] = m.title; });
+  const items = (db.items || []).slice(-600).reverse().map((c) => Object.assign({}, c, {
+    trackTitle: titles[c.trackId] || c.trackId
+  }));
+  sendJson(res, 200, { items, total: (db.items || []).length });
+}
+
+async function apiAdminCommentDelete(req, res, id) {
+  const db = readJson('comments.json', { items: [] });
+  const idx = (db.items || []).findIndex((c) => c.id === id);
+  if (idx < 0) return sendJson(res, 404, { error: '找不到这条评论。' });
+  db.items.splice(idx, 1);
+  await writeJson('comments.json', db);
+  sendJson(res, 200, { ok: true });
+}
+
 function apiAdminOverview(req, res) {
   const site = readJson('site.json', {});
   const stats = readJson('stats.json', { downloads: {} });
@@ -1051,6 +1071,10 @@ async function handle(req, res) {
     if (!isAdmin(req)) return sendJson(res, 401, { error: '请先登录后台。' });
     if (pathname === '/api/admin/overview' && method === 'GET') return apiAdminOverview(req, res);
     if (pathname === '/api/admin/fanart' && method === 'GET') return apiAdminFanart(req, res);
+    if (pathname === '/api/admin/comments' && method === 'GET') return apiAdminComments(req, res);
+    if (pathname.startsWith('/api/admin/comments/') && method === 'DELETE') {
+      return apiAdminCommentDelete(req, res, pathname.slice('/api/admin/comments/'.length));
+    }
     if (pathname.startsWith('/api/admin/fanart/') && method === 'POST') {
       return apiAdminFanartStatus(req, res, pathname.slice('/api/admin/fanart/'.length).split('/')[0]);
     }

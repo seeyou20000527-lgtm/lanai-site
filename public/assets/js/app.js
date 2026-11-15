@@ -129,6 +129,7 @@
     if (site.live && site.live.isLive) {
       $('#tagline').textContent = '● 正在直播：' + (site.live.title || '辣奶火锅的直播间');
     }
+    renderLiveBar();
   }
 
   var SNS_ICON = {
@@ -154,6 +155,28 @@
     }).join('');
     var side = document.getElementById('sideReplay');
     if (side) { side.href = p.replay || '#'; }
+  }
+
+  function renderLiveBar() {
+    var bar = $('#liveBar');
+    if (!bar) return;
+    var live = site.live || {};
+    var off = false;
+    try { off = sessionStorage.getItem('live-bar-off') === '1'; } catch (e) {}
+    if (!live.isLive || off) { bar.hidden = true; return; }
+    var t = $('#liveBarTitle');
+    if (t) t.textContent = live.title || '辣奶火锅的直播间';
+    var go = $('#liveBarGo');
+    if (go) go.href = (site.profile && site.profile.liveUrl) || 'https://live.bilibili.com/1911412880';
+    bar.hidden = false;
+    var close = $('#liveBarClose');
+    if (close && !close._bound) {
+      close._bound = true;
+      close.onclick = function () {
+        bar.hidden = true;
+        try { sessionStorage.setItem('live-bar-off', '1'); } catch (e) {}
+      };
+    }
   }
 
   /* ---------------- 公告 ---------------- */
@@ -1179,6 +1202,8 @@
       setupEvents();
       setupPlayer();
       setupUI();
+      var boot = $('#bootSkeleton');
+      if (boot) { boot.classList.add('off'); setTimeout(function () { if (boot.parentNode) boot.parentNode.removeChild(boot); }, 400); }
       // 直接打开带锚点的页面
       if (state.route !== 'home') {
         var cur = $('#page-home');
@@ -1187,5 +1212,10 @@
       }
       renderNav();
     })
-    .catch(function (err) { console.error(err); toast('数据加载失败，请确认服务已启动', true); });
+    .catch(function (err) {
+      console.error(err);
+      var boot = $('#bootSkeleton');
+      if (boot) boot.innerHTML = '<p class="boot-err">内容加载失败，下拉刷新或稍后再试。</p>';
+      toast('数据加载失败，请确认服务已启动', true);
+    });
 })();

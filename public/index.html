@@ -16,7 +16,7 @@
 <meta property="og:title" content="辣奶火锅">
 <meta property="og:description" content="一口奶香，两口上头。简介 / 月历 / 物料 / 二创 / 歌单。">
 <meta property="og:image" content="/assets/img/og.png">
-<link rel="stylesheet" href="/assets/css/style.css?v=25">
+<link rel="stylesheet" href="/assets/css/style.css?v=26">
 </head>
 <body>
 
@@ -51,9 +51,21 @@
   </aside>
 
   <div class="main">
+    <div class="live-bar" id="liveBar" hidden>
+      <span class="lb-dot"></span>
+      <span class="lb-text">正在直播<b id="liveBarTitle"></b></span>
+      <a class="lb-go" id="liveBarGo" href="#" target="_blank" rel="noopener">进入直播间 →</a>
+      <button class="lb-close" id="liveBarClose" type="button" aria-label="关闭直播提示">✕</button>
+    </div>
     <div class="m-top">
       <a href="#/home"><img src="/assets/img/logo.png" alt="辣奶火锅"></a>
       <button class="qq" id="mQq" type="button">QQ群 <span id="mQqNum">858862396</span></button>
+    </div>
+
+    <div class="boot" id="bootSkeleton">
+      <div class="boot-ph"><i style="width:34%;height:12px"></i><i style="width:52%;height:34px;margin-top:10px"></i><i style="width:24%;height:12px;margin-top:14px"></i></div>
+      <div class="boot-card"></div>
+      <div class="boot-row"><i></i><i></i><i></i></div>
     </div>
 
     <div class="page-wrap">
@@ -445,7 +457,7 @@
 
 <div class="toast" id="toast" role="status"></div>
 
-<script src="/assets/js/app.js?v=25"></script>
+<script src="/assets/js/app.js?v=26"></script>
 
 </body>
 </html>

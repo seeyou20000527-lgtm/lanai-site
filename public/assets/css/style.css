@@ -738,3 +738,39 @@ img.img-in { animation: imgFade .5s ease both; }
   .to-top { right: 14px; bottom: calc(52px + 68px + env(safe-area-inset-bottom)); }
   .lb-box img { max-height: 66vh; }
 }
+
+/* ---------------- 直播中提示条 ---------------- */
+.live-bar {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 56px; font-size: 12.5px; color: #9c5f57;
+  background: linear-gradient(90deg, #fdf2ef, #fbe8e3 60%, #fdf2ef);
+  border-bottom: 1px solid #f4ded8;
+  position: sticky; top: 0; z-index: 60;
+}
+.lb-dot { width: 7px; height: 7px; border-radius: 50%; background: #e0655c; box-shadow: 0 0 0 0 rgba(224,101,92,.55); animation: livePulse 1.9s cubic-bezier(.4,0,.6,1) infinite; flex-shrink: 0; }
+@keyframes livePulse { 0% { box-shadow: 0 0 0 0 rgba(224,101,92,.55); } 70% { box-shadow: 0 0 0 9px rgba(224,101,92,0); } 100% { box-shadow: 0 0 0 0 rgba(224,101,92,0); } }
+.lb-text { display: flex; align-items: baseline; gap: 8px; min-width: 0; }
+.lb-text b { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 46vw; }
+.lb-go { margin-left: auto; color: #9c5f57; font-weight: 500; }
+.lb-go:hover { color: var(--rose); }
+.lb-close { border: none; background: none; cursor: pointer; color: #b98a83; font-size: 12px; padding: 2px 4px; }
+.lb-close:hover { color: #8a4b44; }
+
+/* ---------------- 首屏骨架屏 ---------------- */
+.boot { padding: 60px 56px 20px; }
+.boot-ph i { display: block; border-radius: 8px; background: linear-gradient(90deg, #f3ece8 25%, #faf5f2 37%, #f3ece8 63%); background-size: 400% 100%; animation: shimmer 1.4s ease infinite; }
+.boot-card { height: 260px; margin-top: 34px; border-radius: 20px; background: linear-gradient(90deg, #f6efeb 25%, #fdf8f5 37%, #f6efeb 63%); background-size: 400% 100%; animation: shimmer 1.4s ease infinite; }
+.boot-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 18px; }
+.boot-row i { height: 120px; border-radius: 16px; background: linear-gradient(90deg, #f6efeb 25%, #fdf8f5 37%, #f6efeb 63%); background-size: 400% 100%; animation: shimmer 1.4s ease infinite; }
+@keyframes shimmer { 0% { background-position: 100% 0; } 100% { background-position: 0 0; } }
+.boot.off { opacity: 0; transition: opacity .35s ease; pointer-events: none; }
+.boot-err { color: var(--ink-3); font-size: 13px; padding: 40px 0; text-align: center; }
+
+@media (max-width: 900px) {
+  .live-bar { padding: 9px 16px; }
+  .lb-text b { max-width: 40vw; }
+  .boot { padding: 24px 16px 10px; }
+  .boot-card { height: 200px; }
+  .boot-row { grid-template-columns: 1fr; }
+  .boot-row i { height: 84px; }
+}

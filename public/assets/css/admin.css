@@ -155,3 +155,13 @@ textarea { resize: vertical; min-height: 70px; }
 
 .persist-warn { background: #fdf0ee; border: 1px solid #f0cfc9; color: #a4574f; border-radius: 12px; padding: 12px 16px; font-size: 12.5px; line-height: 1.7; margin-bottom: 16px; }
 .persist-warn code { background: #fff; border-radius: 5px; padding: 1px 6px; }
+
+.cm-row { display: flex; gap: 14px; align-items: flex-start; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.cm-row:last-child { border-bottom: none; }
+.cm-main { flex: 1; min-width: 0; }
+.cm-top { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; font-size: 12px; }
+.cm-top b { font-weight: 600; }
+.cm-track { color: var(--rose-2); font-size: 11px; }
+.cm-top time { color: var(--ink-3); font-size: 11px; }
+.cm-like-n { color: var(--rose-2); font-size: 11px; }
+.cm-row p { margin: 5px 0 0; font-size: 13px; color: var(--ink-2); line-height: 1.6; word-break: break-word; }

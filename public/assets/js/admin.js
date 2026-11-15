@@ -47,6 +47,7 @@
     { id: 'notices', label: '公告' },
     { id: 'news', label: '资讯' },
     { id: 'materials', label: '物料' },
+    { id: 'comments', label: '评论' },
     { id: 'songs', label: '歌单' },
     { id: 'music', label: '音乐' },
     { id: 'profile', label: '资料' }
@@ -97,7 +98,7 @@
   /* ---------------- 渲染入口 ---------------- */
   function render() {
     var view = $('#view');
-    var titles = { overview: ['概览', '一眼看完站点状态'], fanart: ['二创审核', '通过的投稿才会出现在前台展厅'], calendar: ['月历', '直播排期，改完点保存'], news: ['资讯', '首页「最近的事」内容'], materials: ['物料', '上传新物料、改标题和描述'], notices: ['公告', '当前活动放第一条，其余为往期活动'], songs: ['歌单', '直播会唱的歌，前台「歌单」页展示'], music: ['音乐', '上传自己唱的翻唱，前台可播放和下载'], profile: ['资料', '简介、QQ 群、B 站链接'] };
+    var titles = { overview: ['概览', '一眼看完站点状态'], fanart: ['二创审核', '通过的投稿才会出现在前台展厅'], calendar: ['月历', '直播排期，改完点保存'], news: ['资讯', '首页「最近的事」内容'], comments: ['评论', '管理每条评论，可以删除'], materials: ['物料', '上传新物料、改标题和描述'], notices: ['公告', '当前活动放第一条，其余为往期活动'], songs: ['歌单', '直播会唱的歌，前台「歌单」页展示'], music: ['音乐', '上传自己唱的翻唱，前台可播放和下载'], profile: ['资料', '简介、QQ 群、B 站链接'] };
     $('#pageTitle').textContent = titles[state.tab][0];
     $('#pageSub').textContent = titles[state.tab][1];
     $('#headActions').innerHTML = '';
@@ -111,6 +112,7 @@
     else if (state.tab === 'notices') renderNotices(view);
     else if (state.tab === 'news') renderNews(view);
     else if (state.tab === 'materials') renderMaterials(view);
+    else if (state.tab === 'comments') renderCommentsAdmin(view);
     else if (state.tab === 'songs') renderSongs(view);
     else if (state.tab === 'music') renderMusic(view);
     else if (state.tab === 'profile') renderProfile(view);
@@ -543,6 +545,51 @@
             return refreshAll();
           })
           .catch(function (err) { toast(err.message, true); b.disabled = false; b.textContent = '上传并添加'; });
+      }
+    };
+  }
+
+  /* ---------------- 评论 ---------------- */
+  function renderCommentsAdmin(view) {
+    view.innerHTML = '<div class="panel"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">' +
+      '<h2 style="margin:0">评论 <span class="sub" id="cmAdminCount">加载中…</span></h2>' +
+      '<button class="btn btn-sm" data-act="reload-comments">刷新</button></div>' +
+      '<div id="cmAdminList"><p class="more-tip">加载中…</p></div></div>';
+
+    function load() {
+      api('/api/admin/comments').then(function (j) {
+        var items = j.items || [];
+        $('#cmAdminCount').textContent = '共 ' + (j.total || items.length) + ' 条';
+        if (!items.length) {
+          $('#cmAdminList').innerHTML = '<p class="more-tip">还没有评论。</p>';
+          return;
+        }
+        $('#cmAdminList').innerHTML = items.map(function (c) {
+          var d = new Date(c.createdAt);
+          var ds = isNaN(d) ? '' : (d.getMonth() + 1) + '/' + d.getDate() + ' ' + String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
+          return '<div class="cm-row"><div class="cm-main"><div class="cm-top"><b>' + esc(c.name) + '</b>' +
+            '<span class="cm-track">' + esc(c.trackTitle) + '</span><time>' + ds + '</time>' +
+            (c.likes ? '<span class="cm-like-n">♥ ' + c.likes + '</span>' : '') + '</div>' +
+            '<p>' + esc(c.text) + '</p></div>' +
+            '<button class="del" data-act="del-comment" data-id="' + esc(c.id) + '">删除</button></div>';
+        }).join('');
+      }).catch(function (err) {
+        $('#cmAdminList').innerHTML = '<p class="more-tip">' + esc(err.message) + '</p>';
+      });
+    }
+    load();
+
+    view.onclick = function (e) {
+      var b = e.target.closest('[data-act]');
+      if (!b) return;
+      if (b.getAttribute('data-act') === 'reload-comments') return load();
+      if (b.getAttribute('data-act') === 'del-comment') {
+        var id = b.getAttribute('data-id');
+        if (!confirm('删除这条评论？删了就找不回来了。')) return;
+        b.disabled = true;
+        api('/api/admin/comments/' + encodeURIComponent(id), { method: 'DELETE' })
+          .then(function () { toast('已删除'); load(); })
+          .catch(function (err) { toast(err.message, true); b.disabled = false; });
       }
     };
   }
