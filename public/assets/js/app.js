@@ -253,7 +253,7 @@
     var btn = $('#feedBtn'), modal = $('#feedModal');
     if (!btn || !modal) return;
     btn.onclick = function () { modal.hidden = false; };
-    $('[data-feed-close]').forEach(function (el) { el.onclick = function () { modal.hidden = true; }; });
+    $$('[data-feed-close]').forEach(function (el) { el.onclick = function () { modal.hidden = true; }; });
     var img = $('#feedQr');
     if (img) img.onerror = function () { img.style.display = 'none'; };
   }
