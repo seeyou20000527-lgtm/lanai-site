@@ -655,8 +655,15 @@
   function syncLyrics() {
     var lyr = player.lyrics;
     if (!lyr.length) return;
+    var timed = lyr.some(function (l) { return l.t != null; });
     var idx = -1;
-    for (var i = 0; i < lyr.length; i++) if (lyr[i].t != null && audio.currentTime >= lyr[i].t) idx = i;
+    if (timed) {
+      for (var i = 0; i < lyr.length; i++) if (lyr[i].t != null && audio.currentTime >= lyr[i].t) idx = i;
+    } else if (audio.duration) {
+      // 纯文本歌词：按播放进度平均分配，虽不精确但会跟着走
+      var ratio = audio.currentTime / audio.duration;
+      idx = Math.min(lyr.length - 1, Math.floor(ratio * lyr.length));
+    }
     if (idx === player.active) return;
     player.active = idx;
     var box = $('#cdLyrics');

@@ -298,7 +298,8 @@
           '<input type="number" min="20" max="300" value="' + esc(m.bpm || 90) + '" data-mi="' + i + '" data-mf="bpm" placeholder="BPM">' +
           '<input value="' + esc(m.bili || '') + '" data-mi="' + i + '" data-mf="bili" placeholder="B站链接">' +
           '<span class="theme-cell"><input type="color" data-mi="' + i + '" data-mf="theme" value="' + (/^#[0-9a-f]{6}$/i.test(m.theme || '') ? m.theme : '#f6ede5') + '" title="展开区配色"></span></div>' +
-          '<textarea data-mi="' + i + '" data-mf="lyrics" placeholder="歌词（支持 [00:12.30] 时间轴）">' + esc(m.lyrics) + '</textarea>' +
+          '<textarea data-mi="' + i + '" data-mf="lyrics" placeholder="[00:12.30]第一句歌词&#10;[00:18.50]第二句歌词&#10;（每行前面加时间轴，就会跟着歌曲滚动；不加也行，会按进度平均走）">' + esc(m.lyrics) + '</textarea>' +
+          '<p style="font-size:11px;color:var(--ink-3);margin:4px 0 0">想要歌词精准对拍，就用 LRC 格式：每行开头 <code>[分:秒.毫秒]</code>，例如 <code>[01:23.45]</code>。</p>' +
           '<div class="row-b"><span>' + (m.size ? (m.size / 1048576).toFixed(1) + ' MB' : '') + ' · 配色 ' + (/^#[0-9a-f]{6}$/i.test(m.theme || '') ? m.theme : '#f6ede5') + '</span>' +
           '<span><a href="' + esc(m.file) + '" target="_blank">试听</a>　<button class="del" data-act="del-music" data-id="' + esc(m.id) + '">删除</button></span></div></div></div>';
       }).join('') : '<div class="empty">还没有上传歌曲。</div>') + '</div>';

@@ -644,8 +644,12 @@ body.pl-playing .cd-disc { animation-play-state: running; }
   .pl-main { flex: 1; padding: 4px 6px; gap: 8px; }
   .pl-info { width: auto; }
   .pl-info b { font-size: 12.5px; }
-  .pl-dl, .pl-cm, .pl-mode { display: none; }
-  .pl-time { display: block; font-size: 10.5px; margin-left: auto; margin-right: 2px; }
+  .pl-dl, .pl-cm, .pl-mode { display: grid; }
+  .pl-dl, .pl-cm, .pl-mode, .pl-vol, .pl-mute { width: 32px; height: 32px; flex-shrink: 0; }
+  .pl-dl svg, .pl-cm svg, .pl-mode svg, .pl-mute svg { width: 18px; height: 18px; }
+  .pl-cm { margin-left: auto; }
+  .pl-cm b { top: 0; right: -2px; min-width: 13px; height: 13px; font-size: 9px; }
+  .pl-time { display: none; }
   .pl-vol { display: flex; }
   .pl-mute { width: 42px; height: 42px; }
   .pl-vol-pop { left: auto; right: 4px; bottom: calc(100% + 8px); }
