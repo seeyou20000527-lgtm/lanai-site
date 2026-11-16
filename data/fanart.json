@@ -83,6 +83,19 @@
       "createdAt": "2026-11-16T15:53:10.820Z",
       "ip": "182.136.190.210",
       "reviewedAt": "2026-11-16T15:59:52.322Z"
+    },
+    {
+      "id": "mwjgdxgdbb7523",
+      "title": "上传测试",
+      "author": "测试",
+      "category": "绘画",
+      "link": "",
+      "image": "/uploads/mwjgdxgdbb7523.png",
+      "originalName": "up-test.png",
+      "bytes": 2577395,
+      "status": "pending",
+      "createdAt": "2026-11-16T16:03:46.067Z",
+      "ip": "49.158.211.100"
     }
   ]
 }
