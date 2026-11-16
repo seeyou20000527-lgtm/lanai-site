@@ -1028,11 +1028,39 @@
   }
 
   /* ---------------- 投稿 ---------------- */
+  /* 大图先压一压：长边 ≤ 2560、JPEG 0.92，几十 MB 照片会变成 1–3 MB */
+  function shrinkImage(file, done) {
+    if (!file || !/^image\/(png|jpeg|webp)$/i.test(file.type) || /\.gif$/i.test(file.name)) return done(file);
+    if (file.size <= 3 * 1024 * 1024) return done(file);
+    var url = URL.createObjectURL(file);
+    var img = new Image();
+    img.onload = function () {
+      try {
+        var max = 2560;
+        var s = Math.min(1, max / Math.max(img.width, img.height));
+        var w = Math.round(img.width * s), h = Math.round(img.height * s);
+        var cv = document.createElement('canvas');
+        cv.width = w; cv.height = h;
+        var ctx = cv.getContext('2d');
+        ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, w, h);
+        ctx.drawImage(img, 0, 0, w, h);
+        cv.toBlob(function (blob) {
+          URL.revokeObjectURL(url);
+          if (!blob) return done(file);
+          var name = file.name.replace(/\.[^.]+$/, '') + '.jpg';
+          done(new File([blob], name, { type: 'image/jpeg' }));
+        }, 'image/jpeg', 0.92);
+      } catch (e) { URL.revokeObjectURL(url); done(file); }
+    };
+    img.onerror = function () { URL.revokeObjectURL(url); done(file); };
+    img.src = url;
+  }
+
   function setupUpload() {
     var form = $('#uploadForm'), drop = $('#drop'), input = $('#fileInput');
     var preview = $('#dzPreview'), clr = $('#dzClear'), prog = $('#prog'), bar = prog.querySelector('i');
     var btn = $('#submitBtn'), picked = null;
-    var maxMB = (site.upload && site.upload.maxSizeMB) || 32;
+    var maxMB = (site.upload && site.upload.maxSizeMB) || 64;
     var exts = ['.png', '.jpg', '.jpeg', '.webp', '.gif', '.zip'];
 
     function resetDrop() {
@@ -1070,11 +1098,15 @@
       if (!title) return toast('给作品起个名字吧', true);
       if (!$('#consent').checked) return toast('请先勾选同意投稿规则', true);
       if (link && !/^https?:\/\//i.test(link)) return toast('链接要以 http(s):// 开头', true);
-      var xhr = new XMLHttpRequest();
+      var xhr, sending = picked;
+      btn.disabled = true; btn.textContent = '正在处理…';
+      shrinkImage(picked, function (f) {
+      sending = f;
+      xhr = new XMLHttpRequest();
       xhr.open('PUT', '/api/fanart', true);
       xhr.setRequestHeader('Content-Type', 'application/octet-stream');
       xhr.setRequestHeader('x-fanart-meta', encodeURIComponent(JSON.stringify({
-        author: author, title: title, link: link, category: $('#category').value, filename: picked.name, consent: true
+        author: author, title: title, link: link, category: $('#category').value, filename: sending.name, consent: true
       })));
       btn.disabled = true; btn.textContent = '正在上传…';
       prog.hidden = false; bar.style.width = '0%';
@@ -1087,7 +1119,8 @@
         else toast(res.error || '上传失败了，再试一次。', true);
       };
       xhr.onerror = function () { btn.disabled = false; btn.textContent = '投喂这份二创'; prog.hidden = true; toast('网络断了一下，再试一次？', true); };
-      xhr.send(picked);
+      xhr.send(sending);
+      });
     });
   }
 

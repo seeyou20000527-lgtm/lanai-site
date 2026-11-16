@@ -32,7 +32,7 @@ const SESSION_MS = (Number(CONFIG.sessionHours) || 12) * 3600 * 1000;
 const TRUST_PROXY = process.env.TRUST_PROXY === '1' || CONFIG.trustProxy === true;
 const COOKIE_SECURE = process.env.COOKIE_SECURE === '1' || CONFIG.cookieSecure === true;
 const COOKIE_FLAGS = '; HttpOnly; SameSite=Lax; Path=/' + (COOKIE_SECURE ? '; Secure' : '');
-const MAX_UPLOAD = (Number(CONFIG.maxUploadMB) || 32) * 1024 * 1024;
+const MAX_UPLOAD = (Number(CONFIG.maxUploadMB) || 64) * 1024 * 1024;
 const MAX_MATERIAL = 60 * 1024 * 1024;
 const SITE_NAME = CONFIG.siteName || '辣奶火锅 · 官方小站';
 
