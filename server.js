@@ -32,7 +32,7 @@ const SESSION_MS = (Number(CONFIG.sessionHours) || 12) * 3600 * 1000;
 const TRUST_PROXY = process.env.TRUST_PROXY === '1' || CONFIG.trustProxy === true;
 const COOKIE_SECURE = process.env.COOKIE_SECURE === '1' || CONFIG.cookieSecure === true;
 const COOKIE_FLAGS = '; HttpOnly; SameSite=Lax; Path=/' + (COOKIE_SECURE ? '; Secure' : '');
-const MAX_UPLOAD = (Number(CONFIG.maxUploadMB) || 12) * 1024 * 1024;
+const MAX_UPLOAD = (Number(CONFIG.maxUploadMB) || 32) * 1024 * 1024;
 const MAX_MATERIAL = 60 * 1024 * 1024;
 const SITE_NAME = CONFIG.siteName || '辣奶火锅 · 官方小站';
 
@@ -504,7 +504,16 @@ async function apiFanartUpload(req, res) {
     createdAt: new Date().toISOString(), ip
   });
   await writeJson('fanart.json', db);
-  sendJson(res, 201, { ok: true, id, message: '收到啦！审核通过后就会出现在展厅。' });
+  let synced = true;
+  if (GH_TOKEN) {
+    const okFile = await ghPutFile('uploads/' + safeName, body, '二创投稿：' + safeName);
+    const okJson = await commitJsonNow('fanart.json', '二创投稿入库：' + title);
+    synced = okFile && okJson;
+  }
+  sendJson(res, 201, {
+    ok: true, id, synced,
+    message: synced ? '收到啦！审核通过后就会出现在展厅。' : '文件已上传，但同步云端失败，请稍后重试。'
+  });
 }
 
 function apiAdminFanart(req, res) {

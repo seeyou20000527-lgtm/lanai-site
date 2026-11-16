@@ -1032,7 +1032,7 @@
     var form = $('#uploadForm'), drop = $('#drop'), input = $('#fileInput');
     var preview = $('#dzPreview'), clr = $('#dzClear'), prog = $('#prog'), bar = prog.querySelector('i');
     var btn = $('#submitBtn'), picked = null;
-    var maxMB = (site.upload && site.upload.maxSizeMB) || 12;
+    var maxMB = (site.upload && site.upload.maxSizeMB) || 32;
     var exts = ['.png', '.jpg', '.jpeg', '.webp', '.gif', '.zip'];
 
     function resetDrop() {

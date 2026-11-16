@@ -264,7 +264,7 @@
     ]
   },
   "upload": {
-    "maxSizeMB": 12,
+    "maxSizeMB": 32,
     "types": [
       "绘画",
       "剪辑",
