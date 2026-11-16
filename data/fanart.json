@@ -65,9 +65,10 @@
       "image": "/uploads/mwjf1yzvfb7bb6.jpg",
       "originalName": "image-904cc536.jpg",
       "bytes": 850167,
-      "status": "pending",
+      "status": "approved",
       "createdAt": "2026-11-16T15:26:28.462Z",
-      "ip": "182.136.190.210"
+      "ip": "182.136.190.210",
+      "reviewedAt": "2026-11-16T15:59:54.530Z"
     },
     {
       "id": "mwjg0bdv8a2fea",
@@ -78,9 +79,10 @@
       "image": "/uploads/mwjg0bdv8a2fea.jpg",
       "originalName": "image-cba5c41e.jpg",
       "bytes": 921264,
-      "status": "pending",
+      "status": "approved",
       "createdAt": "2026-11-16T15:53:10.820Z",
-      "ip": "182.136.190.210"
+      "ip": "182.136.190.210",
+      "reviewedAt": "2026-11-16T15:59:52.322Z"
     }
   ]
 }
