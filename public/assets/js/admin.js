@@ -861,7 +861,11 @@
       });
     }).then(function (j) {
       var input = document.getElementById(target.inputId);
-      if (input) input.value = j.url;
+      if (input) {
+        input.value = j.url;
+        // 用程序赋值不会触发 input 事件，草稿里还是旧图 —— 手动补一发
+        input.dispatchEvent(new Event('input', { bubbles: true }));
+      }
       var thumb = document.getElementById('thumb-' + target.field);
       if (thumb) thumb.src = j.url;
       $('#cropModal').hidden = true;
