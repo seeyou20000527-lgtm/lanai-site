@@ -309,6 +309,15 @@ function commentLimited(ip) {
   return hits.length > 8;
 }
 
+const fanartHits = new Map();
+function fanartLimited(ip) {
+  const now = Date.now();
+  const hits = (fanartHits.get(ip) || []).filter((t) => now - t < 10 * 60 * 1000);
+  hits.push(now);
+  fanartHits.set(ip, hits);
+  return hits.length > 30;
+}
+
 const loginHits = new Map();
 function loginLimited(ip) {
   const now = Date.now();
@@ -354,6 +363,7 @@ async function buildSitePayload() {
     songs: site.songs || [],
     notices: site.notices || [],
     crew: site.crew || null,
+    captains: site.captains || [],
     upload: site.upload || {},
     counts: {
       materials: materials.length,
@@ -465,7 +475,7 @@ function apiMe(req, res) {
 /* ------------------------------ 二创 ------------------------------ */
 async function apiFanartUpload(req, res) {
   const ip = clientIp(req);
-  if (loginLimited('fanart:' + ip)) return sendJson(res, 429, { error: '投稿太频繁啦，歇一会儿再来。' });
+  if (fanartLimited(ip)) return sendJson(res, 429, { error: '投稿太频繁啦，歇十分钟再来～' });
   if (Number(req.headers['content-length'] || 0) > MAX_UPLOAD) {
     return sendJson(res, 413, { error: '文件太大，单个作品请控制在 ' + (MAX_UPLOAD / 1024 / 1024) + ' MB 以内。' });
   }
@@ -619,6 +629,17 @@ function sanitizeSection(section, value) {
       size: Number(m && m.size) || 0,
       createdAt: m && m.createdAt ? clean(m.createdAt, 40) : new Date().toISOString()
     })).filter((m) => m.title && m.file);
+  }
+  if (section === 'captains') {
+    return (Array.isArray(value) ? value : []).slice(0, 200).map((c, i) => ({
+      id: clean(c && c.id, 40).replace(/[^a-zA-Z0-9_-]/g, '') || ('cap' + i),
+      name: clean(c && c.name, 40),
+      level: clean(c && c.level, 8) || '舰长',
+      start: DATE_RE.test(c && c.start) ? c.start : '',
+      renew: DATE_RE.test(c && c.renew) ? c.renew : '',
+      end: DATE_RE.test(c && c.end) ? c.end : '',
+      note: clean(c && c.note, 120)
+    })).filter((c) => c.name);
   }
   if (section === 'crew') {
     const v = value || {};

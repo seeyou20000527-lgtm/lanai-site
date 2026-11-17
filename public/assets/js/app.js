@@ -7,7 +7,7 @@
   var site = null;
   var state = { route: 'home', navToken: 0 };
   var SONG_PAGE = 60;
-  var songState = { tag: '全部', q: '', limit: 60 };
+  var songState = { tag: '全部', q: '', limit: 50, page: 1 };
 
   var ICONS = {
     home: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z"/></svg>',
@@ -34,6 +34,16 @@
   ];
   var EV_MIN = 120;
 
+  function normLink(href) {
+    var v = String(href || '').trim();
+    if (!v) return '';
+    if (/^#/.test(v)) return v;
+    var m = v.match(/https?:\/\/[^\s"'<>）)]+/i);
+    if (m) return m[0];
+    if (/^www\./i.test(v)) return 'https://' + v;
+    return v;
+  }
+
   function esc(v) {
     return String(v == null ? '' : v).replace(/&/g, '&amp;').replace(/</g, '&lt;')
       .replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
@@ -43,7 +53,8 @@
   function fromYmd(s) { var p = String(s).split('-').map(Number); return new Date(p[0], p[1] - 1, p[2]); }
   function fmtSize(b) { return !b ? '—' : (b < 1048576 ? Math.round(b / 1024) + ' KB' : (b / 1048576).toFixed(1) + ' MB'); }
   var WEEK = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
-  var TYPE = { '杂谈': 'talk', '歌回': 'sing', '游戏': 'game', '活动': 'event', '休息': 'rest' };
+  var TYPE = { '杂谈': 'talk', '歌回': 'sing', '游戏': 'game', '活动': 'event', '休息': 'rest',
+    '录歌': 'rec', '投稿': 'post', '剪辑': 'edit', '其他': 'other' };
   var typeClass = function (t) { return TYPE[t] || 'talk'; };
 
   function toast(msg, bad) {
@@ -78,7 +89,7 @@
     var to = $('#page-' + route);
     if (!from || !to) return;
     state.route = route;
-    if (route === 'music') showMusicLoader();
+    if (route === 'home') showBootLoader();
     document.body.classList.toggle('gal-on', route === 'fanart');
     renderNav();
     renderPage(route);
@@ -98,6 +109,12 @@
   }
 
   var musicTimer = 0;
+  var bootLoaderShown = false;
+  function showBootLoader() {
+    if (bootLoaderShown) return;
+    bootLoaderShown = true;
+    showMusicLoader();
+  }
   function showMusicLoader() {
     var el = $('#musicLoader');
     if (!el) return;
@@ -220,7 +237,7 @@
         '<div><span class="n-tag">' + esc(cur.tag || '活动') + '</span><span class="n-date">' + esc(fmtDate(cur.date)) + '</span></div>' +
         '<h2>' + esc(cur.title) + '</h2>' +
         (cur.text ? '<p>' + esc(cur.text) + '</p>' : '') +
-        (cur.link ? '<a class="btn btn-solid btn-sm" href="' + esc(cur.link) + '">查看活动</a>'
+        (cur.link ? '<a class="btn btn-solid btn-sm" href="' + esc(normLink(cur.link)) + '" target="_blank" rel="noopener">查看活动</a>'
           : '<button class="btn btn-solid btn-sm" type="button" data-notice="0">查看详情</button>') +
         '</div>' +
         (cur.cover ? '<div class="nh-img"><img src="' + esc(cur.cover) + '" alt="' + esc(cur.title) + '" onerror="this.onerror=null;this.style.display=\'none\'"></div>' : '') +
@@ -240,7 +257,8 @@
         var body = '<div class="nl-body">' + tag + '<b>' + esc(n.title) + '</b>' +
           (n.text ? '<p>' + esc(n.text) + '</p>' : '') + '</div>';
         var inner = '<div class="nf-item' + (n.kind === 'news' ? ' nf-past' : '') + '">' + date + body + '</div>';
-        return '<li>' + (n.link ? '<a href="' + esc(n.link) + '">' + inner + '</a>' : inner) + '</li>';
+        var lk = normLink(n.link);
+        return '<li>' + (lk ? '<a href="' + esc(lk) + '" target="_blank" rel="noopener">' + inner + '</a>' : inner) + '</li>';
       }).join('');
     }
 
@@ -496,27 +514,50 @@
       if (q && (s.title + ' ' + (s.artist || '')).toLowerCase().indexOf(q) < 0) return;
       rows.push({ s: s, i: i });
     });
-    var shown = rows.slice(0, songState.limit);
-    $('#songCount').textContent = rows.length ? '已显示 ' + shown.length + ' / 共 ' + rows.length + ' 首' : '共 0 首';
+    // 按歌名字数从少到多排，字数相同的按笔画/字典序
+    rows.sort(function (x, y) {
+      var t1 = String(x.s.title || ''), t2 = String(y.s.title || '');
+      if (t1.length !== t2.length) return t1.length - t2.length;
+      return t1.localeCompare(t2, 'zh-Hans-CN');
+    });
+    var per = 50;
+    var total = rows.length;
+    var pages = Math.max(1, Math.ceil(total / per));
+    if (!songState.page || songState.page > pages) songState.page = 1;
+    var start = (songState.page - 1) * per;
+    var shown = rows.slice(start, start + per);
+    $('#songCount').textContent = total ? '共 ' + total + ' 首 · 第 ' + songState.page + ' / ' + pages + ' 页' : '共 0 首';
     $('#songEmpty').hidden = rows.length > 0;
     $('#songList').innerHTML = shown.map(function (r) {
       var s = r.s;
       var act = s.link
         ? '<a class="go" href="' + esc(s.link) + '" target="_blank" rel="noopener">原曲 ↗</a>'
         : '<button class="go" type="button" data-copy-song="' + esc(s.title) + '" style="border:none;background:none;cursor:pointer;padding:0">复制歌名</button>';
-      return '<div class="song"><span class="no">' + pad(r.i + 1) + '</span>' +
+      return '<div class="song"><span class="no">' + pad(start + shown.indexOf(r) + 1) + '</span>' +
         '<div><p class="ti">' + esc(s.title) + '</p><p class="ar">' + esc(s.artist || '') + '</p>' +
         (s.note ? '<p class="note">' + esc(s.note) + '</p>' : '') + '</div>' +
         '<span class="tg">' + esc(s.tag || '歌曲') + '</span>' +
         (s.rec ? '<span class="bd rec">推荐</span>' : '') + (s.learning ? '<span class="bd learn">在学</span>' : '') + act + '</div>';
-    }).join('') + (rows.length > shown.length
-      ? '<div class="song-more"><button class="btn btn-sm" type="button" id="songMore">显示更多（还有 ' + (rows.length - shown.length) + ' 首）</button></div>'
+    }).join('') + (pages > 1
+      ? '<div class="song-pager">' +
+        '<button class="btn btn-sm" type="button" data-page="' + (songState.page - 1) + '"' + (songState.page === 1 ? ' disabled' : '') + '>上一页</button>' +
+        '<span>第 ' + songState.page + ' / ' + pages + ' 页</span>' +
+        '<button class="btn btn-sm" type="button" data-page="' + (songState.page + 1) + '"' + (songState.page === pages ? ' disabled' : '') + '>下一页</button>' +
+        '</div>'
       : '');
     $$('#songFilters .filter').forEach(function (b) {
-      b.onclick = function () { songState.tag = b.getAttribute('data-tag'); songState.limit = SONG_PAGE; renderSongs(); };
+      b.onclick = function () { songState.tag = b.getAttribute('data-tag'); songState.page = 1; renderSongs(); };
     });
-    var more = $('#songMore');
-    if (more) more.onclick = function () { songState.limit += SONG_PAGE; renderSongs(); };
+    $$('#songList [data-page]').forEach(function (b) {
+      b.onclick = function () {
+        var p = Number(b.getAttribute('data-page'));
+        if (!p) return;
+        songState.page = p;
+        renderSongs();
+        var top = $('#page-songs');
+        if (top) window.scrollTo({ top: Math.max(0, top.offsetTop - 40), behavior: 'smooth' });
+      };
+    });
     $$('#songList [data-copy-song]').forEach(function (b) {
       b.onclick = function () { copyText(b.getAttribute('data-copy-song'), '歌名已复制'); };
     });
@@ -1170,7 +1211,7 @@
       var item = evFromAttr(row.getAttribute('data-ev'));
       if (item) openEvent(item);
     });
-    $('#songSearch').addEventListener('input', function () { songState.q = this.value; songState.limit = SONG_PAGE; renderSongs(); });
+    $('#songSearch').addEventListener('input', function () { songState.q = this.value; songState.page = 1; renderSongs(); });
     $('#modal').addEventListener('click', function (e) { if (e.target.hasAttribute('data-close')) $('#modal').hidden = true; });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') $('#modal').hidden = true; });
   }
@@ -1336,6 +1377,7 @@
       setupPlayer();
       setupUI();
       setupFeed();
+      showBootLoader();
       var boot = $('#bootSkeleton');
       if (boot) { boot.classList.add('off'); setTimeout(function () { if (boot.parentNode) boot.parentNode.removeChild(boot); }, 400); }
       // 直接打开带锚点的页面

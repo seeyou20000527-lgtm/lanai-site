@@ -169,3 +169,9 @@ textarea { resize: vertical; min-height: 70px; }
 .cover-row { display: flex; gap: 8px; margin-top: 8px; }
 .cover-row input { flex: 1; }
 .cover-row .btn { flex-shrink: 0; white-space: nowrap; }
+
+.cap-row { display: grid; grid-template-columns: 1.1fr 84px 132px 132px 150px 1fr 34px; gap: 8px; align-items: center; padding: 6px 0; }
+.cap-row input, .cap-row select { width: 100%; }
+.cap-head { font-size: 11px; color: var(--ink-3); padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+.cap-row .del { width: 30px; height: 30px; }
+@media (max-width: 1100px) { .cap-row { grid-template-columns: 1fr 1fr; } .cap-head { display: none; } }

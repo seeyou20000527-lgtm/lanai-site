@@ -47,6 +47,7 @@
     { id: 'notices', label: '公告 / 资讯' },
     { id: 'materials', label: '物料' },
     { id: 'crew', label: '船员礼' },
+    { id: 'captains', label: '舰长资料' },
     { id: 'comments', label: '评论' },
     { id: 'songs', label: '歌单' },
     { id: 'music', label: '音乐' },
@@ -99,6 +100,7 @@
   function render() {
     var view = $('#view');
     var titles = { overview: ['概览', '一眼看完站点状态'], fanart: ['二创审核', '通过的投稿才会出现在前台展厅'], calendar: ['月历', '直播排期，改完点保存'], news: ['资讯', '首页「最近的事」内容'], crew: ['本月船员礼', '首页中间那块，改完立刻更新'],
+    captains: ['舰长资料', '只在这里看，前台不显示；到期日自动算'],
     comments: ['评论', '管理每条评论，可以删除'], materials: ['物料', '上传新物料、改标题和描述'], notices: ['公告', '当前活动放第一条，其余为往期活动'], songs: ['歌单', '直播会唱的歌，前台「歌单」页展示'], music: ['音乐', '上传自己唱的翻唱，前台可播放和下载'], profile: ['资料', '简介、QQ 群、B 站链接'] };
     $('#pageTitle').textContent = titles[state.tab][0];
     $('#pageSub').textContent = titles[state.tab][1];
@@ -114,6 +116,7 @@
 
     else if (state.tab === 'materials') renderMaterials(view);
     else if (state.tab === 'crew') renderCrewAdmin(view);
+    else if (state.tab === 'captains') renderCaptainsAdmin(view);
     else if (state.tab === 'comments') renderCommentsAdmin(view);
     else if (state.tab === 'songs') renderSongs(view);
     else if (state.tab === 'music') renderMusic(view);
@@ -211,7 +214,7 @@
         return (a.date + a.time).localeCompare(b.date + b.time);
       }).map(function (e) { return Object.assign({}, e); });
     }
-    var types = ['杂谈', '歌回', '游戏', '活动', '休息'];
+    var types = ['歌回', '杂谈', '游戏', '活动', '录歌', '投稿', '剪辑', '休息', '其他'];
     view.innerHTML =
       '<div class="panel ev-editor">' +
       '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:10px;flex-wrap:wrap">' +
@@ -554,6 +557,72 @@
     };
   }
 
+  /* ---------------- 舰长资料 ---------------- */
+  function addDays(ymdStr, n) {
+    if (!ymdStr) return '';
+    var p = ymdStr.split('-').map(Number);
+    if (p.length < 3 || !p[0]) return '';
+    var d = new Date(p[0], p[1] - 1, p[2]);
+    d.setDate(d.getDate() + n);
+    var mm = d.getMonth() + 1, dd = d.getDate();
+    return d.getFullYear() + '-' + (mm < 10 ? '0' + mm : mm) + '-' + (dd < 10 ? '0' + dd : dd);
+  }
+  function captainEnd(c) {
+    if (c.end) return c.end;
+    var base = c.renew || c.start;
+    return base ? addDays(base, 30) : '';
+  }
+  function renderCaptainsAdmin(view) {
+    if (!state.capDraft) state.capDraft = (state.site.captains || []).map(function (c) { return Object.assign({}, c); });
+    var list = state.capDraft;
+    var today = new Date().toISOString().slice(0, 10);
+    view.innerHTML = '<div class="panel">' +
+      '<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px">' +
+      '<h2 style="margin:0">舰长资料 <span class="sub">共 ' + list.length + ' 位 · 前台不显示</span></h2>' +
+      '<div style="display:flex;gap:8px"><button class="btn btn-sm" data-act="add-cap">+ 加一位</button>' +
+      '<button class="btn btn-sm btn-solid" data-act="save-caps">保存</button></div></div>' +
+      '<div class="cap-row cap-head"><span>昵称</span><span>等级</span><span>上舰日期</span><span>续舰日期</span><span>到期日期</span><span>备注</span><span></span></div>' +
+      list.map(function (c, i) {
+        var end = captainEnd(c);
+        var days = 0;
+        if (end) { days = Math.round((new Date(end) - new Date(today)) / 86400000); }
+        var tag = end ? (days < 0 ? '<span style="color:#c05a50">已过期 ' + Math.abs(days) + ' 天</span>' : (days <= 7 ? '<span style="color:#c08a3e">还剩 ' + days + ' 天</span>' : '<span style="color:#6d8a6d">还剩 ' + days + ' 天</span>')) : '';
+        return '<div class="cap-row">' +
+          '<input value="' + esc(c.name) + '" data-cap="' + i + '" data-f="name" placeholder="昵称">' +
+          '<select data-cap="' + i + '" data-f="level">' + ['舰长', '提督', '总督'].map(function (t) { return '<option' + (t === (c.level || '舰长') ? ' selected' : '') + '>' + t + '</option>'; }).join('') + '</select>' +
+          '<input type="date" value="' + esc(c.start || '') + '" data-cap="' + i + '" data-f="start">' +
+          '<input type="date" value="' + esc(c.renew || '') + '" data-cap="' + i + '" data-f="renew">' +
+          '<div style="display:flex;flex-direction:column;gap:2px"><input type="date" value="' + esc(end) + '" data-cap="' + i + '" data-f="end">' + tag + '</div>' +
+          '<input value="' + esc(c.note || '') + '" data-cap="' + i + '" data-f="note" placeholder="备注">' +
+          '<button class="del" data-act="del-cap" data-i="' + i + '">✕</button></div>';
+      }).join('') +
+      '<p style="font-size:11px;color:var(--ink-3);margin:10px 0 0">到期日期留空会自动计算：以「续舰日期」或「上舰日期」为基准 + 30 天。改了日期后到期日期会重新算。</p></div>';
+
+    view.oninput = function (e) {
+      var el = e.target;
+      if (!el.dataset || el.dataset.cap === undefined) return;
+      var c = state.capDraft[+el.dataset.cap];
+      c[el.dataset.f] = el.value;
+      if (el.dataset.f === 'start' || el.dataset.f === 'renew') c.end = '';
+    };
+    view.onchange = view.oninput;
+    view.onclick = function (e) {
+      var b = e.target.closest('[data-act]');
+      if (!b) return;
+      var act = b.getAttribute('data-act');
+      if (act === 'add-cap') { state.capDraft.unshift({ id: 'cap' + Date.now().toString(36), name: '', level: '舰长', start: today, renew: '', end: '', note: '' }); return renderCaptainsAdmin(view); }
+      if (act === 'del-cap') { state.capDraft.splice(+b.getAttribute('data-i'), 1); return renderCaptainsAdmin(view); }
+      if (act === 'save-caps') {
+        var val = state.capDraft.map(function (c) { return Object.assign({}, c, { end: captainEnd(c) }); }).filter(function (c) { return c.name && c.name.trim(); });
+        api('/api/admin/site', {
+          method: 'PUT', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ section: 'captains', value: val })
+        }).then(function (r) { state.site.captains = r.value; state.capDraft = null; toast('已保存'); renderCaptainsAdmin(view); })
+          .catch(function (err) { toast(err.message, true); });
+      }
+    };
+  }
+
   /* ---------------- 船员礼 ---------------- */
   var CREW_DEF = [
     { key: 'governor', name: '总督' },
@@ -667,7 +736,11 @@
       var q = String(state.songQ || '').trim().toLowerCase();
       var ps = state.draft.map(function (s, i) { return { s: s, i: i }; });
       if (q) ps = ps.filter(function (p) { return (p.s.title + ' ' + (p.s.artist || '')).toLowerCase().indexOf(q) >= 0; });
-      var show = ps.slice(0, q ? 150 : 80);
+      var per = 50;
+      var pages = Math.max(1, Math.ceil(ps.length / per));
+      if (!state.songPage || state.songPage > pages) state.songPage = 1;
+      var startIdx = (state.songPage - 1) * per;
+      var show = ps.slice(startIdx, startIdx + per);
       $('#songRows').innerHTML = show.map(function (p) {
         var s = p.s, i = p.i;
         return '<div class="row">' +
@@ -681,12 +754,12 @@
           '<label class="tog' + (s.learning ? ' on' : '') + '" title="在学"><input type="checkbox" data-k="' + i + '" data-f="learning"' + (s.learning ? ' checked' : '') + '>✎</label>' +
           '<button class="del" data-act="del-song" data-i="' + i + '">✕</button></div>';
       }).join('');
-      $('#songMoreTip').textContent = ps.length > show.length
-        ? '显示 ' + show.length + ' / ' + ps.length + ' 首，用上面的搜索找其余的歌'
-        : '共 ' + ps.length + ' 首';
+      $('#songMoreTip').innerHTML = '共 ' + ps.length + ' 首 · 第 ' + state.songPage + ' / ' + pages + ' 页' +
+        (pages > 1 ? ' <button class="btn btn-sm" data-act="song-prev"' + (state.songPage === 1 ? ' disabled' : '') + '>上一页</button>' +
+          ' <button class="btn btn-sm" data-act="song-next"' + (state.songPage === pages ? ' disabled' : '') + '>下一页</button>' : '');
     }
     draw();
-    $('#songAdminSearch').oninput = function () { state.songQ = this.value; draw(); };
+    $('#songAdminSearch').oninput = function () { state.songQ = this.value; state.songPage = 1; draw(); };
 
     function setDraft(el) {
       if (!el.dataset || el.dataset.k === undefined) return;
@@ -703,6 +776,8 @@
       var b = e.target.closest('[data-act]');
       if (!b) return;
       var act = b.getAttribute('data-act');
+      if (act === 'song-prev') { state.songPage = Math.max(1, state.songPage - 1); return draw(); }
+      if (act === 'song-next') { state.songPage = state.songPage + 1; return draw(); }
       if (act === 'add-song') {
         state.draft.push({ id: '', title: '', artist: '', tag: '华语', note: '', link: '', rec: false, learning: false });
         return renderSongs(view);
