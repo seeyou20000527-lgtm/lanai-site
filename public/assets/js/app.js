@@ -844,7 +844,7 @@
     var pts = [];
     for (var i = 0; i < n; i++) {
       var v = eq.levels[i] || 0;
-      pts.push([i * step, Math.max(3, H - Math.max(3, v * H * 2.3))]);
+      pts.push([i * step, Math.max(3, Math.min(H - 3, H - v * H * 0.92))]);
     }
     var d = 'M0,' + H.toFixed(1) + ' L' + pts[0][0].toFixed(1) + ',' + pts[0][1].toFixed(1);
     for (var k = 1; k < pts.length; k++) {
@@ -860,85 +860,32 @@
       eq.levels = [];
       for (var i0 = 0; i0 < N; i0++) eq.levels.push(0);
     }
-    attachAnalyser();
     cancelAnimationFrame(eq.raf);
     var last = 0;
     var loop = function (ts) {
       var dt = last ? Math.min(0.05, (ts - last) / 1000) : 0.016;
       last = ts;
-      eq.fakeT += dt;
-      var playing = !audio.paused && !audio.ended;
-      var real = eq.analyser && playing;
-      if (real) {
-        try {
-          if (eq.actx.state === 'suspended') eq.actx.resume().catch(function () {});
-          eq.analyser.getByteFrequencyData(eq.data);
-        } catch (e) { real = false; }
-      }
       var m = (site.music || [])[player.idx] || {};
       var bpm = Math.max(40, Math.min(220, Number(m.bpm) || 90));
-      var beat = 60 / bpm;
-      var phase = beat ? ((audio.currentTime % beat) / beat) : 0;
-      var kick = playing ? Math.pow(1 - phase, 2.4) : 0;
+      // 速度随 BPM：90 BPM 为基准，越快的歌水面流得越快
+      var speed = bpm / 90;
+      eq.fakeT += dt * speed;
+      var playing = !audio.paused && !audio.ended;
+      var t = eq.fakeT;
       for (var i = 0; i < N; i++) {
         var x = i / (N - 1);
-        var v;
-        if (real) {
-          // 对数取频段：左侧低频（bass），右侧高频（treble）
-          var bins = eq.data.length;
-          var f0 = Math.pow(bins * 0.9, x);              // 0 → 低频
-          var f1 = Math.pow(bins * 0.9, (i + 1) / (N - 1));
-          var lo = Math.floor(f0), hi = Math.max(lo + 1, Math.floor(f1));
-          var sum = 0, cnt = 0;
-          for (var k = lo; k < hi && k < bins; k++) { sum += eq.data[k]; cnt++; }
-          v = (cnt ? sum / cnt : 0) / 255;
-          v = Math.pow(v, 0.72) * 1.25;
-        } else {
-          var low = Math.pow(1 - x, 1.5);
-          var high = Math.pow(x, 1.25);
-          var wob = Math.sin(eq.fakeT * (1.6 + x * 5.5) + x * 4.2);
-          var ripple = Math.sin(eq.fakeT * (7 + x * 34) + i * 1.9);
-          v = low * (0.34 + 0.62 * kick) * (0.72 + 0.28 * wob) + high * 0.26 * (0.45 + 0.55 * ripple);
-          v *= 0.85 + 0.15 * Math.sin(eq.fakeT * 0.6 + i * 0.23);
-        }
-        var target = playing ? Math.max(0.045, Math.min(1, v)) : 0;
-        eq.levels[i] = eq.levels[i] * 0.68 + target * 0.32;
+        // 三层正弦叠加 → 像水面一样从左往右流动
+        var v = 0.42
+          + 0.26 * Math.sin(x * 5.4 - t * 1.9)
+          + 0.16 * Math.sin(x * 9.7 + t * 1.35)
+          + 0.08 * Math.sin(x * 17.3 - t * 2.6);
+        var target = playing ? Math.max(0.12, Math.min(1, v)) : 0.30;
+        eq.levels[i] = eq.levels[i] * 0.86 + target * 0.14;
       }
       drawWave();
       eq.raf = requestAnimationFrame(loop);
     };
     eq.raf = requestAnimationFrame(loop);
-  }
-
-  /* 用 captureStream 取真实频谱：不接管 <audio> 的输出，手机后台播放不受影响 */
-  function attachAnalyser() {
-    if (eq.analyser || eq.noAnalyser) return eq.analyser;
-    eq.noAnalyser = true;
-    try {
-      if (!audio.captureStream) return null;
-      var AC = window.AudioContext || window.webkitAudioContext;
-      if (!AC) return null;
-      var ctx = new AC();
-      var stream = audio.captureStream();
-      if (!stream || !stream.getAudioTracks().length) return null;
-      var src = ctx.createMediaStreamSource(stream);
-      var an = ctx.createAnalyser();
-      an.fftSize = 256;
-      an.smoothingTimeConstant = 0.78;
-      var mute = ctx.createGain();
-      mute.gain.value = 0;
-      src.connect(an);
-      an.connect(mute);
-      mute.connect(ctx.destination);
-      eq.actx = ctx;
-      eq.analyser = an;
-      eq.data = new Uint8Array(an.frequencyBinCount);
-      eq.noAnalyser = false;
-      return an;
-    } catch (e) {
-      eq.noAnalyser = true;
-      return null;
-    }
   }
 
   function stopEq() {

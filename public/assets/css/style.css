@@ -485,7 +485,7 @@ body.has-player .foot { margin-bottom: 8px; }
 }
 .cd.open .cd-bg { opacity: 1; }
 .cd-panel {
-  position: absolute; left: 0; right: 0; bottom: 68px; top: 3vh;
+  position: absolute; left: 0; right: 0; bottom: 68px; top: 92px;
   background: rgba(var(--cd-rgb, 246, 237, 229), .86);
   backdrop-filter: blur(30px) saturate(125%); -webkit-backdrop-filter: blur(30px) saturate(125%);
   border-radius: 0;
@@ -504,7 +504,7 @@ body.has-player .foot { margin-bottom: 8px; }
 .cd-panel.cd-dark .cd-bili { background: rgba(255, 255, 255, .1); border-color: rgba(255, 255, 255, .2); }
 .cd-panel.cd-dark .cd-left::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, .35); }
 
-.cd-wave { position: absolute; left: 0; right: 0; top: -44px; width: 100%; height: 44px; opacity: 0; transition: opacity .35s; pointer-events: none; overflow: visible; z-index: 3; }
+.cd-wave { position: absolute; left: 0; right: 0; top: -92px; width: 100%; height: 92px; opacity: 0; transition: opacity .4s; pointer-events: none; }
 body.pl-playing .cd-wave { opacity: .95; }
 .cd-wave path { fill: url(#cdWaveGrad); stroke: none; filter: blur(.4px); }
 .cd-panel { overflow: visible; border-top: none; }
