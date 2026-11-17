@@ -4236,6 +4236,19 @@
       "file": "/music/mmwgsj49u5788.mp3",
       "size": 6720783,
       "createdAt": "2026-11-14T19:20:24.961Z"
+    },
+    {
+      "id": "mmwkye23789c2",
+      "title": "不值得",
+      "artist": "辣奶火锅",
+      "cover": "/assets/img/uploads/music-mwkydw4q.png",
+      "lyrics": "",
+      "bpm": 100,
+      "bili": "https://www.bilibili.com/video/BV1gPpt69EhJ/?spm_id_from=333.1387.upload.video_card.click&vd_source=86311d67fd3b6a5227854cb0fa1f0fb1",
+      "theme": "#f3dcf9",
+      "file": "/music/mmwkye23789c2.mp3",
+      "size": 1122270,
+      "createdAt": "2026-11-17T17:15:31.228Z"
     }
   ],
   "crew": {
