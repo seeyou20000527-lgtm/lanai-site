@@ -663,7 +663,7 @@ body.pl-playing .cd-disc { animation-play-state: running; }
   .tr-cover { width: 52px; height: 52px; }
   .tr-info b { font-size: 15px; }
   .cd-panel { top: 46px; bottom: calc(52px + 56px + env(safe-area-inset-bottom)); padding: 30px 16px 0; gap: 8px; border-radius: 0; }
-  .cd-wave { top: -34px; height: 34px; }
+  .cd-wave { top: 0; height: 68px; }
   .cd-body { grid-template-columns: 1fr; gap: 10px; }
   .cd-right { order: -1; flex-direction: row; align-items: center; justify-content: flex-start; text-align: left; gap: 14px; padding: 0 4px; }
   .cd-disc { width: 92px; height: 92px; transform: none; }
