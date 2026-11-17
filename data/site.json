@@ -129,6 +129,13 @@
   "news": [
     {
       "date": "2026-11-16",
+      "tag": "投稿",
+      "title": "用大肥鱼做了一个自己的网站?!",
+      "text": "2026年11月16日中午12點B站投稿視頻",
+      "link": "【用大肥鱼做了一个自己的网站?!】 https://www.bilibili.com/video/BV152sW6xELx/?share_source=copy_web&vd_source=b4258fb751b3e272fb71e38ce757863f"
+    },
+    {
+      "date": "2026-11-16",
       "tag": "资讯",
       "title": "网页更新",
       "text": "新增首页当月舰长礼，简介处新增抖音，微博，录播号按钮",
