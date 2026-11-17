@@ -93,9 +93,10 @@
       "image": "/uploads/mwjgdxgdbb7523.png",
       "originalName": "up-test.png",
       "bytes": 2577395,
-      "status": "pending",
+      "status": "approved",
       "createdAt": "2026-11-16T16:03:46.067Z",
-      "ip": "49.158.211.100"
+      "ip": "49.158.211.100",
+      "reviewedAt": "2026-11-17T03:08:41.778Z"
     }
   ]
 }
