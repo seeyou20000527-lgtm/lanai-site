@@ -243,6 +243,16 @@
       "cover": "/materials/uploads/mat-mwi4ko97.jpg",
       "format": "JPG",
       "res": ""
+    },
+    {
+      "id": "mat-mwk4j9qa",
+      "title": "牛角包上艦長",
+      "desc": "表情包",
+      "category": "表情包",
+      "file": "/materials/uploads/mat-mwk4j9qa.png",
+      "cover": "/materials/uploads/mat-mwk4j9qa.png",
+      "format": "PNG",
+      "res": ""
     }
   ],
   "rules": {
