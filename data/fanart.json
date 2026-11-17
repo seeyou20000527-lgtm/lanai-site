@@ -107,9 +107,10 @@
       "image": "/uploads/mwkfns17f22657.jpg",
       "originalName": "042C9748D09C9927EEB1B98673A8A653.jpg",
       "bytes": 850167,
-      "status": "pending",
+      "status": "approved",
       "createdAt": "2026-11-17T08:31:12.045Z",
-      "ip": "220.128.232.50"
+      "ip": "220.128.232.50",
+      "reviewedAt": "2026-11-17T08:31:59.787Z"
     },
     {
       "id": "mwkfodqfecc546",
@@ -120,9 +121,10 @@
       "image": "/uploads/mwkfodqfecc546.jpg",
       "originalName": "430AD283E015C26ACE0D84A9CD245972.jpg",
       "bytes": 921264,
-      "status": "pending",
+      "status": "approved",
       "createdAt": "2026-11-17T08:31:40.168Z",
-      "ip": "220.128.232.50"
+      "ip": "220.128.232.50",
+      "reviewedAt": "2026-11-17T08:31:58.685Z"
     }
   ]
 }
