@@ -107,9 +107,10 @@
       "image": "/uploads/mwk7ayl458ca35.png",
       "originalName": "白毛三視圖.png",
       "bytes": 2663931,
-      "status": "pending",
+      "status": "approved",
       "createdAt": "2026-11-17T04:37:17.082Z",
-      "ip": "220.128.232.50"
+      "ip": "220.128.232.50",
+      "reviewedAt": "2026-11-17T04:37:28.304Z"
     }
   ]
 }
