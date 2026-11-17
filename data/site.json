@@ -1080,7 +1080,7 @@
       "tag": "国语",
       "note": "",
       "link": "",
-      "rec": false,
+      "rec": true,
       "learning": false
     },
     {
@@ -1308,7 +1308,7 @@
       "title": "光年之外",
       "artist": "邓紫棋",
       "tag": "国语",
-      "note": "☆",
+      "note": "",
       "link": "",
       "rec": false,
       "learning": false
@@ -1328,7 +1328,7 @@
       "title": "超能力",
       "artist": "邓紫棋",
       "tag": "国语",
-      "note": "☆",
+      "note": "",
       "link": "",
       "rec": true,
       "learning": false
@@ -1398,7 +1398,7 @@
       "title": "多远都要在一起",
       "artist": "邓紫棋",
       "tag": "国语",
-      "note": "☆",
+      "note": "",
       "link": "",
       "rec": true,
       "learning": false
@@ -1548,7 +1548,7 @@
       "title": "回忆的沙漏",
       "artist": "邓紫棋",
       "tag": "国语",
-      "note": "☆",
+      "note": "",
       "link": "",
       "rec": true,
       "learning": false
@@ -2368,9 +2368,9 @@
       "title": "雨下一整晚",
       "artist": "周杰伦",
       "tag": "国语",
-      "note": "☆",
+      "note": "",
       "link": "",
-      "rec": false,
+      "rec": true,
       "learning": false
     },
     {
