@@ -178,7 +178,11 @@ textarea { resize: vertical; min-height: 70px; }
 
 /* 歌单表格（歌曲 / 歌手 / 编辑） */
 .song-table { border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
-.st-head, .st-row { display: grid; grid-template-columns: 52px 1fr 180px 92px; align-items: center; gap: 10px; padding: 9px 14px; }
+.st-head, .st-row { display: grid; grid-template-columns: 46px 1fr 150px 82px; align-items: center; gap: 10px; padding: 9px 12px; }
+#songRows { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+#songRows .st-row { border-bottom: 1px solid #f3ece7; }
+#songRows .st-row:nth-child(odd) { border-right: 1px solid #f6f0eb; }
+@media (max-width: 1100px) { #songRows { grid-template-columns: 1fr; } #songRows .st-row:nth-child(odd) { border-right: none; } }
 .st-head { font-size: 11px; color: var(--ink-3); background: #fbf8f5; border-bottom: 1px solid var(--line); }
 .st-row { border-bottom: 1px solid #f3ece7; font-size: 13px; }
 .st-row:last-child { border-bottom: none; }
@@ -198,3 +202,9 @@ textarea { resize: vertical; min-height: 70px; }
 .ed-box input { width: 100%; }
 .ed-togs { display: flex; gap: 12px; margin-top: 12px; }
 .ed-foot { display: flex; justify-content: flex-end; gap: 8px; margin-top: 18px; }
+
+.quick-news { margin-top: 16px; padding: 14px 16px; border-radius: 14px; background: #fbf6f2; border: 1px dashed #e7d6c9; }
+.qn-head { font-size: 12.5px; font-weight: 600; margin-bottom: 8px; color: #8a6a52; }
+.qn-row { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; flex-wrap: wrap; }
+.qn-row input { flex: 1; min-width: 200px; }
+.qn-tip { font-size: 11px; color: var(--ink-3); }

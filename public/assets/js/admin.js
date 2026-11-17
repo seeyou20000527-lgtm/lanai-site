@@ -450,6 +450,11 @@
           '<input value="' + esc(n.link || '') + '" placeholder="#materials" data-grp="news" data-k="' + i + '" data-f="link">' +
           '<button class="del" data-act="del-news" data-i="' + i + '">✕</button></div>';
       }).join('') +
+      '<div class="quick-news"><div class="qn-head">发投稿？贴个链接就行</div>' +
+      '<div class="qn-row"><input id="qnUrl" placeholder="视频链接 https://www.bilibili.com/video/BV…">' +
+      '<input id="qnTitle" placeholder="视频标题"></div>' +
+      '<div class="qn-row"><button class="btn btn-sm btn-solid" data-act="make-news">生成一条投稿资讯</button>' +
+      '<span class="qn-tip">会自动填好日期、标签「投稿」、标题、链接，内容按标题猜（含歌/翻唱→新歌投稿）</span></div></div>' +
       '<p style="font-size:11px;color:var(--ink-3);margin:12px 0 0">资讯是杂项小消息，前台会显示在活动公告下面，也会出现在首页「最近的事」。</p></div>';
   }
 
@@ -486,6 +491,18 @@
           body: JSON.stringify({ section: 'notices', value: val })
         }).then(function (r) { state.site.notices = r.value; state.draftN = null; toast('公告已保存'); renderNotices(view); })
           .catch(function (err) { toast(err.message, true); });
+      }
+      if (act === 'make-news') {
+        var urlIn = $('#qnUrl'), titleIn = $('#qnTitle');
+        var url = (urlIn && urlIn.value || '').trim();
+        var title = (titleIn && titleIn.value || '').trim();
+        if (!url) return toast('先贴视频链接', true);
+        if (!title) return toast('再填一下视频标题', true);
+        var guess = /歌|翻唱|cover|单曲|original/i.test(title) ? '新歌投稿' : (/回放|切片|直播录播/i.test(title) ? '直播回放' : '新投稿视频');
+        state.draftW.unshift({ date: new Date().toISOString().slice(0, 10), tag: '投稿', title: title, text: guess + '，欢迎来听～', link: url });
+        renderNotices(view);
+        toast('已加到资讯列表，记得点保存资讯');
+        return;
       }
       if (act === 'add-news') {
         state.draftW.unshift({ date: new Date().toISOString().slice(0, 10), tag: '资讯', title: '', text: '', link: '' });

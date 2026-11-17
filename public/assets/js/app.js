@@ -223,15 +223,23 @@
     $('#modal').hidden = false;
   }
   function renderNotices() {
-    var list = (site.notices || []).slice();
+    var all = (site.notices || []).slice();
+    var today = ymd(new Date());
+    // 日期过了的活动自动沉到下方资讯区
+    var active = all.filter(function (n) { return !n.date || n.date >= today; });
+    var expired = all.filter(function (n) { return n.date && n.date < today; });
+    var list = active;
     var hero = $('#noticeHero');
     var feed = $('#noticeFeed');
     if (!hero) return;
 
-    if (!list.length) {
-      hero.innerHTML = '<div class="empty-box"><div class="big">📣</div>暂时没有公告。</div>';
+    if (!active.length) {
+      hero.innerHTML = '<div class="notice-empty">' +
+        '<img src="/assets/img/chibi.png" alt="">' +
+        '<div><h2>当前无活动公告</h2><p>休息中，下一场活动敬请期待～下面还有往期记录和最新资讯。</p></div>' +
+        '</div>';
     } else {
-      var cur = list[0];
+      var cur = active[0];
       hero.innerHTML = '<div class="notice-hero">' +
         '<div class="nh-body">' +
         '<div><span class="n-tag">' + esc(cur.tag || '活动') + '</span><span class="n-date">' + esc(fmtDate(cur.date)) + '</span></div>' +
@@ -244,7 +252,8 @@
         '</div>';
     }
 
-    var items = list.slice(1).map(function (n) { return Object.assign({}, n, { kind: 'notice' }); })
+    var items = active.slice(1).map(function (n) { return Object.assign({}, n, { kind: 'notice' }); })
+      .concat(expired.map(function (n) { return Object.assign({}, n, { kind: 'notice', past: true }); }))
       .concat((site.news || []).map(function (n) { return Object.assign({}, n, { kind: 'news' }); }));
     items.sort(function (x, y) { return String(y.date || '').localeCompare(String(x.date || '')); });
 
@@ -847,32 +856,40 @@
   }
   function startEq() {
     var N = 72;
-    if (!eq.levels.length) { eq.levels = []; for (var i = 0; i < N; i++) eq.levels.push(0); }
-    var g = ensureGraph();
-    if (g.analyser && !eq.analyser) {
-      eq.actx = g.ctx;
-      eq.analyser = g.analyser;
-      eq.data = new Uint8Array(eq.analyser.frequencyBinCount);
+    if (!eq.levels.length || eq.levels.length !== N) {
+      eq.levels = [];
+      for (var i0 = 0; i0 < N; i0++) eq.levels.push(0);
     }
-    if (eq.actx && eq.actx.state === 'suspended') eq.actx.resume().catch(function () {});
+    // 没有真实频谱（为了手机后台播放，没接 WebAudio），
+    // 用「左低音、右高音」的合成律动模拟：左边随节拍起伏大，右边细碎快抖
     cancelAnimationFrame(eq.raf);
-    var loop = function () {
-      eq.fakeT += 0.03;
-      if (eq.actx && !eq.failed) eq.analyser.getByteFrequencyData(eq.data);
+    var last = 0;
+    var loop = function (ts) {
+      var dt = last ? Math.min(0.05, (ts - last) / 1000) : 0.016;
+      last = ts;
+      eq.fakeT += dt;
+      var m = (site.music || [])[player.idx] || {};
+      var bpm = Math.max(40, Math.min(220, Number(m.bpm) || 90));
+      var beat = 60 / bpm;
+      var playing = !audio.paused && !audio.ended;
+      var phase = beat ? ((audio.currentTime % beat) / beat) : 0;
+      var kick = playing ? Math.pow(1 - phase, 2.4) : 0;
       for (var i = 0; i < N; i++) {
-        var v = 0;
-        if (eq.actx && !eq.failed) {
-          var idx = Math.floor(i / N * eq.data.length * 0.78);
-          v = (eq.data[idx] || 0) / 255;
-        }
-        var soft = 0.16 + 0.14 * Math.sin(i * 0.36 + eq.fakeT) * Math.sin(i * 0.11 + eq.fakeT * 0.7);
-        var target = Math.max(v * 1.25, Math.abs(soft) * 2.4);
-        eq.levels[i] = eq.levels[i] * 0.74 + target * 0.26;
+        var x = i / (N - 1);                       // 0 = 低频（左） 1 = 高频（右）
+        var low = Math.pow(1 - x, 1.5);
+        var high = Math.pow(x, 1.25);
+        var wob = Math.sin(eq.fakeT * (1.6 + x * 5.5) + x * 4.2);
+        var ripple = Math.sin(eq.fakeT * (7 + x * 34) + i * 1.9);
+        var v = low * (0.34 + 0.62 * kick) * (0.72 + 0.28 * wob)
+              + high * 0.26 * (0.45 + 0.55 * ripple);
+        v *= 0.85 + 0.15 * Math.sin(eq.fakeT * 0.6 + i * 0.23);
+        var target = playing ? Math.max(0.05, v) : 0;
+        eq.levels[i] = eq.levels[i] * 0.72 + target * 0.28;
       }
       drawWave();
       eq.raf = requestAnimationFrame(loop);
     };
-    loop();
+    eq.raf = requestAnimationFrame(loop);
   }
   function stopEq() {
     cancelAnimationFrame(eq.raf);
