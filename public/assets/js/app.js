@@ -835,7 +835,7 @@
     var pts = [];
     for (var i = 0; i < n; i++) {
       var v = eq.levels[i] || 0;
-      pts.push([i * step, H - Math.max(1.5, v * (H - 3))]);
+      pts.push([i * step, H - Math.max(2, v * H * 1.35)]);
     }
     var d = 'M0,' + H.toFixed(1) + ' L' + pts[0][0].toFixed(1) + ',' + pts[0][1].toFixed(1);
     for (var k = 1; k < pts.length; k++) {
@@ -865,8 +865,8 @@
           var idx = Math.floor(i / N * eq.data.length * 0.78);
           v = (eq.data[idx] || 0) / 255;
         }
-        var soft = 0.12 + 0.10 * Math.sin(i * 0.36 + eq.fakeT) * Math.sin(i * 0.11 + eq.fakeT * 0.7);
-        var target = Math.max(v * 1.25, Math.abs(soft) * 1.5);
+        var soft = 0.16 + 0.14 * Math.sin(i * 0.36 + eq.fakeT) * Math.sin(i * 0.11 + eq.fakeT * 0.7);
+        var target = Math.max(v * 1.25, Math.abs(soft) * 2.4);
         eq.levels[i] = eq.levels[i] * 0.74 + target * 0.26;
       }
       drawWave();

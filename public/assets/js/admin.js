@@ -215,14 +215,26 @@
       }).map(function (e) { return Object.assign({}, e); });
     }
     var types = ['歌回', '杂谈', '游戏', '活动', '录歌', '投稿', '剪辑', '休息', '其他'];
+    var months = [];
+    state.draft.forEach(function (e) { var m = String(e.date || '').slice(0, 7); if (m && months.indexOf(m) < 0) months.push(m); });
+    months.sort();
+    var curMonth = String(new Date().toISOString().slice(0, 7));
+    if (months.indexOf(curMonth) < 0) months.push(curMonth);
+    months.sort();
+    if (!state.calMonth || months.indexOf(state.calMonth) < 0) state.calMonth = curMonth;
+    var monthItems = state.draft.map(function (e, i) { return { e: e, i: i }; })
+      .filter(function (p) { return String(p.e.date || '').slice(0, 7) === state.calMonth; });
     view.innerHTML =
       '<div class="panel ev-editor">' +
       '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:10px;flex-wrap:wrap">' +
-      '<h2 style="margin:0">排期 <span class="sub">共 ' + state.draft.length + ' 场</span></h2>' +
-      '<div style="display:flex;gap:8px"><button class="btn btn-sm" data-act="add-ev">+ 加一场</button>' +
+      '<h2 style="margin:0">排期 <span class="sub">' + state.calMonth.replace('-', ' 年 ') + ' 月 · ' + monthItems.length + ' 场 / 共 ' + state.draft.length + ' 场</span></h2>' +
+      '<div style="display:flex;gap:8px">' +
+      '<select id="calMonthSel">' + months.map(function (m) { return '<option value="' + m + '"' + (m === state.calMonth ? ' selected' : '') + '>' + m.replace('-', ' 年 ') + ' 月</option>'; }).join('') + '</select>' +
+      '<button class="btn btn-sm" data-act="add-ev">+ 加一场</button>' +
       '<button class="btn btn-sm btn-solid" data-act="save-ev">保存排期</button></div></div>' +
       '<div class="row head-row"><span>日期</span><span>时间</span><span>标题</span><span>类型</span><span>备注</span><span></span></div>' +
-      state.draft.map(function (e, i) {
+      monthItems.map(function (p) {
+        var e = p.e, i = p.i;
         return '<div class="row">' +
           '<input type="date" value="' + esc(e.date) + '" data-k="' + i + '" data-f="date">' +
           '<input type="time" value="' + esc(e.time || '20:30') + '" data-k="' + i + '" data-f="time">' +
@@ -232,7 +244,10 @@
           '<button class="del" data-act="del-ev" data-i="' + i + '">✕</button>' +
           '</div>';
       }).join('') +
-      '<p style="font-size:11px;color:var(--ink-3);margin:12px 0 0">提示：日期用 2026-11-14 这种格式；保存后前台月历立即可见。</p></div>';
+      '<p style="font-size:11px;color:var(--ink-3);margin:12px 0 0">上面下拉切换月份，只显示该月的排期；「+ 加一场」会加在选中的月份里。保存后前台月历立即可见。</p></div>';
+
+    var sel = $('#calMonthSel');
+    if (sel) sel.onchange = function () { state.calMonth = this.value; renderCalendar(view); };
 
     view.oninput = function (e) {
       var el = e.target;
@@ -243,7 +258,9 @@
       if (!b) return;
       var act = b.getAttribute('data-act');
       if (act === 'add-ev') {
-        state.draft.push({ date: new Date().toISOString().slice(0, 10), time: '20:30', title: '', type: '杂谈', note: '' });
+        var today = new Date();
+        var sameMonth = state.calMonth === today.toISOString().slice(0, 7);
+        state.draft.push({ date: sameMonth ? today.toISOString().slice(0, 10) : (state.calMonth + '-01'), time: '20:30', title: '', type: '杂谈', note: '' });
         return renderCalendar(view);
       }
       if (act === 'del-ev') {
@@ -300,7 +317,8 @@
         return '<div class="music-item"><img src="' + esc(m.cover || '/assets/img/avatar.png') + '" alt="" onerror="this.onerror=null;this.src=\'/assets/img/avatar.png\'">' +
           '<div class="b"><input value="' + esc(m.title) + '" data-mi="' + i + '" data-mf="title" placeholder="歌名">' +
           '<input value="' + esc(m.artist) + '" data-mi="' + i + '" data-mf="artist" placeholder="歌手">' +
-          '<div class="mi-row"><input value="' + esc(m.cover) + '" data-mi="' + i + '" data-mf="cover" placeholder="封面地址">' +
+          '<div class="mi-row"><input id="musCover' + i + '" value="' + esc(m.cover) + '" data-mi="' + i + '" data-mf="cover" placeholder="封面地址">' +
+          '<button class="btn btn-sm" type="button" data-pick="music" data-input="musCover' + i + '" data-ratio="1">换封面</button>' +
           '<input type="number" min="20" max="300" value="' + esc(m.bpm || 90) + '" data-mi="' + i + '" data-mf="bpm" placeholder="BPM">' +
           '<input value="' + esc(m.bili || '') + '" data-mi="' + i + '" data-mf="bili" placeholder="B站链接">' +
           '<span class="theme-cell"><input type="color" data-mi="' + i + '" data-mf="theme" value="' + (/^#[0-9a-f]{6}$/i.test(m.theme || '') ? m.theme : '#f6ede5') + '" title="展开区配色"></span></div>' +
@@ -720,17 +738,26 @@
   /* ---------------- 歌单 ---------------- */
   function renderSongs(view) {
     if (!state.draft) state.draft = (state.site.songs || []).map(function (s) { return Object.assign({}, s); });
-    view.innerHTML =
-      '<div class="panel song-editor">' +
+
+    function saveSongs(val, quiet) {
+      return api('/api/admin/site', {
+        method: 'PUT', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ section: 'songs', value: val })
+      }).then(function (r) {
+        state.site.songs = r.value;
+        state.draft = r.value.map(function (s) { return Object.assign({}, s); });
+        if (!quiet) toast('歌单已保存，前台已更新');
+        draw();
+      });
+    }
+
+    view.innerHTML = '<div class="panel song-editor">' +
       '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:10px;flex-wrap:wrap">' +
       '<h2 style="margin:0">歌单 <span class="sub">共 ' + state.draft.length + ' 首</span></h2>' +
-      '<div style="display:flex;gap:8px"><button class="btn btn-sm" data-act="add-song">+ 加一首</button>' +
-      '<button class="btn btn-sm btn-solid" data-act="save-songs">保存歌单</button></div></div>' +
+      '<div style="display:flex;gap:8px"><button class="btn btn-sm btn-solid" data-act="add-song">+ 加一首</button></div></div>' +
       '<div class="song-search"><input id="songAdminSearch" value="' + esc(state.songQ || '') + '" placeholder="搜索歌名 / 歌手"></div>' +
-      '<div class="row head-row"><span>#</span><span>歌名</span><span>歌手 / 原唱</span><span>标签</span><span>备注</span><span>链接（选填）</span><span>荐</span><span>学</span>><span></span></div>' +
-      '<div id="songRows"></div>' +
-      '<p class="more-tip" id="songMoreTip"></p>' +
-      '<p style="font-size:11px;color:var(--ink-3);margin:12px 0 0">标签会变成前台的筛选按钮，建议统一用「国语 / 日语 / 闽南语 / 英语」。</p></div>';
+      '<div class="song-table"><div class="st-head"><span>#</span><span>歌曲</span><span>歌手</span><span>操作</span></div><div id="songRows"></div></div>' +
+      '<p class="more-tip" id="songMoreTip"></p></div>';
 
     function draw() {
       var q = String(state.songQ || '').trim().toLowerCase();
@@ -742,55 +769,81 @@
       var startIdx = (state.songPage - 1) * per;
       var show = ps.slice(startIdx, startIdx + per);
       $('#songRows').innerHTML = show.map(function (p) {
-        var s = p.s, i = p.i;
-        return '<div class="row">' +
-          '<span style="font-size:11.5px;color:var(--ink-3)">' + (i + 1) + '</span>' +
-          '<input value="' + esc(s.title) + '" placeholder="歌名" data-k="' + i + '" data-f="title">' +
-          '<input value="' + esc(s.artist) + '" placeholder="歌手" data-k="' + i + '" data-f="artist">' +
-          '<input value="' + esc(s.tag) + '" placeholder="国语" data-k="' + i + '" data-f="tag">' +
-          '<input value="' + esc(s.note) + '" placeholder="备注" data-k="' + i + '" data-f="note">' +
-          '<input value="' + esc(s.link) + '" placeholder="https://…" data-k="' + i + '" data-f="link">' +
-          '<label class="tog' + (s.rec ? ' on' : '') + '" title="推荐区"><input type="checkbox" data-k="' + i + '" data-f="rec"' + (s.rec ? ' checked' : '') + '>★</label>' +
-          '<label class="tog' + (s.learning ? ' on' : '') + '" title="在学"><input type="checkbox" data-k="' + i + '" data-f="learning"' + (s.learning ? ' checked' : '') + '>✎</label>' +
-          '<button class="del" data-act="del-song" data-i="' + i + '">✕</button></div>';
+        var s = p.s;
+        return '<div class="st-row">' +
+          '<span class="st-no">' + (p.i + 1) + '</span>' +
+          '<span class="st-title">' + esc(s.title || '(未命名)') + (s.rec ? ' <em class="st-b">推荐</em>' : '') + (s.learning ? ' <em class="st-b learn">在学</em>' : '') + '</span>' +
+          '<span class="st-artist">' + esc(s.artist || '') + '</span>' +
+          '<span class="st-act"><button class="btn btn-sm" data-act="edit-song" data-i="' + p.i + '">编辑</button></span></div>';
       }).join('');
       $('#songMoreTip').innerHTML = '共 ' + ps.length + ' 首 · 第 ' + state.songPage + ' / ' + pages + ' 页' +
         (pages > 1 ? ' <button class="btn btn-sm" data-act="song-prev"' + (state.songPage === 1 ? ' disabled' : '') + '>上一页</button>' +
           ' <button class="btn btn-sm" data-act="song-next"' + (state.songPage === pages ? ' disabled' : '') + '>下一页</button>' : '');
     }
     draw();
-    $('#songAdminSearch').oninput = function () { state.songQ = this.value; state.songPage = 1; draw(); };
+    var search = $('#songAdminSearch');
+    if (search) search.oninput = function () { state.songQ = this.value; state.songPage = 1; draw(); };
 
-    function setDraft(el) {
-      if (!el.dataset || el.dataset.k === undefined) return;
-      var k = +el.dataset.k, f = el.dataset.f;
-      state.draft[k][f] = el.type === 'checkbox' ? el.checked : el.value;
-      if (el.type === 'checkbox') {
-        var lab = el.closest('.tog');
-        if (lab) lab.classList.toggle('on', el.checked);
-      }
+    function openSongModal(idx) {
+      var isNew = idx === null || idx === undefined;
+      var s = isNew ? { title: '', artist: '', tag: '国语', note: '', link: '', rec: false, learning: false } : state.draft[idx];
+      var box = document.createElement('div');
+      box.className = 'ed-modal';
+      box.innerHTML = '<div class="ed-bg" data-ed-close></div><div class="ed-box">' +
+        '<h3>' + (isNew ? '新增歌曲' : '编辑歌曲') + '</h3>' +
+        '<label>歌曲名称</label><input id="edTitle" value="' + esc(s.title) + '" placeholder="例：人是猫">' +
+        '<label>歌手 / 原唱</label><input id="edArtist" value="' + esc(s.artist) + '" placeholder="例：张卡斯">' +
+        '<label>语种</label><input id="edTag" value="' + esc(s.tag) + '" placeholder="国语 / 日语 / 闽南语 / 英语">' +
+        '<label>备注（选填）</label><input id="edNote" value="' + esc(s.note) + '" placeholder="合唱 / 现场版…">' +
+        '<label>原曲链接（选填）</label><input id="edLink" value="' + esc(s.link) + '" placeholder="https://…">' +
+        '<div class="ed-togs"><label class="tog' + (s.rec ? ' on' : '') + '"><input type="checkbox" id="edRec"' + (s.rec ? ' checked' : '') + '>推荐</label>' +
+        '<label class="tog' + (s.learning ? ' on' : '') + '"><input type="checkbox" id="edLearn"' + (s.learning ? ' checked' : '') + '>在学</label></div>' +
+        '<div class="ed-foot"><button class="btn btn-sm" data-ed-close>取消</button>' +
+        (isNew ? '' : '<button class="btn btn-sm" id="edDel" style="color:#c05a50">删除</button>') +
+        '<button class="btn btn-sm btn-solid" id="edSave">保存</button></div></div>';
+      document.body.appendChild(box);
+      var close = function () { box.remove(); };
+      box.querySelectorAll('[data-ed-close]').forEach(function (el) { el.onclick = close; });
+      box.querySelectorAll('.tog input').forEach(function (cb) {
+        cb.onchange = function () { cb.closest('.tog').classList.toggle('on', cb.checked); };
+      });
+      var save = box.querySelector('#edSave');
+      save.onclick = function () {
+        var title = box.querySelector('#edTitle').value.trim();
+        if (!title) return toast('歌名不能为空', true);
+        var obj = {
+          id: s.id || '',
+          title: title,
+          artist: box.querySelector('#edArtist').value.trim(),
+          tag: box.querySelector('#edTag').value.trim() || '国语',
+          note: box.querySelector('#edNote').value.trim(),
+          link: box.querySelector('#edLink').value.trim(),
+          rec: box.querySelector('#edRec').checked,
+          learning: box.querySelector('#edLearn').checked
+        };
+        if (isNew) state.draft.push(obj); else state.draft[idx] = Object.assign({}, s, obj);
+        save.disabled = true;
+        saveSongs(state.draft, true).then(function () { close(); toast(isNew ? '已新增并同步前台' : '已保存并同步前台'); })
+          .catch(function (err) { toast(err.message, true); save.disabled = false; });
+      };
+      var del = box.querySelector('#edDel');
+      if (del) del.onclick = function () {
+        if (!confirm('删除这首歌？')) return;
+        state.draft.splice(idx, 1);
+        del.disabled = true;
+        saveSongs(state.draft, true).then(function () { close(); toast('已删除'); })
+          .catch(function (err) { toast(err.message, true); del.disabled = false; });
+      };
     }
-    view.oninput = function (e) { setDraft(e.target); };
-    view.onchange = function (e) { if (e.target.type === 'checkbox') setDraft(e.target); };
+
     view.onclick = function (e) {
       var b = e.target.closest('[data-act]');
       if (!b) return;
       var act = b.getAttribute('data-act');
       if (act === 'song-prev') { state.songPage = Math.max(1, state.songPage - 1); return draw(); }
       if (act === 'song-next') { state.songPage = state.songPage + 1; return draw(); }
-      if (act === 'add-song') {
-        state.draft.push({ id: '', title: '', artist: '', tag: '华语', note: '', link: '', rec: false, learning: false });
-        return renderSongs(view);
-      }
-      if (act === 'del-song') { state.draft.splice(+b.getAttribute('data-i'), 1); return renderSongs(view); }
-      if (act === 'save-songs') {
-        var val = state.draft.filter(function (s) { return s.title && s.title.trim(); });
-        api('/api/admin/site', {
-          method: 'PUT', headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ section: 'songs', value: val })
-        }).then(function (r) { state.site.songs = r.value; state.draft = null; toast('歌单已保存'); renderSongs(view); })
-          .catch(function (err) { toast(err.message, true); });
-      }
+      if (act === 'add-song') return openSongModal(null);
+      if (act === 'edit-song') return openSongModal(+b.getAttribute('data-i'));
     };
   }
 

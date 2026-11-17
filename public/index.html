@@ -16,7 +16,7 @@
 <meta property="og:title" content="辣奶火锅">
 <meta property="og:description" content="一口奶香，两口上头。简介 / 月历 / 物料 / 二创 / 歌单。">
 <meta property="og:image" content="/assets/img/og.png">
-<link rel="stylesheet" href="/assets/css/style.css?v=48">
+<link rel="stylesheet" href="/assets/css/style.css?v=49">
 </head>
 <body>
 
@@ -393,7 +393,16 @@
 <div class="cd" id="cd" hidden>
   <div class="cd-bg" data-cd-close></div>
   <div class="cd-panel" id="cdPanel">
-    <svg class="cd-wave" id="cdWave" preserveAspectRatio="none" aria-hidden="true"><path id="cdWavePath" d=""></path></svg>
+    <svg class="cd-wave" id="cdWave" preserveAspectRatio="none" aria-hidden="true">
+      <defs>
+        <linearGradient id="cdWaveGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="rgb(var(--cd-rgb, 246, 237, 229))" stop-opacity="0"></stop>
+          <stop offset=".5" stop-color="rgb(var(--cd-rgb, 246, 237, 229))" stop-opacity=".7"></stop>
+          <stop offset="1" stop-color="rgb(var(--cd-rgb, 246, 237, 229))" stop-opacity=".96"></stop>
+        </linearGradient>
+      </defs>
+      <path id="cdWavePath" d=""></path>
+    </svg>
     <button class="cd-close" type="button" data-cd-close aria-label="收起">✕</button>
     <div class="cd-body">
       <div class="cd-left">
@@ -487,7 +496,7 @@
 
 <div class="toast" id="toast" role="status"></div>
 
-<script src="/assets/js/app.js?v=48"></script>
+<script src="/assets/js/app.js?v=49"></script>
 
 </body>
 </html>
