@@ -4117,15 +4117,6 @@
   ],
   "notices": [
     {
-      "id": "notice-0-x1rt",
-      "date": "2026-11-21",
-      "tag": "活动",
-      "title": "【我要去跨晚！】",
-      "text": "11月21日20:00，【我要去跨晚！】虚拟区优质主播主题专场选拔，",
-      "link": "",
-      "cover": "/assets/img/uploads/notice-mwlu8f96.png"
-    },
-    {
       "id": "notice-1",
       "date": "2026-11-20",
       "tag": "活动",
@@ -4133,6 +4124,15 @@
       "text": "11 月 22 日 20:00，奶锅和宝贝们的第一次线上歌会。可以在B站主页投稿分享给奶锅，也可以投稿置信箱2075528447@qq.com，当日还可连麦上麦告白演唱！",
       "link": "https://www.bilibili.com/opus/1271649261269811206?spm_id_from=333.1365.0.0",
       "cover": "/assets/img/uploads/notice-mwkmzlgf.png"
+    },
+    {
+      "id": "notice-0-x1rt",
+      "date": "2026-11-21",
+      "tag": "活动",
+      "title": "【我要去跨晚！】",
+      "text": "11月21日20:00，【我要去跨晚！】虚拟区优质主播主题专场选拔，",
+      "link": "",
+      "cover": "/assets/img/uploads/notice-mwlu8f96.png"
     }
   ],
   "music": [
