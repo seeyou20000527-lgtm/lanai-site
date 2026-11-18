@@ -4300,6 +4300,16 @@
       "link": "",
       "rec": true,
       "learning": false
+    },
+    {
+      "id": "song-392-hchi",
+      "title": "夜に駆ける",
+      "artist": "YOASOBI",
+      "tag": "日语",
+      "note": "",
+      "link": "",
+      "rec": false,
+      "learning": false
     }
   ],
   "notices": [
