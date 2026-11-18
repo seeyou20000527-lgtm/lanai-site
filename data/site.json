@@ -4130,6 +4130,16 @@
       "link": "",
       "rec": false,
       "learning": true
+    },
+    {
+      "id": "song-375-sc3z",
+      "title": "迷迭香",
+      "artist": "周杰伦",
+      "tag": "国语",
+      "note": "",
+      "link": "",
+      "rec": true,
+      "learning": false
     }
   ],
   "notices": [
