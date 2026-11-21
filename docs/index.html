@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>辣奶火锅</title>
+<meta name="description" content="虚拟主播辣奶火锅的官方小站：简介、直播月历、物料下载、二创投稿、歌单。粉丝 QQ 群 858862396。">
+<meta name="theme-color" content="#fbf9f6">
+<link rel="icon" type="image/png" sizes="64x64" href="/assets/img/favicon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="辣奶火锅">
+<meta name="format-detection" content="telephone=no">
+<link rel="apple-touch-icon" href="/assets/img/icon-180.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="辣奶火锅">
+<meta property="og:description" content="一口奶香，两口上头。简介 / 月历 / 物料 / 二创 / 歌单。">
+<meta property="og:image" content="/assets/img/og.png">
+<link rel="stylesheet" href="/assets/css/style.css?v=52">
+</head>
+<body>
+
+<div class="shell">
+  <aside class="side">
+    <div class="side-brand">
+      <a href="#/home"><img id="sideLogo" src="/assets/img/logo.png" alt="辣奶火锅"></a>
+      <div>
+        <div class="nm" id="sideName">辣奶火锅</div>
+        <div class="en">BILIBILI · VIRTUAL STREAMER</div>
+      </div>
+    </div>
+
+    <nav class="side-nav" id="sideNav" aria-label="分类导航"></nav>
+
+    <div class="side-wm" aria-hidden="true"></div>
+
+    <div class="side-foot">
+      <div class="qq-box" id="qqBox" role="button" tabindex="0">
+        <div>
+          <span class="l">粉丝 QQ 群</span>
+          <span class="n" id="qqNum">858862396</span>
+        </div>
+        <span class="cp">复制</span>
+      </div>
+      <div class="side-links">
+        <a href="/admin">站务登录</a>
+        <a id="sideSpace" href="#" target="_blank" rel="noopener">B站主页</a>
+        <a id="sideLive" href="#" target="_blank" rel="noopener">直播间</a>
+      </div>
+    </div>
+  </aside>
+
+  <div class="main">
+    <div class="gal-bg" aria-hidden="true"><img src="/assets/img/gal-bg.webp" alt=""></div>
+    <div class="live-bar" id="liveBar" hidden>
+      <span class="lb-dot"></span>
+      <span class="lb-text">正在直播<b id="liveBarTitle"></b></span>
+      <a class="lb-go" id="liveBarGo" href="#" target="_blank" rel="noopener">进入直播间 →</a>
+      <button class="lb-close" id="liveBarClose" type="button" aria-label="关闭直播提示">✕</button>
+    </div>
+    <div class="m-top">
+      <a href="#/home"><img src="/assets/img/logo.png" alt="辣奶火锅"></a>
+      <button class="qq" id="mQq" type="button">QQ群 <span id="mQqNum">858862396</span></button>
+    </div>
+
+    <div class="boot" id="bootSkeleton">
+      <div class="boot-art"><img src="/assets/img/loading.webp" alt="" width="180"></div>
+      <div class="boot-ph"><i style="width:34%;height:12px"></i><i style="width:52%;height:34px;margin-top:10px"></i><i style="width:24%;height:12px;margin-top:14px"></i></div>
+      <div class="boot-card"></div>
+      <div class="boot-row"><i></i><i></i><i></i></div>
+    </div>
+
+    <div class="page-wrap">
+      <!-- 首页 -->
+      <section class="page on" id="page-home">
+        <div class="hero">
+          <div>
+            <p class="kicker">BILIBILI · 虚拟主播</p>
+            <h1 id="heroName">辣奶火锅</h1>
+            <p class="tagline" id="tagline"></p>
+            <p class="intro" id="intro"></p>
+            <div class="hero-btns">
+              <a class="btn btn-solid" href="#/calendar">看本月排期</a>
+              <a class="btn" href="#/materials">下载物料</a>
+              <a class="btn" href="#/songs">翻歌单</a>
+            </div>
+            <div class="qq-card">
+              <div>
+                <span class="lbl">粉丝 QQ 群</span>
+                <span class="num" id="qqNum2">858862396</span>
+              </div>
+              <button type="button" id="qqCopy">复制群号</button>
+            </div>
+          </div>
+          <section class="crew-card" id="crewCard">
+          <h3 class="crew-title" id="crewTitle">本月船员礼</h3>
+          <div class="crew-groups" id="crewGroups"></div>
+        </section>
+
+        <div class="hero-art">
+            <img id="heroArt" src="/assets/img/char-bun.png" alt="辣奶火锅立绘">
+            <span class="tag">禁止转载</span>
+          </div>
+        </div>
+
+        <div class="home-grid">
+          <div class="card panel-card">
+            <h3>下一场直播 <a href="#/calendar">全部排期 →</a></h3>
+            <div id="nextBox"></div>
+          </div>
+          <div class="card panel-card">
+            <h3>最近的事 <a href="#/notices">公告 →</a></h3>
+            <ul class="news-mini" id="newsMini"></ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- 公告 -->
+      <section class="page" id="page-notices">
+        <header class="ph">
+          <p class="kicker">NOTICE</p>
+          <h2>公告栏</h2>
+          <p>当前活动和最近的通知，往期活动都收在下面。</p>
+        </header>
+        <div id="noticeHero"></div>
+        <div class="notice-feed">
+          <div class="nb-head"><h3>公告与资讯</h3><span id="noticeCount"></span></div>
+          <ul class="news-list" id="noticeFeed"></ul>
+          <div class="empty-box" id="noticeEmpty" hidden>
+            <div class="big">📣</div>
+            暂时没有更多消息。
+          </div>
+        </div>
+      </section>
+
+      <!-- 简介 -->
+      <section class="page" id="page-about">
+        <header class="ph">
+          <p class="kicker">PROFILE</p>
+          <h2>简介</h2>
+          <p>关于这口锅的一些基本信息。</p>
+        </header>
+        <div class="about">
+          <div class="about-art"><img id="aboutArt" src="/assets/img/char-long.png" alt="辣奶火锅 长发立绘"></div>
+          <div class="about-copy">
+            <div id="bioBox"></div>
+            <dl class="facts" id="factsBox"></dl>
+            <div class="tags" id="tagsBox"></div>
+            <div class="about-links" id="aboutLinks"></div>
+          </div>
+        </div>
+        <button class="feed-btn" id="feedBtn" type="button"><span>🍚</span>投喂大米饭</button>
+      </section>
+
+      <!-- 月历 -->
+      <section class="page" id="page-calendar">
+        <header class="ph ph-row">
+          <div>
+            <p class="kicker">SCHEDULE</p>
+            <h2>直播月历</h2>
+            <p>月 / 周 / 日三种看法，点日期看当天安排。</p>
+          </div>
+          <a class="btn btn-sm" href="/api/schedule.ics">订阅日历 .ics</a>
+        </header>
+
+        <div class="cal-card">
+          <div class="cal-top">
+            <div class="cal-title">
+              <h3 id="calTitle">2026 年 11 月</h3>
+              <span id="calSub"></span>
+            </div>
+            <div class="cal-actions">
+              <div class="seg" id="calViews">
+                <button type="button" data-view="month" class="on">月</button>
+                <button type="button" data-view="week">周</button>
+                <button type="button" data-view="day">日</button>
+              </div>
+              <button class="icon-btn" id="calPrev" type="button" aria-label="上一页">‹</button>
+              <button class="today-btn" id="calToday" type="button">今天</button>
+              <button class="icon-btn" id="calNext" type="button" aria-label="下一页">›</button>
+            </div>
+          </div>
+          <div id="calBody"></div>
+          <div class="cal-detail" id="calDetail"></div>
+        </div>
+
+        <div class="cal-foot">
+          <div class="legend">
+            <span><i style="background:#8fa886"></i>杂谈</span>
+            <span><i style="background:#c68b87"></i>歌回</span>
+            <span><i style="background:#8fa8bd"></i>游戏</span>
+            <span><i style="background:#c2a06e"></i>活动</span>
+            <span><i style="background:#b3aaa2"></i>休息</span>
+          </div>
+          <span style="font-size:11px;color:var(--ink-3)">点色块看详情</span>
+        </div>
+      </section>
+
+      <!-- 物料 -->
+      <section class="page" id="page-materials">
+        <header class="ph ph-row">
+          <div>
+            <p class="kicker">MATERIALS</p>
+            <h2>物料下载</h2>
+            <p>免费下载，<b>仅限个人使用，禁止转载</b>。</p>
+          </div>
+          <div class="filters" id="matFilters"></div>
+        </header>
+        <div class="mat-grid" id="matGrid"></div>
+        <div class="license">
+          📌 所有物料版权归 <b>辣奶火锅</b> 所有。可以拿去做头像、壁纸、二创；<b>禁止</b>搬运到其他平台、印刷售卖或任何商业用途。
+        </div>
+      </section>
+
+      <!-- 二创 -->
+      <section class="page" id="page-fanart">
+        <header class="ph">
+          <p class="kicker">FAN CREATION</p>
+          <h2>二创投稿</h2>
+          <p>画、剪、写、手工都收。投稿经本人审核通过后，才会出现在展厅。</p>
+        </header>
+
+        <div class="fan-grid">
+          <form class="upload" id="uploadForm" novalidate>
+            <div class="drop" id="drop">
+              <input type="file" id="fileInput" accept=".png,.jpg,.jpeg,.webp,.gif,.zip,image/*" aria-label="选择作品">
+              <div class="ic">🍲</div>
+              <div class="t">把作品拖进来，或点击选择</div>
+              <div class="h">PNG / JPG / WEBP / GIF / ZIP，大图自动压缩</div>
+              <img id="dzPreview" alt="" hidden>
+              <button type="button" class="clr" id="dzClear" aria-label="移除">✕</button>
+            </div>
+
+            <div class="fld">
+              <label for="author">昵称 / ID</label>
+              <input id="author" maxlength="24" placeholder="例：锅底捞" required>
+            </div>
+            <div class="fld">
+              <label for="title">作品名</label>
+              <input id="title" maxlength="40" placeholder="例：冬天的第一锅" required>
+            </div>
+            <div class="fld-row">
+              <div class="fld">
+                <label for="category">类型</label>
+                <select id="category">
+                  <option>绘画</option><option>剪辑</option><option>文字</option><option>手工</option><option>其他</option>
+                </select>
+              </div>
+              <div class="fld">
+                <label for="link">作品链接（选填）</label>
+                <input id="link" maxlength="200" placeholder="https://…">
+              </div>
+            </div>
+
+            <label class="agree">
+              <input type="checkbox" id="consent">
+              <span>我确认作品为本人原创（或已获授权），同意在本站展示，并已阅读 <a href="#/rules" style="color:var(--rose-2);font-weight:600">二创规则</a>。</span>
+            </label>
+
+            <button class="btn btn-solid" type="submit" id="submitBtn">投喂这份二创</button>
+            <div class="bar" id="prog" hidden><i></i></div>
+            <p class="tip">投稿会先进入审核队列，通过后才会出现在展厅。</p>
+          </form>
+
+          <div>
+            <div class="gal-head">
+              <h3>二创展厅</h3>
+              <span id="galCount">0 件</span>
+            </div>
+            <div class="gal" id="gallery"></div>
+            <div class="empty-box" id="galEmpty">
+              <div class="big">🍜</div>
+              展厅还空着，等你投喂第一份二创。
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 歌单 -->
+      <section class="page" id="page-songs">
+        <header class="ph">
+          <p class="kicker">PLAYLIST</p>
+          <h2>歌单</h2>
+          <p>直播会唱的歌基本都在这儿，想听哪首可以提前在弹幕里点。</p>
+        </header>
+
+        <div class="song-toolbar">
+          <label class="search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+            <input id="songSearch" placeholder="搜歌名或歌手" aria-label="搜索歌曲">
+          </label>
+          <div class="filters" id="songFilters"></div>
+          <span class="song-count" id="songCount">0 首</span>
+        </div>
+
+        <div class="song-list" id="songList"></div>
+        <div class="empty-box" id="songEmpty" hidden>
+          <div class="big">🎵</div>
+          还没有加歌，去后台「歌单」里添几首。
+        </div>
+        <p class="song-tip">歌单由辣奶火锅本人维护，会不定期更新。</p>
+      </section>
+
+      <!-- 音乐 -->
+      <section class="page" id="page-music">
+        <header class="ph">
+          <p class="kicker">MUSIC</p>
+          <h2>我的翻唱</h2>
+          <p>自己录的歌都收在这里，可以听，也可以下载。</p>
+        </header>
+        <div class="track-list" id="trackList"></div>
+        <div class="empty-box" id="trackEmpty" hidden>
+          <div class="big">🎧</div>
+          还没有上传翻唱，去后台「音乐」上传第一首吧。
+        </div>
+      </section>
+
+      <!-- 规则 -->
+      <section class="page" id="page-rules">
+        <header class="ph">
+          <p class="kicker">RULES</p>
+          <h2>物料 &amp; 二创规则</h2>
+          <p>规则不长：喜欢可以，别拿去赚钱，也别假装是我。</p>
+        </header>
+        <div class="rules">
+          <div class="rule ok"><h3>✓ 可以做</h3><ul id="ruleOk"></ul></div>
+          <div class="rule no"><h3>✕ 请不要</h3><ul id="ruleNo"></ul></div>
+        </div>
+        <div class="repost">
+          <div>
+            <b>官方物料 · 禁止转载</b>
+            <span>转载、搬运、商用、售卖周边都不行。二创作品版权归作者，转载二创请先问作者。</span>
+          </div>
+          <div class="seal">NO<br>REPOST</div>
+        </div>
+        <div class="notes" id="ruleNotes"></div>
+      </section>
+
+      <div class="foot-deco" aria-hidden="true">
+        <i></i>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round">
+          <path d="M9 15c0-1.6-1-2.4-1-3.6 0-1.4 1.2-2 1.2-3.4 0-1.2-.8-1.8-.8-2.8"/>
+          <path d="M13 15c0-1.8 1-2.6 1-3.9 0-1.5-1.2-2.2-1.2-3.6 0-1.2.8-1.9.8-2.9" opacity=".7"/>
+          <path d="M5.5 17.5c0-.9-.5-1.4-.5-2.1 0-.8.6-1.2.6-2" opacity=".5"/>
+        </svg>
+        <i></i>
+      </div>
+      <footer class="foot">
+        <div class="foot-left">
+          <span>© <span id="year">2026</span> 辣奶火锅 · 物料版权归本人所有 · 二创版权归各作者所有</span>
+        </div>
+        <div class="links"><button class="link-btn" id="shareBtn" type="button">分享</button><a href="#/rules">使用规则</a></div>
+      </footer>
+    </div>
+  </div>
+</div>
+
+<nav class="tabbar" id="tabbar" aria-label="手机导航"></nav>
+
+<audio id="audioEl" preload="metadata" playsinline webkit-playsinline x-webkit-airplay="allow"></audio></audio>
+
+<div class="player" id="player" hidden>
+  <div class="pl-ctrl">
+    <button class="pl-skip" id="plPrev" type="button" aria-label="上一首">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5h2v14H8zM19 5v14l-9-7z"/></svg>
+    </button>
+    <button class="pl-btn" id="plPlay" type="button" aria-label="播放/暂停">▶</button>
+    <button class="pl-skip" id="plNext" type="button" aria-label="下一首">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 5h2v14h-2zM5 5l9 7-9 7z"/></svg>
+    </button>
+  </div>
+  <button class="pl-main" id="plExpand" type="button" aria-label="展开播放页">
+    <img class="pl-cover" id="plCover" alt="">
+    <span class="pl-info"><b id="plTitle"></b><span id="plArtist"></span></span>
+  </button>
+  <button class="pl-cm" id="plCm" type="button" aria-label="评论" title="评论">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9.6 9.6 0 0 1-3.6-.7L3 21l1.8-5.1A8.2 8.2 0 0 1 3.6 11.5a8.4 8.4 0 0 1 9-8.4 8.4 8.4 0 0 1 8.4 8.4z"/></svg>
+  </button>
+  <span class="pl-time" id="plTime">0:00 / 0:00</span>
+  <button class="pl-mode" id="plMode" type="button" title="顺序播放"></button>
+  <div class="pl-vol" id="plVol">
+    <button class="pl-mute" id="plMute" type="button" aria-label="音量">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 9.5v5h3.6L12 18.4V5.6L7.6 9.5z"/><path d="M15.8 8.6a4.6 4.6 0 0 1 0 6.8"/><path d="M18.4 6.2a8 8 0 0 1 0 11.6"/></svg>
+    </button>
+    <div class="pl-vol-pop"><input type="range" id="plVolume" min="0" max="100" value="80" aria-label="音量"></div>
+  </div>
+  <a class="pl-dl" id="plDl" href="#" title="下载这首歌" aria-label="下载">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="m7.5 10.5 4.5 4.5 4.5-4.5"/><path d="M5 19h14"/></svg>
+  </a>
+  <div class="pl-bar" id="plBar" role="slider" aria-label="播放进度" tabindex="0"><i id="plFill"></i><em id="plDot"></em></div>
+</div>
+
+<div class="cd" id="cd" hidden>
+  <div class="cd-bg" data-cd-close></div>
+  <div class="cd-panel" id="cdPanel">
+    <svg class="cd-wave" id="cdWave" preserveAspectRatio="none" aria-hidden="true">
+      <defs>
+        <linearGradient id="cdWaveGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="rgb(var(--cd-rgb, 246, 237, 229))" stop-opacity="0"></stop>
+          <stop offset=".45" stop-color="rgb(var(--cd-rgb, 246, 237, 229))" stop-opacity=".55"></stop>
+          <stop offset="1" stop-color="rgb(var(--cd-rgb, 246, 237, 229))" stop-opacity=".97"></stop>
+        </linearGradient>
+      </defs>
+      <path id="cdWavePath" d=""></path>
+    </svg>
+    <button class="cd-close" type="button" data-cd-close aria-label="收起">✕</button>
+    <div class="cd-body">
+      <div class="cd-left">
+        <p class="kicker">LYRICS</p>
+        <div class="cd-lyrics" id="cdLyrics"></div>
+      </div>
+      <div class="cd-right">
+        <div class="cd-disc" id="cdDisc"><img id="cdCover" alt=""></div>
+        <div class="cd-meta">
+          <h2 id="cdTitle"></h2>
+          <p id="cdArtist"></p>
+        </div>
+        <a class="cd-bili" id="cdBili" href="#" target="_blank" rel="noopener" hidden>去 B 站看这首歌 ↗</a>
+        <a class="cd-dl" id="cdDl" href="#">下载这首歌 ↓</a>
+      </div>
+    </div>
+    <div class="cd-comments">
+      <div class="cm-head">评论 <span id="cmCount"></span></div>
+      <div class="cm-list" id="cmList"></div>
+      <form class="cm-form" id="cmForm">
+        <input id="cmName" maxlength="16" placeholder="昵称" autocomplete="nickname">
+        <input id="cmText" maxlength="120" placeholder="说点什么…" autocomplete="off">
+        <button class="btn btn-sm btn-solid" type="submit">发送</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="modal" hidden>
+  <div class="modal-bg" data-close></div>
+  <div class="modal-box">
+    <h3 id="mTitle"></h3>
+    <p class="m-meta" id="mMeta"></p>
+    <p id="mText"></p>
+    <div style="display:flex;gap:8px;justify-content:flex-end">
+      <button class="btn btn-sm" type="button" data-close>关闭</button>
+      <a class="btn btn-sm btn-solid" id="mLink" href="#" target="_blank" rel="noopener" hidden>进入直播间</a>
+    </div>
+  </div>
+</div>
+<button class="to-top" id="toTop" type="button" aria-label="回到顶部" hidden>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V6"/><path d="m6 12 6-6 6 6"/></svg>
+</button>
+
+<div class="lightbox" id="lightbox" hidden>
+  <div class="lb-bg" data-lb-close></div>
+  <figure class="lb-box">
+    <img id="lbImg" alt="">
+    <figcaption id="lbCap"></figcaption>
+  </figure>
+</div>
+
+<div class="share-modal" id="shareModal" hidden>
+  <div class="sm-bg" data-sm-close></div>
+  <div class="sm-box">
+    <h3>分享给朋友</h3>
+    <p class="sm-tip">扫一扫，或用下面的链接直接打开</p>
+    <img class="sm-qr" src="/assets/img/qr-site.png" alt="站点二维码">
+    <div class="sm-actions">
+      <button class="btn btn-sm" id="smCopy" type="button">复制链接</button>
+      <button class="btn btn-sm btn-solid" id="smNative" type="button" hidden>分享到…</button>
+    </div>
+    <button class="sm-close" type="button" data-sm-close aria-label="关闭">✕</button>
+  </div>
+</div>
+
+<div class="music-loader" id="musicLoader" hidden>
+  <div class="ml-inner">
+    <span class="ml-trail"></span>
+    <svg class="ml-spark" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 1.6c.7 5.1 2.7 7.6 7.7 8.3-5 .7-7 3.2-7.7 8.3-.7-5.1-2.7-7.6-7.7-8.3 5-.7 7-3.2 7.7-8.3Z" fill="currentColor"/>
+    </svg>
+    <svg class="ml-flower" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" aria-hidden="true">
+      <path d="M9 16c0-1.7-1-2.5-1-3.8 0-1.5 1.2-2.1 1.2-3.6 0-1.3-.8-1.9-.8-3"/>
+      <path d="M13 16c0-1.9 1-2.7 1-4.1 0-1.6-1.2-2.3-1.2-3.8 0-1.3.8-2 .8-3.1" opacity=".65"/>
+      <path d="M5.6 18.4c0-1-.5-1.5-.5-2.2 0-.8.6-1.3.6-2.1" opacity=".45"/>
+      <path d="M16.6 18.4c0-1 .5-1.5.5-2.2 0-.8-.6-1.3-.6-2.1" opacity=".45"/>
+    </svg>
+  </div>
+</div>
+
+<div class="feed-modal" id="feedModal" hidden>
+  <div class="feed-bg" data-feed-close></div>
+  <div class="feed-box">
+    <h3>投喂一碗大米饭</h3>
+    <p>扫码用支付宝请奶锅吃饭 · 心意都收到啦</p>
+    <img id="feedQr" src="/assets/img/alipay-qr.png" alt="支付宝收款码">
+    <button class="feed-close" type="button" data-feed-close aria-label="关闭">✕</button>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function () {
+  var real = window.fetch ? window.fetch.bind(window) : null;
+  window.__STATIC__ = true;
+  window.fetch = function (input, init) {
+    var url = typeof input === 'string' ? input : (input && input.url) || '';
+    var method = ((init && init.method) || (input && input.method) || 'GET').toUpperCase();
+    if (url.indexOf('/api/site') === 0) {
+      return real('site-data.json', { cache: 'no-store' });
+    }
+    if (url.indexOf('/api/comments') === 0) {
+      if (method === 'GET') return Promise.resolve(new Response(JSON.stringify({ items: [] }), { status: 200, headers: { 'Content-Type': 'application/json' } }));
+      return Promise.resolve(new Response(JSON.stringify({ error: '静态版暂时不能发评论，去正式站试试～' }), { status: 503, headers: { 'Content-Type': 'application/json' } }));
+    }
+    if (url.indexOf('/api/') === 0) {
+      return Promise.resolve(new Response(JSON.stringify({ error: '静态版只读' }), { status: 503, headers: { 'Content-Type': 'application/json' } }));
+    }
+    return real(input, init);
+  };
+})();
+</script>
+<script src="/assets/js/app.js?v=52"></script>
+
+</body>
+</html>
