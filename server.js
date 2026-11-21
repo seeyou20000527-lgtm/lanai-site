@@ -182,6 +182,30 @@ async function ghReadFile(rel) {
   return null;
 }
 
+/* 把音频/图片流量挪到 jsDelivr（免费 CDN），省 Render 的流量额度 */
+const CDN_BASE = 'https://cdn.jsdelivr.net/gh/' + GH_REPO + '@' + GH_DATA_BRANCH + '/';
+const CDN_DIRS = ['public/music', 'public/assets/img/uploads', 'public/materials/uploads', 'uploads'];
+let CDN_FILES = new Set();
+let CDN_READY = false;
+async function loadCdnIndex() {
+  if (!GH_TOKEN) return;
+  for (const dir of CDN_DIRS) {
+    try {
+      const url = GH_API + '/contents/' + dir.split('/').map(encodeURIComponent).join('/') + '?ref=' + GH_DATA_BRANCH + '&t=' + Date.now();
+      const r = await fetch(url, { headers: ghHeaders(), cache: 'no-store' });
+      if (!r.ok) continue;
+      const list = await r.json();
+      if (!Array.isArray(list)) continue;
+      for (const f of list) {
+        if (!f || f.type !== 'file' || !f.name) continue;
+        const rel = dir.startsWith('public/') ? dir.slice(7) : dir;   // music/… 或 uploads/…
+        CDN_FILES.add(rel + '/' + f.name);
+      }
+    } catch (e) {}
+  }
+  CDN_READY = true;
+}
+
 async function hydrateFromRepo() {
   if (!GH_TOKEN) return;
   for (const rel of HYDRATE) {
@@ -1032,6 +1056,15 @@ const MIME_BY_EXT = {
 
 /* 文件不在本地（重启后临时盘清空）就从 git 里取回来，直接转发字节，
    不再用 302 —— iOS 的 <audio> 对跨域跳转很不友好，会直接放不出来 */
+function cdnRedirect(res, pathname) {
+  if (!CDN_READY || !CDN_FILES.size) return false;
+  const rel = pathname.replace(/^\/+/, '');
+  if (!CDN_FILES.has(rel)) return false;
+  res.writeHead(302, { Location: CDN_BASE + rel, 'Cache-Control': 'public, max-age=3600' });
+  res.end();
+  return true;
+}
+
 async function rawFallback(req, res, pathname) {
   if (!GH_TOKEN) return false;
   for (const [prefix, rel] of RAW_MAP) {
@@ -1137,6 +1170,8 @@ async function handle(req, res) {
 
   if (method === 'GET' || method === 'HEAD') {
     const local = path.join(PUBLIC_DIR, pathname);
+    // 媒体优先交给 CDN，Render 只负责页面和数据
+    if (cdnRedirect(res, pathname)) return;
     if (!fs.existsSync(local) && await rawFallback(req, res, pathname)) return;
     return serveStatic(req, res, pathname);
   }
@@ -1156,7 +1191,10 @@ const server = http.createServer((req, res) => {
   });
 });
 
-hydrateFromRepo().catch((e) => console.error('[gh] hydrate', e.message));
+hydrateFromRepo()
+  .then(() => loadCdnIndex())
+  .then(() => console.log('[cdn] media index:', CDN_FILES.size, 'files ready'))
+  .catch((e) => console.error('[gh] hydrate', e.message));
 
 server.listen(PORT, HOST, () => {
   console.log('');
